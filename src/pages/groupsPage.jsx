@@ -1,7 +1,8 @@
 ﻿import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { Card, CardActionArea, CardContent, Container, Typography } from '@mui/material'
+import { Card, CardActionArea, CardContent, Typography } from '@mui/material'
 import Translit from 'cyrillic-to-translit-js'
+import config from '../../config.json'
 
 const translit = new Translit()
 
@@ -11,7 +12,7 @@ function DepartmentView () {
   const [html, setHtml] = useState({})
 
   useEffect(() => {
-    fetch(`http://localhost:8080/groups/${department}`, { method: 'post' })
+    fetch(`${config.apiUrl}/groups/${department}`, { method: 'post' })
       .then((res) => res.text())
       .then((data) => {
         const buffer = document.createElement('div')

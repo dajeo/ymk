@@ -1,5 +1,6 @@
 ﻿import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import config from '../../config.json'
 
 function ScheduleView () {
   const { department, group } = useParams()
@@ -7,7 +8,7 @@ function ScheduleView () {
   const [html, setHtml] = useState({})
 
   useEffect(() => {
-    fetch(`http://localhost:8080/schedule/${department}/${group}`, { method: 'post' })
+    fetch(`${config.apiUrl}/schedule/${department}/${group}`, { method: 'post' })
       .then((res) => res.text())
       .then((data) => {
         const buffer = document.createElement('div')
