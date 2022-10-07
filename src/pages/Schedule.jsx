@@ -43,9 +43,9 @@ function SchedulePage () {
                 <TableRow>
                   <TableCell align={'center'}>пара</TableCell>
                   <TableCell align={'left'}>предмет</TableCell>
-                  <TableCell align={'right'}>кабинет</TableCell>
-                  <TableCell align={'right'}>преподаватель</TableCell>
-                  <TableCell align={'right'}>время</TableCell>
+                  <TableCell align={'center'}>кабинет</TableCell>
+                  <TableCell align={'center'}>преподаватель</TableCell>
+                  <TableCell align={'center'}>время</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -59,13 +59,13 @@ function SchedulePage () {
                         <TableCell align={'left'}>
                           {strReplace(lesson.getElementsByTagName('td')[1].innerHTML, '<br>', () => <br />)}
                         </TableCell>
-                        <TableCell align={'right'}>
+                        <TableCell align={'center'}>
                           {strReplace(lesson.getElementsByTagName('td')[2].innerHTML, '<br>', () => <br />)}
                         </TableCell>
-                        <TableCell align={'right'}>
+                        <TableCell align={'center'}>
                           {strReplace(lesson.getElementsByTagName('td')[3].innerHTML, '<br>', () => <br />)}
                         </TableCell>
-                        <TableCell align={'right'} style={{ whiteSpace: 'nowrap' }}>
+                        <TableCell align={'center'} style={{ whiteSpace: 'nowrap' }}>
                           {lesson.getElementsByTagName('td')[4].innerText}
                           <br />
                           {table.getElementsByClassName(`time_background${tableRow}`)[1].getElementsByTagName('td')[0].innerText}

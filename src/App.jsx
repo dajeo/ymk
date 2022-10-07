@@ -41,6 +41,11 @@ function App () {
                 <Route path={'/'} element={<HomePage />} />
                 <Route path={'/groups/:department'} element={<GroupsPage />} />
                 <Route path={'/schedule/:department/:group'} element={<SchedulePage />} />
+                <Route path={'*'} element={
+                  <h1 style={{ textAlign: 'center' }}>
+                    Page not found
+                  </h1>
+                } />
               </Routes>
             </Container>
           </div>
