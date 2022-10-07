@@ -17,7 +17,6 @@ function SchedulePage () {
       .then((data) => {
         const buffer = document.createElement('div')
         buffer.innerHTML = data
-        console.log(buffer)
         setHtml(buffer)
         setIsLoaded(true)
       })
