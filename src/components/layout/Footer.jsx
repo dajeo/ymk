@@ -3,8 +3,11 @@ import { Typography } from '@mui/material'
 
 function Footer () {
   return (
-    <Typography sx={{ textAlign: 'center', marginBottom: 1, opacity: '1' }} color={'text.secondary'}>
-      © {new Date().getFullYear()} ymk.krabi.space
+    <Typography
+      color={'text.secondary'}
+      sx={{ textAlign: 'center', marginBottom: 1 }}
+    >
+      © {new Date().getFullYear()} {window.location.hostname}
     </Typography>
   )
 }

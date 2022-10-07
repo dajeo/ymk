@@ -93,7 +93,7 @@ function Header ({ colorModeContext }) {
   return (
     <>
       <AppBar
-        position={'sticky'}
+        position={'static'}
         sx={{
           borderBottomRightRadius: '6px',
           borderBottomLeftRadius: '6px'

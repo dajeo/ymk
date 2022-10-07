@@ -1,12 +1,18 @@
 ﻿import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { Card, CardActionArea, CardContent, Typography } from '@mui/material'
+import {
+  Card,
+  CardActionArea,
+  CardContent,
+  Typography
+} from '@mui/material'
 import Translit from 'cyrillic-to-translit-js'
 import config from '../../config.json'
+import Progress from '../components/Progress'
 
 const translit = new Translit()
 
-function DepartmentView () {
+function GroupsPage () {
   const { department } = useParams()
   const [isLoaded, setIsLoaded] = useState(false)
   const [html, setHtml] = useState({})
@@ -17,13 +23,12 @@ function DepartmentView () {
       .then((data) => {
         const buffer = document.createElement('div')
         buffer.innerHTML = data
-        console.log(buffer)
         setHtml(buffer)
         setIsLoaded(true)
       })
   }, [])
 
-  if (!isLoaded) return <h1>Загрузка...</h1>
+  if (!isLoaded) return <Progress />
 
   return (
     <>
@@ -57,4 +62,4 @@ function DepartmentView () {
   )
 }
 
-export default DepartmentView
+export default GroupsPage

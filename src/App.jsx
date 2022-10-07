@@ -1,11 +1,10 @@
-import './App.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import React from 'react'
-import Header from './components/layout/header'
-import Footer from './components/layout/footer'
-import HomePage from './pages/homePage'
-import GroupsPage from './pages/groupsPage'
-import SchedulePage from './pages/schedulePage'
+import Header from './components/layout/Header'
+import Footer from './components/layout/Footer'
+import HomePage from './pages/HomePage'
+import GroupsPage from './pages/GroupsPage'
+import SchedulePage from './pages/SchedulePage'
 import { Container, createTheme, CssBaseline, ThemeProvider } from '@mui/material'
 
 const ColorModeContext = React.createContext({ toggleColorMode: () => {} })

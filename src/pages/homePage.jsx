@@ -1,7 +1,7 @@
 ﻿import React from 'react'
 import { NewsCard } from '../components/newsCard'
 
-function HomeView () {
+function HomePage () {
   return (
     <NewsCard
       title={'news'}
@@ -10,4 +10,4 @@ function HomeView () {
   )
 }
 
-export default HomeView
+export default HomePage
