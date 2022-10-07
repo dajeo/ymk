@@ -9,7 +9,7 @@ import {
 } from '@mui/material'
 import PropTypes from 'prop-types'
 
-export function NewsCard (props) {
+function NewsCard (props) {
   const { title, description } = props
 
   return (
@@ -41,3 +41,5 @@ NewsCard.propTypes = {
   title: PropTypes.string,
   description: PropTypes.string
 }
+
+export default NewsCard

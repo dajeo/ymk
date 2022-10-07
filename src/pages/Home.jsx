@@ -1,11 +1,11 @@
 ﻿import React from 'react'
-import { NewsCard } from '../components/newsCard'
+import NewsCard from '../components/NewsCard'
 
 function HomePage () {
   return (
     <NewsCard
-      title={'news'}
-      description={'description'}
+      title={'News title'}
+      description={'News description'}
     />
   )
 }
