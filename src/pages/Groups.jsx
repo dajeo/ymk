@@ -42,7 +42,7 @@ function GroupsPage () {
                   sx={{ minWidth: 275, marginBottom: 1 }}
                   key={group.getAttribute('value')}
                 >
-                  <CardActionArea component={Link} to={`/schedule/${translit.reverse(department).toUpperCase()}/${group.getElementsByClassName('num_group')[0].innerText}`}>
+                  <CardActionArea component={Link} to={`/schedule/${department}/${translit.transform(group.getElementsByClassName('num_group')[0].innerText)}`}>
                     <CardContent>
                       <Typography gutterBottom={true} variant="h5" component="div">
                         {group.getElementsByClassName('num_group')[0].innerText}

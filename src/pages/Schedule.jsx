@@ -7,14 +7,19 @@ import config from '../../config.json'
 import Progress from '../components/Progress'
 import { v4 as uuid } from 'uuid'
 import strReplace from 'react-string-replace'
+import Translit from 'cyrillic-to-translit-js'
+
+const translit = new Translit()
 
 function SchedulePage () {
   const { department, group } = useParams()
   const [isLoaded, setIsLoaded] = useState(false)
   const [html, setHtml] = useState({})
+  
+  const reverseGroup = translit.reverse(group)
 
   useEffect(() => {
-    fetch(`${config.apiUrl}/schedule/${department}/${group}`, { method: 'post' })
+    fetch(`${config.apiUrl}/schedule/${translit.reverse(department).toUpperCase()}/${reverseGroup}`, { method: 'post' })
       .then((res) => res.text())
       .then((data) => {
         const buffer = document.createElement('div')
@@ -28,7 +33,7 @@ function SchedulePage () {
 
   return (
     <>
-      <h1>Расписание группы {group}</h1>
+      <h1>Расписание группы {reverseGroup}</h1>
       {[...html.getElementsByClassName('uchen')].map((table, index) => (
         <Paper>
           <Toolbar>
