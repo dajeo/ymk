@@ -1,4 +1,6 @@
-﻿import { Table, TableContainer, Paper, TableHead, TableCell, TableBody, TableRow } from '@mui/material'
+﻿import {
+  Table, TableContainer, Paper, TableHead, TableCell, TableBody, TableRow, Toolbar, Typography,
+} from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import config from '../../config.json'
@@ -17,6 +19,7 @@ function SchedulePage () {
       .then((data) => {
         const buffer = document.createElement('div')
         buffer.innerHTML = data
+        console.log(buffer)
         setHtml(buffer)
         setIsLoaded(true)
       })
@@ -28,44 +31,53 @@ function SchedulePage () {
     <>
       <h1>Расписание группы {group}</h1>
       {[...html.getElementsByClassName('uchen')].map((table, index) => (
-        <TableContainer component={Paper} sx={{ marginBottom: 1 }} key={index}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>пара</TableCell>
-                <TableCell>предмет</TableCell>
-                <TableCell>кабинет</TableCell>
-                <TableCell>преподаватель</TableCell>
-                <TableCell>время</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {[1, 2, 3, 4, 5].map((tableRow) => (
-                <TableRow key={uuid()}>
-                  {[table.getElementsByClassName(`time_background${tableRow}`)[0]].map((lesson) => (
-                    <React.Fragment key={uuid()}>
-                      <TableCell>{lesson.getElementsByTagName('td')[0].innerText}</TableCell>
-                      <TableCell>
-                        {strReplace(lesson.getElementsByTagName('td')[1].innerHTML, '<br>', () => <br />)}
-                      </TableCell>
-                      <TableCell>
-                        {strReplace(lesson.getElementsByTagName('td')[2].innerHTML, '<br>', () => <br />)}
-                      </TableCell>
-                      <TableCell>
-                        {strReplace(lesson.getElementsByTagName('td')[3].innerHTML, '<br>', () => <br />)}
-                      </TableCell>
-                      <TableCell>
-                        {lesson.getElementsByTagName('td')[4].innerText}
-                        <br />
-                        {table.getElementsByClassName(`time_background${tableRow}`)[1].getElementsByTagName('td')[0].innerText}
-                      </TableCell>
-                  </React.Fragment>
-                  ))}
+        <Paper>
+          <Toolbar>
+            <Typography>
+              {table.getElementsByClassName('back_date')[0].innerText}
+            </Typography>
+          </Toolbar>
+          <TableContainer sx={{ marginBottom: 1 }} key={index}>
+            <Table size={'small'}>
+              <TableHead>
+                <TableRow>
+                  <TableCell align={'center'}>пара</TableCell>
+                  <TableCell align={'left'}>предмет</TableCell>
+                  <TableCell align={'right'}>кабинет</TableCell>
+                  <TableCell align={'right'}>преподаватель</TableCell>
+                  <TableCell align={'right'}>время</TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+              </TableHead>
+              <TableBody>
+                {[1, 2, 3, 4, 5].map((tableRow) => (
+                  <TableRow key={uuid()}>
+                    {[table.getElementsByClassName(`time_background${tableRow}`)[0]].map((lesson) => (
+                      <React.Fragment key={uuid()}>
+                        <TableCell align={'center'}>
+                          {lesson.getElementsByTagName('td')[0].innerText}
+                        </TableCell>
+                        <TableCell align={'left'}>
+                          {strReplace(lesson.getElementsByTagName('td')[1].innerHTML, '<br>', () => <br />)}
+                        </TableCell>
+                        <TableCell align={'right'}>
+                          {strReplace(lesson.getElementsByTagName('td')[2].innerHTML, '<br>', () => <br />)}
+                        </TableCell>
+                        <TableCell align={'right'}>
+                          {strReplace(lesson.getElementsByTagName('td')[3].innerHTML, '<br>', () => <br />)}
+                        </TableCell>
+                        <TableCell align={'right'}>
+                          {lesson.getElementsByTagName('td')[4].innerText}
+                          <br />
+                          {table.getElementsByClassName(`time_background${tableRow}`)[1].getElementsByTagName('td')[0].innerText}
+                        </TableCell>
+                      </React.Fragment>
+                    ))}
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Paper>
       ))}
     </>
   )
