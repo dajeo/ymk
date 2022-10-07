@@ -65,7 +65,7 @@ function SchedulePage () {
                         <TableCell align={'right'}>
                           {strReplace(lesson.getElementsByTagName('td')[3].innerHTML, '<br>', () => <br />)}
                         </TableCell>
-                        <TableCell align={'right'}>
+                        <TableCell align={'right'} style={{ whiteSpace: 'nowrap' }}>
                           {lesson.getElementsByTagName('td')[4].innerText}
                           <br />
                           {table.getElementsByClassName(`time_background${tableRow}`)[1].getElementsByTagName('td')[0].innerText}
