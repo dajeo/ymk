@@ -9,21 +9,27 @@ import {
 import Translit from 'cyrillic-to-translit-js'
 import config from '../../config.json'
 import Progress from '../components/Progress'
+import { observer } from 'mobx-react'
+import Store from '../stores/GroupsStore'
 
 const translit = new Translit()
 
 function GroupsPage () {
   const { department } = useParams()
   const [isLoaded, setIsLoaded] = useState(false)
-  const [html, setHtml] = useState({})
 
   useEffect(() => {
+    if (Store.groups) {
+      setIsLoaded(true)
+      return
+    }
+
     fetch(`${config.apiUrl}/groups/${department}`, { method: 'post' })
       .then((res) => res.text())
       .then((data) => {
         const buffer = document.createElement('div')
         buffer.innerHTML = data
-        setHtml(buffer)
+        Store.setGroups(buffer)
         setIsLoaded(true)
       })
   }, [])
@@ -32,10 +38,10 @@ function GroupsPage () {
 
   return (
     <>
-      {[...html.getElementsByClassName('zag_kurs')].map((course, index) => (
+      {[...Store.groups.getElementsByClassName('zag_kurs')].map((course, index) => (
         <div key={index}>
           <h1>{course.innerText}</h1>
-          {[...html.getElementsByClassName(`kurs_container_${index + 1}`)].map((course) => (
+          {[...Store.groups.getElementsByClassName(`kurs_container_${index + 1}`)].map((course) => (
             <div key={index}>
               {[...course.getElementsByClassName('group_box')].map((group) => (
                 <Card
@@ -62,4 +68,4 @@ function GroupsPage () {
   )
 }
 
-export default GroupsPage
+export default observer(GroupsPage)

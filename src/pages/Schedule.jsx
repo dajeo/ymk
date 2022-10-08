@@ -62,7 +62,20 @@ function SchedulePage () {
                           {lesson.getElementsByTagName('td')[0].innerText}
                         </TableCell>
                         <TableCell align={'left'}>
-                          {strReplace(lesson.getElementsByTagName('td')[1].innerHTML, '<br>', () => <br />)}
+                          {(() => {
+                            let result
+                            const item = lesson.getElementsByTagName('td')[1]
+                            const link = item.getElementsByTagName('span')[0]
+
+                            if (!link) result = item.innerHTML
+                            else {
+                              result = <a href={link.getAttribute('data-href')}>
+                                {link.getElementsByTagName('u')[0].innerHTML}
+                              </a>
+                            }
+
+                            return strReplace(result, '<br>', () => <br />)
+                          })()}
                         </TableCell>
                         <TableCell align={'center'}>
                           {strReplace(lesson.getElementsByTagName('td')[2].innerHTML, '<br>', () => <br />)}
