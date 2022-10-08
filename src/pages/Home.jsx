@@ -4,8 +4,10 @@ import NewsCard from '../components/NewsCard'
 function HomePage () {
   return (
     <NewsCard
-      title={'News title'}
-      description={'News description'}
+      title={'Добро пожаловать'}
+      description={
+        'Так как оригинальный сайт расписания ЯМК невыносимо ужасен, был создан этот, красивый, простой и понятный.'
+      }
     />
   )
 }

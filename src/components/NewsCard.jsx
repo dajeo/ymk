@@ -8,6 +8,7 @@ import {
   Typography
 } from '@mui/material'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 
 function NewsCard (props) {
   const { title, description } = props
@@ -29,8 +30,12 @@ function NewsCard (props) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Поделиться</Button>
-        <Button size="small">Подробнее</Button>
+        {/* This is placeholder */}
+        {/* <Button size="small">Поделиться</Button> */}
+        {/* <Button size="small">Подробнее</Button> */}
+        <Button component={Link} to={'/groups/otp'}>ОТП</Button>
+        <Button disabled={true}>ОСГП</Button>
+        <Button disabled={true}>ОЕНП</Button>
       </CardActions>
     </Card>
   )
