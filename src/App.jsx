@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import React from 'react'
+import React, { useMemo, useState, createContext } from 'react'
 import Header from './components/layout/Header'
 import Footer from './components/layout/Footer'
 import HomePage from './pages/Home'
@@ -7,11 +7,13 @@ import GroupsPage from './pages/Groups'
 import SchedulePage from './pages/Schedule'
 import { Container, createTheme, CssBaseline, ThemeProvider } from '@mui/material'
 
-const ColorModeContext = React.createContext({ toggleColorMode: () => {} })
+const ColorModeContext = createContext({ toggleColorMode: () => {} })
 
 function App () {
-  const [mode, setMode] = React.useState('light')
-  const colorMode = React.useMemo(
+  const currentTheme = window.localStorage.getItem('theme')
+  const [mode, setMode] = useState(currentTheme === 'dark' ? 'dark' : 'light')
+
+  const colorMode = useMemo(
     () => ({
       toggleColorMode: () => {
         setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'))
@@ -20,11 +22,14 @@ function App () {
     []
   )
 
-  const theme = React.useMemo(
-    () =>
-      createTheme({
+  const theme = useMemo(
+    () => {
+      window.localStorage.setItem('theme', mode)
+
+      return createTheme({
         palette: { mode }
-      }),
+      })
+    },
     [mode]
   )
 
@@ -35,7 +40,7 @@ function App () {
         <BrowserRouter>
           <Header colorModeContext={ColorModeContext} />
 
-          <div style={{ padding: '8px' }}>
+          <div style={{ paddingTop: '8px', paddingBottom: '8px' }}>
             <Container>
               <Routes>
                 <Route path={'/'} element={<HomePage />} />

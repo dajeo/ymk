@@ -1,6 +1,16 @@
 ﻿import {
-  Table, TableContainer, Paper, TableHead, TableCell, TableBody, TableRow, Toolbar, Typography
+  Table,
+  TableContainer,
+  Paper,
+  TableHead,
+  TableCell,
+  TableBody,
+  TableRow,
+  Toolbar,
+  Typography,
+  Grid
 } from '@mui/material'
+import { LoadingButton } from '@mui/lab'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import config from '../../config.json'
@@ -16,9 +26,28 @@ const translit = new Translit()
 function SchedulePage () {
   const { department, group } = useParams()
   const [isLoaded, setIsLoaded] = useState(false)
+  const [schedule, setSchedule] = useState(Store.schedules.get(group))
+  const [week, setWeek] = useState(0)
+  const [isButtonLoading, setIsButtonLoading] = useState(false)
 
-  let schedule = Store.schedules.get(group)
   const reverseGroup = translit.reverse(group)
+  const departmentReverse = translit.reverse(department).toUpperCase()
+
+  function updateSchedule (action) {
+    setIsButtonLoading(true)
+
+    const updatedWeek = action === 'next' ? week + 1 : week - 1
+    setWeek(updatedWeek)
+
+    fetch(`${config.apiUrl}/schedule/${departmentReverse}/${reverseGroup}/${updatedWeek}`, { method: 'post' })
+      .then((res) => res.text())
+      .then((data) => {
+        const buffer = document.createElement('div')
+        buffer.innerHTML = data
+        setSchedule(buffer)
+        setIsButtonLoading(false)
+      })
+  }
 
   useEffect(() => {
     if (schedule) {
@@ -26,16 +55,24 @@ function SchedulePage () {
       return
     }
 
-    fetch(`${config.apiUrl}/schedule/${translit.reverse(department).toUpperCase()}/${reverseGroup}`, { method: 'post' })
+    fetch(`${config.apiUrl}/schedule/${departmentReverse}/${reverseGroup}/0`, { method: 'post' })
       .then((res) => res.text())
       .then((data) => {
         const buffer = document.createElement('div')
         buffer.innerHTML = data
         Store.addSchedule(group, buffer)
-        schedule = buffer
+        setSchedule(buffer)
         setIsLoaded(true)
       })
   }, [])
+
+  function previousWeek () {
+    updateSchedule('previous')
+  }
+
+  function nextWeek () {
+    updateSchedule('next')
+  }
 
   if (!isLoaded) return <Progress />
 
@@ -43,7 +80,11 @@ function SchedulePage () {
     <>
       <h1>Расписание группы {reverseGroup}</h1>
       {[...schedule.getElementsByClassName('uchen')].map((table, index) => (
-        <Paper key={index}>
+        <Paper
+          key={index}
+          id={table.getElementsByTagName('table')[0].style.color ? 'scrollTo' : ''}
+          sx={table.getElementsByTagName('table')[0].style.color ? { bgcolor: 'action.hover' } : {}}
+        >
           <Toolbar>
             <Typography>
               {table.getElementsByClassName('back_date')[0].innerText}
@@ -63,7 +104,10 @@ function SchedulePage () {
               </TableHead>
               <TableBody>
                 {[1, 2, 3, 4, 5].map((tableRow) => (
-                  <TableRow key={uuid()}>
+                  <TableRow
+                    key={uuid()}
+                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                  >
                     {[table.getElementsByClassName(`time_background${tableRow}`)[0]].map((lesson) => (
                       <React.Fragment key={uuid()}>
                         <TableCell align={'center'}>
@@ -105,6 +149,26 @@ function SchedulePage () {
           </TableContainer>
         </Paper>
       ))}
+      <Grid container spacing={1}>
+        <Grid item xs={6}>
+          {schedule.getElementsByClassName('previous_week')[0]
+            ? <LoadingButton
+            loading={isButtonLoading}
+            fullWidth
+            onClick={previousWeek}
+          >Предыдущая</LoadingButton>
+            : ''}
+        </Grid>
+        <Grid item xs={6}>
+          {schedule.getElementsByClassName('next_week')[0]
+            ? <LoadingButton
+            loading={isButtonLoading}
+            fullWidth
+            onClick={nextWeek}
+          >Следущая</LoadingButton>
+            : ''}
+        </Grid>
+      </Grid>
     </>
   )
 }

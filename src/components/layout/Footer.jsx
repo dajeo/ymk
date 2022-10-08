@@ -6,7 +6,7 @@ function Footer () {
     <Tooltip title={'Developed by Danil'}>
       <Typography
         color={'text.secondary'}
-        sx={{ textAlign: 'center', marginBottom: 1 }}
+        sx={{ textAlign: 'center', marginBottom: 2 }}
       >
         © {new Date().getFullYear()} {window.location.hostname}
       </Typography>
