@@ -8,23 +8,32 @@ import Progress from '../components/Progress'
 import { v4 as uuid } from 'uuid'
 import strReplace from 'react-string-replace'
 import Translit from 'cyrillic-to-translit-js'
+import { observer } from 'mobx-react'
+import Store from '../stores/ScheduleStore'
 
 const translit = new Translit()
 
 function SchedulePage () {
   const { department, group } = useParams()
   const [isLoaded, setIsLoaded] = useState(false)
-  const [html, setHtml] = useState({})
+  // const [html, setHtml] = useState({})
 
+  let schedule = Store.schedules.get(group)
   const reverseGroup = translit.reverse(group)
 
   useEffect(() => {
+    if (schedule) {
+      setIsLoaded(true)
+      return
+    }
+
     fetch(`${config.apiUrl}/schedule/${translit.reverse(department).toUpperCase()}/${reverseGroup}`, { method: 'post' })
       .then((res) => res.text())
       .then((data) => {
         const buffer = document.createElement('div')
         buffer.innerHTML = data
-        setHtml(buffer)
+        Store.addSchedule(group, buffer)
+        schedule = buffer
         setIsLoaded(true)
       })
   }, [])
@@ -34,7 +43,7 @@ function SchedulePage () {
   return (
     <>
       <h1>Расписание группы {reverseGroup}</h1>
-      {[...html.getElementsByClassName('uchen')].map((table, index) => (
+      {[...schedule.getElementsByClassName('uchen')].map((table, index) => (
         <Paper key={index}>
           <Toolbar>
             <Typography>
@@ -101,4 +110,4 @@ function SchedulePage () {
   )
 }
 
-export default SchedulePage
+export default observer(SchedulePage)
