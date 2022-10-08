@@ -165,7 +165,7 @@ function SchedulePage () {
             loading={isButtonLoading}
             fullWidth
             onClick={nextWeek}
-          >Следущая</LoadingButton>
+          >Следующая</LoadingButton>
             : ''}
         </Grid>
       </Grid>
