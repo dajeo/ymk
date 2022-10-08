@@ -1,5 +1,5 @@
 ﻿import {
-  Table, TableContainer, Paper, TableHead, TableCell, TableBody, TableRow, Toolbar, Typography,
+  Table, TableContainer, Paper, TableHead, TableCell, TableBody, TableRow, Toolbar, Typography
 } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
@@ -15,7 +15,7 @@ function SchedulePage () {
   const { department, group } = useParams()
   const [isLoaded, setIsLoaded] = useState(false)
   const [html, setHtml] = useState({})
-  
+
   const reverseGroup = translit.reverse(group)
 
   useEffect(() => {
@@ -35,13 +35,14 @@ function SchedulePage () {
     <>
       <h1>Расписание группы {reverseGroup}</h1>
       {[...html.getElementsByClassName('uchen')].map((table, index) => (
-        <Paper>
+        <Paper key={index}>
           <Toolbar>
             <Typography>
               {table.getElementsByClassName('back_date')[0].innerText}
+              {table.getElementsByTagName('table')[0].style.color ? ' (Сегодня)' : ''}
             </Typography>
           </Toolbar>
-          <TableContainer sx={{ marginBottom: 1 }} key={index}>
+          <TableContainer sx={{ marginBottom: 1 }}>
             <Table size={'small'}>
               <TableHead>
                 <TableRow>
