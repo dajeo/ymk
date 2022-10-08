@@ -8,7 +8,6 @@ class Schedule {
   }
 
   addSchedule (group, schedule) {
-    console.log('Added ' + group)
     this.schedules.set(group, schedule)
   }
 }
