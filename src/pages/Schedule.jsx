@@ -16,7 +16,6 @@ const translit = new Translit()
 function SchedulePage () {
   const { department, group } = useParams()
   const [isLoaded, setIsLoaded] = useState(false)
-  // const [html, setHtml] = useState({})
 
   let schedule = Store.schedules.get(group)
   const reverseGroup = translit.reverse(group)
