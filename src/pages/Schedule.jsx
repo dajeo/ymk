@@ -30,7 +30,7 @@ function SchedulePage () {
   const [week, setWeek] = useState(0)
   const [isButtonLoading, setIsButtonLoading] = useState(false)
 
-  const reverseGroup = translit.reverse(group)
+  const reverseGroup = translit.reverse(group).replace('Е', 'Э')
   const departmentReverse = translit.reverse(department).toUpperCase()
 
   function updateSchedule (action) {
