@@ -125,7 +125,7 @@ function Header ({ colorModeContext }) {
                   component={Link}
                   to={item.link}
                   disabled={item.disabled}
-                  sx={{ color: '#fff' }}
+                  sx={{ color: '#fff', marginRight: 1 }}
                 >
                   {item.name}
                 </Button>
