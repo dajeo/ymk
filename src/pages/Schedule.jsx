@@ -107,7 +107,7 @@ function SchedulePage () {
             <Table size={'small'}>
               <TableHead>
                 <TableRow>
-                  <TableCell align={'left'}>№</TableCell>
+                  <TableCell align={'center'}>№</TableCell>
                   <TableCell align={'left'}>предмет</TableCell>
                   <TableCell align={'right'}>каб</TableCell>
                   <TableCell align={'right'}>преподаватель</TableCell>
@@ -122,7 +122,7 @@ function SchedulePage () {
                   >
                     {[table.getElementsByClassName(`time_background${tableRow}`)[0]].map((lesson) => (
                       <React.Fragment key={uuid()}>
-                        <TableCell align={'left'}>
+                        <TableCell align={'center'}>
                           {lesson.getElementsByTagName('td')[0].innerText}
                         </TableCell>
                         <TableCell align={'left'}>
