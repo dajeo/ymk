@@ -60,7 +60,7 @@ function Header ({ colorModeContext }) {
         ЯМК
       </Typography>
 
-      <List>
+      <List disablePadding={true}>
         <Divider />
 
         {navItems.map((item) => (
@@ -100,7 +100,7 @@ function Header ({ colorModeContext }) {
         }}
       >
         <Container>
-          <Toolbar disableGutters={true}>
+          <Toolbar disableGutters={true} variant={'dense'}>
             <IconButton
               color={'inherit'}
               aria-label={'Open drawer'}

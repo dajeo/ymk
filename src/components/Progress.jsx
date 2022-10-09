@@ -1,5 +1,6 @@
 ﻿import React from 'react'
 import { Box, CircularProgress } from '@mui/material'
+import { calcFullscreen } from '../utils'
 
 function Progress () {
   return (
@@ -7,7 +8,7 @@ function Progress () {
       display={'flex'}
       justifyContent={'center'}
       alignItems={'center'}
-      minHeight={'100vh'}
+      minHeight={calcFullscreen}
     >
       <CircularProgress />
     </Box>

@@ -8,7 +8,8 @@
   TableRow,
   Toolbar,
   Typography,
-  Grid
+  Grid,
+  Box
 } from '@mui/material'
 import { LoadingButton } from '@mui/lab'
 import React, { useEffect, useState } from 'react'
@@ -20,6 +21,7 @@ import strReplace from 'react-string-replace'
 import Translit from 'cyrillic-to-translit-js'
 import { observer } from 'mobx-react'
 import Store from '../stores/ScheduleStore'
+import { calcSchedulePage } from '../utils'
 
 const translit = new Translit()
 
@@ -30,7 +32,7 @@ function SchedulePage () {
   const [week, setWeek] = useState(0)
   const [isButtonLoading, setIsButtonLoading] = useState(false)
 
-  const reverseGroup = translit.reverse(group).replace('Е', 'Э')
+  const groupReverse = translit.reverse(group).replace('Е', 'Э')
   const departmentReverse = translit.reverse(department).toUpperCase()
 
   function updateSchedule (action) {
@@ -39,7 +41,7 @@ function SchedulePage () {
     const updatedWeek = action === 'next' ? week + 1 : week - 1
     setWeek(updatedWeek)
 
-    fetch(`${config.apiUrl}/schedule/${departmentReverse}/${reverseGroup}/${updatedWeek}`, { method: 'post' })
+    fetch(`${config.apiUrl}/schedule/${departmentReverse}/${groupReverse}/${updatedWeek}`, { method: 'post' })
       .then((res) => res.text())
       .then((data) => {
         const buffer = document.createElement('div')
@@ -55,7 +57,7 @@ function SchedulePage () {
       return
     }
 
-    fetch(`${config.apiUrl}/schedule/${departmentReverse}/${reverseGroup}/0`, { method: 'post' })
+    fetch(`${config.apiUrl}/schedule/${departmentReverse}/${groupReverse}/0`, { method: 'post' })
       .then((res) => res.text())
       .then((data) => {
         const buffer = document.createElement('div')
@@ -78,7 +80,18 @@ function SchedulePage () {
 
   return (
     <>
-      <h1>Расписание группы {reverseGroup}</h1>
+      <h1 id={'schedule_title'}>Расписание группы {groupReverse}</h1>
+      {schedule.getElementsByClassName('uchen')[0]
+        ? ''
+        : <Box
+          display={'flex'}
+          justifyContent={'center'}
+          alignItems={'center'}
+          minHeight={calcSchedulePage(document)}
+        >
+          <h3>Хм, здесь почему-то пусто 🤔</h3>
+        </Box>
+      }
       {[...schedule.getElementsByClassName('uchen')].map((table, index) => (
         <Paper
           key={index}
@@ -94,11 +107,11 @@ function SchedulePage () {
             <Table size={'small'}>
               <TableHead>
                 <TableRow>
-                  <TableCell align={'center'}>№</TableCell>
+                  <TableCell align={'left'}>№</TableCell>
                   <TableCell align={'left'}>предмет</TableCell>
-                  <TableCell align={'center'}>каб</TableCell>
-                  <TableCell align={'center'}>преподаватель</TableCell>
-                  <TableCell align={'center'}>время</TableCell>
+                  <TableCell align={'right'}>каб</TableCell>
+                  <TableCell align={'right'}>преподаватель</TableCell>
+                  <TableCell align={'right'}>время</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -109,7 +122,7 @@ function SchedulePage () {
                   >
                     {[table.getElementsByClassName(`time_background${tableRow}`)[0]].map((lesson) => (
                       <React.Fragment key={uuid()}>
-                        <TableCell align={'center'}>
+                        <TableCell align={'left'}>
                           {lesson.getElementsByTagName('td')[0].innerText}
                         </TableCell>
                         <TableCell align={'left'}>
@@ -128,13 +141,13 @@ function SchedulePage () {
                             return strReplace(result, '<br>', () => <br />)
                           })()}
                         </TableCell>
-                        <TableCell align={'center'}>
+                        <TableCell align={'right'}>
                           {strReplace(lesson.getElementsByTagName('td')[2].innerHTML, '<br>', () => <br />)}
                         </TableCell>
-                        <TableCell align={'center'}>
+                        <TableCell align={'right'}>
                           {strReplace(lesson.getElementsByTagName('td')[3].innerHTML, '<br>', () => <br />)}
                         </TableCell>
-                        <TableCell align={'center'} style={{ whiteSpace: 'nowrap' }}>
+                        <TableCell align={'right'} style={{ whiteSpace: 'nowrap' }}>
                           {lesson.getElementsByTagName('td')[4].innerText}
                           <br />
                           {table.getElementsByClassName(`time_background${tableRow}`)[1].getElementsByTagName('td')[0].innerText}
@@ -148,7 +161,7 @@ function SchedulePage () {
           </TableContainer>
         </Paper>
       ))}
-      <Grid container spacing={1}>
+      <Grid id={'page_buttons'} container spacing={1}>
         <Grid item xs={6}>
           {schedule.getElementsByClassName('previous_week')[0]
             ? <LoadingButton
