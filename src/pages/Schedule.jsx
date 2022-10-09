@@ -82,7 +82,6 @@ function SchedulePage () {
       {[...schedule.getElementsByClassName('uchen')].map((table, index) => (
         <Paper
           key={index}
-          id={table.getElementsByTagName('table')[0].style.color ? 'scrollTo' : ''}
           sx={table.getElementsByTagName('table')[0].style.color ? { bgcolor: 'action.hover' } : {}}
         >
           <Toolbar>
@@ -95,9 +94,9 @@ function SchedulePage () {
             <Table size={'small'}>
               <TableHead>
                 <TableRow>
-                  <TableCell align={'center'}>пара</TableCell>
+                  <TableCell align={'center'}>№</TableCell>
                   <TableCell align={'left'}>предмет</TableCell>
-                  <TableCell align={'center'}>кабинет</TableCell>
+                  <TableCell align={'center'}>каб</TableCell>
                   <TableCell align={'center'}>преподаватель</TableCell>
                   <TableCell align={'center'}>время</TableCell>
                 </TableRow>

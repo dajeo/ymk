@@ -22,7 +22,7 @@ app.post('/groups/:department', async (req, res) => {
   res.send(content)
 })
 
-app.post('/schedule/:department/:group/:week?', async (req, res) => {
+app.post('/schedule/:department/:group/:week', async (req, res) => {
   const department = req.params.department
   const group = req.params.group
   const week = req.params.week
