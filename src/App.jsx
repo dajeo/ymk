@@ -1,11 +1,12 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import React, { useMemo, useState, createContext } from 'react'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { Container, createTheme, CssBaseline, ThemeProvider } from '@mui/material'
 import Header from './components/layout/Header'
 import Footer from './components/layout/Footer'
 import HomePage from './pages/Home'
 import GroupsPage from './pages/Groups'
 import SchedulePage from './pages/Schedule'
-import { Container, createTheme, CssBaseline, ThemeProvider } from '@mui/material'
+import ScrollToTop from './components/ScrollToTop'
 
 const ColorModeContext = createContext({ toggleColorMode: () => {} })
 
@@ -38,6 +39,7 @@ function App () {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <BrowserRouter>
+          <ScrollToTop />
           <Header colorModeContext={ColorModeContext} />
 
           <div style={{ paddingTop: '8px', paddingBottom: '8px' }}>

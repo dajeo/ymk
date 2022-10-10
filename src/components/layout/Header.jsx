@@ -4,6 +4,7 @@ import {
   Box,
   Container,
   Toolbar,
+  Tooltip,
   Typography,
   Button,
   IconButton,
@@ -130,9 +131,11 @@ function Header ({ colorModeContext }) {
                   {item.name}
                 </Button>
               ))}
-              <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
-                {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
-              </IconButton>
+              <Tooltip title={theme.palette.mode === 'dark' ? 'Выключить темную тему' : 'Включить темную тему'}>
+                <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
+                  {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+                </IconButton>
+              </Tooltip>
             </Box>
           </Toolbar>
         </Container>

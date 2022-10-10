@@ -14,12 +14,10 @@
 import { LoadingButton } from '@mui/lab'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import config from '../../config.json'
-import Progress from '../components/Progress'
-import { v4 as uuid } from 'uuid'
-import strReplace from 'react-string-replace'
 import Translit from 'cyrillic-to-translit-js'
 import { observer } from 'mobx-react'
+import config from '../../config.json'
+import Progress from '../components/Progress'
 import Store from '../stores/ScheduleStore'
 import { calcSchedulePage } from '../utils'
 
@@ -92,9 +90,9 @@ function SchedulePage () {
           <h3>Хм, здесь почему-то пусто 🤔</h3>
         </Box>
       }
-      {[...schedule.getElementsByClassName('uchen')].map((table, index) => (
+      {[...schedule.getElementsByClassName('uchen')].map((table, tableIndex) => (
         <Paper
-          key={index}
+          key={tableIndex}
           sx={table.getElementsByTagName('table')[0].style.color ? { bgcolor: 'action.hover' } : {}}
         >
           <Toolbar>
@@ -115,17 +113,17 @@ function SchedulePage () {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {[1, 2, 3, 4, 5].map((tableRow) => (
+                {[1, 2, 3, 4, 5].map((tableRow, rowIndex) => (
                   <TableRow
-                    key={uuid()}
+                    key={rowIndex}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
-                    {[table.getElementsByClassName(`time_background${tableRow}`)[0]].map((lesson) => (
-                      <React.Fragment key={uuid()}>
+                    {[table.getElementsByClassName(`time_background${tableRow}`)[0]].map((lesson, lessonIndex) => (
+                      <React.Fragment key={lessonIndex}>
                         <TableCell align={'center'}>
                           {lesson.getElementsByTagName('td')[0].innerText}
                         </TableCell>
-                        <TableCell align={'left'}>
+                        <TableCell align={'left'} style={{ whiteSpace: 'pre-wrap' }}>
                           {(() => {
                             let result
                             const item = lesson.getElementsByTagName('td')[1]
@@ -138,14 +136,14 @@ function SchedulePage () {
                               </a>
                             }
 
-                            return strReplace(result, '<br>', () => <br />)
+                            return result.replace('<br>', '\n')
                           })()}
                         </TableCell>
-                        <TableCell align={'right'}>
-                          {strReplace(lesson.getElementsByTagName('td')[2].innerHTML, '<br>', () => <br />)}
+                        <TableCell align={'right'} style={{ whiteSpace: 'pre-wrap' }}>
+                          {lesson.getElementsByTagName('td')[2].innerHTML.replace('<br>', '\n')}
                         </TableCell>
-                        <TableCell align={'right'}>
-                          {strReplace(lesson.getElementsByTagName('td')[3].innerHTML, '<br>', () => <br />)}
+                        <TableCell align={'right'} style={{ whiteSpace: 'pre-wrap' }}>
+                          {lesson.getElementsByTagName('td')[3].innerHTML.replace('<br>', '\n')}
                         </TableCell>
                         <TableCell align={'right'} style={{ whiteSpace: 'nowrap' }}>
                           {lesson.getElementsByTagName('td')[4].innerText}
@@ -161,7 +159,7 @@ function SchedulePage () {
           </TableContainer>
         </Paper>
       ))}
-      <Grid id={'page_buttons'} container spacing={1}>
+      <Grid container spacing={1}>
         <Grid item xs={6}>
           {schedule.getElementsByClassName('previous_week')[0]
             ? <LoadingButton
