@@ -6,17 +6,23 @@ import {
   CardActions,
   Button,
   Typography,
-  Container
+  Box
 } from '@mui/material'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
+import { calcFullscreen } from '../utils'
 
 function NewsCard (props) {
   const { title, description } = props
 
   return (
-    <Container maxWidth={'md'}>
-      <Card sx={{ minWidth: 275 }}>
+    <Box
+      display={'flex'}
+      justifyContent={'center'}
+      alignItems={'center'}
+      minHeight={calcFullscreen}
+    >
+      <Card sx={{ minWidth: 275, maxWidth: { sm: 500 } }}>
         <CardMedia
           component={'img'}
           height={140}
@@ -40,7 +46,7 @@ function NewsCard (props) {
           <Button disabled={true}>ОЕНП</Button>
         </CardActions>
       </Card>
-    </Container>
+    </Box>
   )
 }
 
