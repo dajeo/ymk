@@ -125,18 +125,16 @@ function SchedulePage () {
                         </TableCell>
                         <TableCell align={'left'} style={{ whiteSpace: 'pre-wrap' }}>
                           {(() => {
-                            let result
                             const item = lesson.getElementsByTagName('td')[1]
                             const link = item.getElementsByTagName('span')[0]
 
-                            if (!link) result = item.innerHTML
+                            if (!link) return item.innerHTML.replace('<br>', '\n')
                             else {
-                              result = <a href={link.getAttribute('data-href')}>
+                              // If anything add replace here
+                              return <a href={link.getAttribute('data-href')}>
                                 {link.getElementsByTagName('u')[0].innerHTML}
                               </a>
                             }
-
-                            return result.replace('<br>', '\n')
                           })()}
                         </TableCell>
                         <TableCell align={'right'} style={{ whiteSpace: 'pre-wrap' }}>

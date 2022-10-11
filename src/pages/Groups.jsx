@@ -4,6 +4,7 @@ import {
   Card,
   CardActionArea,
   CardContent,
+  Grid,
   Typography
 } from '@mui/material'
 import Translit from 'cyrillic-to-translit-js'
@@ -42,25 +43,36 @@ function GroupsPage () {
         <div key={index}>
           <h1>{course.innerText}</h1>
           {[...Store.groups.getElementsByClassName(`kurs_container_${index + 1}`)].map((course) => (
-            <div key={index}>
+            <Grid
+              key={index}
+              container
+              spacing={1}
+              columns={{ xs: 4, sm: 8, md: 12 }}
+            >
               {[...course.getElementsByClassName('group_box')].map((group) => (
-                <Card
-                  sx={{ minWidth: 275, marginBottom: 1 }}
+                <Grid
                   key={group.getAttribute('value')}
+                  item xs={5} sm={4} md={4}
                 >
-                  <CardActionArea component={Link} to={`/schedule/${department}/${translit.transform(group.getElementsByClassName('num_group')[0].innerText)}`}>
-                    <CardContent>
-                      <Typography gutterBottom={true} variant="h5" component="div">
-                        {group.getElementsByClassName('num_group')[0].innerText}
-                      </Typography>
-                      <Typography variant="body2" color={'text.secondary'}>
-                        {group.getElementsByClassName('name_group')[0].innerHTML.toString().replace('<br>', ' ')}
-                      </Typography>
-                    </CardContent>
-                  </CardActionArea>
-                </Card>
+                  <Card sx={{ minWidth: 275, height: 1 }}>
+                    <CardActionArea
+                      component={Link}
+                      sx={{ height: 1 }}
+                      to={`/schedule/${department}/${translit.transform(group.getElementsByClassName('num_group')[0].innerText)}`}
+                    >
+                      <CardContent>
+                        <Typography gutterBottom={true} variant="h5" component="div">
+                          {group.getElementsByClassName('num_group')[0].innerText}
+                        </Typography>
+                        <Typography variant="body2" color={'text.secondary'}>
+                          {group.getElementsByClassName('name_group')[0].innerHTML.toString().replace('<br>', ' ')}
+                        </Typography>
+                      </CardContent>
+                    </CardActionArea>
+                  </Card>
+                </Grid>
               ))}
-            </div>
+            </Grid>
           ))}
         </div>
       ))}
