@@ -106,7 +106,8 @@ function HomePage () {
           fontSize: {
             xs: '42vw',
             sm: '38vw',
-            md: '32vw'
+            md: '30vw',
+            xl: '28vw'
           }
         }}
       >YMK</Typography>
