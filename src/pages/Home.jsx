@@ -97,6 +97,10 @@ function HomePage () {
       <Typography
         component={'h1'}
         sx={{
+          zIndex: -999,
+          userSelect: 'none',
+          msUserSelect: 'none',
+          '-webkit-user-select': 'none',
           position: 'absolute',
           fontWeight: 'bold',
           fontSize: {
