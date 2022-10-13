@@ -18,7 +18,7 @@ import {
   ListItemIcon
 } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import {
   DarkModeRounded,
   LightModeRounded
@@ -54,6 +54,7 @@ function Header ({ colorModeContext }) {
 
   const theme = useTheme()
   const colorMode = useContext(colorModeContext)
+  const location = useLocation()
   const [mobileOpen, setMobileOpen] = useState(false)
   const initTheme = getTheme(theme.palette.mode)
   const [textTheme, setTextTheme] = useState(initTheme.text)
@@ -72,8 +73,19 @@ function Header ({ colorModeContext }) {
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-      <Typography variant="h6" sx={{ my: 2 }}>
-        ЯМК
+      <Typography
+        variant={'h6'}
+        component={Link}
+        to={'/'}
+        sx={{
+          py: 2,
+          fontWeight: 'bold',
+          textDecoration: 'none',
+          color: 'inherit',
+          display: 'block'
+        }}
+      >
+        YMK
       </Typography>
 
       <List disablePadding={true}>
@@ -105,6 +117,10 @@ function Header ({ colorModeContext }) {
     </Box>
   )
 
+  useEffect(() => {
+    setMobileOpen(false)
+  }, [location.pathname])
+
   return (
     <>
       <AppBar
@@ -130,9 +146,13 @@ function Header ({ colorModeContext }) {
                 variant={'h6'}
                 component={Link}
                 to={'/'}
-                sx={{ textDecoration: 'none', color: 'inherit' }}
+                sx={{
+                  fontWeight: 'bold',
+                  textDecoration: 'none',
+                  color: 'inherit'
+                }}
               >
-                ЯМК
+                YMK
               </Typography>
             </div>
 
