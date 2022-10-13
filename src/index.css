@@ -41,7 +41,7 @@ body {
 }
 
 .sphere path {
-  fill: rgba(238, 238, 238, 0.71);
+  fill: url(#sphereGradient);
   stroke-width: 1px;
   stroke: rgba(80,80,80,.35);
   backface-visibility: hidden;
