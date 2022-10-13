@@ -1,4 +1,4 @@
-﻿import React from 'react'
+﻿import React, { useState, useEffect, useContext } from 'react'
 import {
   AppBar,
   Box,
@@ -19,16 +19,13 @@ import {
 } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 import { Link } from 'react-router-dom'
-import Brightness4Icon from '@mui/icons-material/Brightness4'
-import Brightness7Icon from '@mui/icons-material/Brightness7'
+import {
+  DarkModeRounded,
+  LightModeRounded
+} from '@mui/icons-material'
 import PropTypes from 'prop-types'
 
 const navItems = [
-  {
-    name: 'Главная',
-    link: '/',
-    disabled: false
-  },
   {
     name: 'ОТП',
     link: '/groups/otp',
@@ -47,9 +44,27 @@ const navItems = [
 ]
 
 function Header ({ colorModeContext }) {
+  function getTheme (theme) {
+    if (theme === 'dark') {
+      return { text: 'Выключить темную тему', icon: <LightModeRounded /> }
+    } else {
+      return { text: 'Включить темную тему', icon: <DarkModeRounded /> }
+    }
+  }
+
   const theme = useTheme()
-  const colorMode = React.useContext(colorModeContext)
-  const [mobileOpen, setMobileOpen] = React.useState(false)
+  const colorMode = useContext(colorModeContext)
+  const [mobileOpen, setMobileOpen] = useState(false)
+  const initTheme = getTheme(theme.palette.mode)
+  const [textTheme, setTextTheme] = useState(initTheme.text)
+  const [iconTheme, setIconTheme] = useState(initTheme.icon)
+
+  useEffect(() => {
+    const newTheme = getTheme(theme.palette.mode)
+
+    setTextTheme(newTheme.text)
+    setIconTheme(newTheme.icon)
+  }, [theme.palette.mode])
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen)
@@ -70,7 +85,6 @@ function Header ({ colorModeContext }) {
               component={Link}
               to={item.link}
               disabled={item.disabled}
-              sx={{ textAlign: 'center' }}
             >
               <ListItemText primary={item.name} />
             </ListItemButton>
@@ -82,9 +96,9 @@ function Header ({ colorModeContext }) {
         <ListItem disablePadding={true}>
           <ListItemButton onClick={colorMode.toggleColorMode}>
             <ListItemIcon>
-              {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+              {iconTheme}
             </ListItemIcon>
-            <ListItemText primary={theme.palette.mode === 'dark' ? 'Выключить темную тему' : 'Включить темную тему'} />
+            <ListItemText primary={textTheme} />
           </ListItemButton>
         </ListItem>
       </List>
@@ -107,21 +121,25 @@ function Header ({ colorModeContext }) {
               aria-label={'Open drawer'}
               edge={'start'}
               onClick={handleDrawerToggle}
-              sx={{ mr: 2, display: { sm: 'none' } }}
+              sx={{ mr: 1, display: { sm: 'none' } }}
             >
               <MenuIcon />
             </IconButton>
-            <Typography
-              variant={'h6'}
-              component="div"
-              sx={{ flexGrow: 1 }}
-            >
-              ЯМК
-            </Typography>
+            <div style={{ flexGrow: 1 }}>
+              <Typography
+                variant={'h6'}
+                component={Link}
+                to={'/'}
+                sx={{ textDecoration: 'none', color: 'inherit' }}
+              >
+                ЯМК
+              </Typography>
+            </div>
 
             <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
               {navItems.map((item) => (
                 <Button
+                  color={'inherit'}
                   key={item.name}
                   component={Link}
                   to={item.link}
@@ -131,9 +149,10 @@ function Header ({ colorModeContext }) {
                   {item.name}
                 </Button>
               ))}
-              <Tooltip title={theme.palette.mode === 'dark' ? 'Выключить темную тему' : 'Включить темную тему'}>
+
+              <Tooltip title={textTheme}>
                 <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
-                  {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+                  {iconTheme}
                 </IconButton>
               </Tooltip>
             </Box>
@@ -147,7 +166,13 @@ function Header ({ colorModeContext }) {
           open={mobileOpen}
           onClose={handleDrawerToggle}
           ModalProps={{ keepMounted: true }}
-          sx={{ '& .MuiDrawer-paper': { width: 300 } }}
+          sx={{
+            '& .MuiDrawer-paper': {
+              width: 300,
+              borderTopRightRadius: '6px',
+              borderBottomRightRadius: '6px'
+            }
+          }}
         >
           {drawer}
         </Drawer>
