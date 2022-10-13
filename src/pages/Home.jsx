@@ -1,6 +1,6 @@
 ﻿import React, { useEffect } from 'react'
 import anime from 'animejs/lib/anime.es.js'
-import { Box } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import { calcFullscreen } from '../utils'
 
 function fitElementToParent (el, padding) {
@@ -13,7 +13,7 @@ function fitElementToParent (el, padding) {
     const elOffsetWidth = el.offsetWidth - pad
     const parentOffsetWidth = parentEl.offsetWidth
     const ratio = parentOffsetWidth / elOffsetWidth
-    timeout = setTimeout(anime.set(el, { scale: ratio }), 10)
+    timeout = setTimeout(() => { anime.set(el, { scale: ratio }) }, 10)
   }
   resize()
   window.addEventListener('resize', resize)
@@ -24,15 +24,14 @@ function HomePage () {
     const sphereEl = document.querySelector('.sphere-animation')
     const spherePathEls = sphereEl.querySelectorAll('.sphere path')
     const pathLength = spherePathEls.length
-    const hasStarted = false
-    const aimations = []
+    const animations = []
 
     fitElementToParent(sphereEl)
 
     const breathAnimation = anime({
       begin: function () {
         for (let i = 0; i < pathLength; i++) {
-          aimations.push(anime({
+          animations.push(anime({
             targets: spherePathEls[i],
             stroke: { value: ['rgba(255,75,75,1)', 'rgba(80,80,80,.35)'], duration: 500 },
             translateX: [2, -4],
@@ -43,7 +42,7 @@ function HomePage () {
         }
       },
       update: function (ins) {
-        aimations.forEach(function (animation, i) {
+        animations.forEach(function (animation, i) {
           const percent = (1 - Math.sin((i * 0.35) + (0.0022 * ins.currentTime))) / 2
           animation.seek(animation.duration * percent)
         })
@@ -59,7 +58,7 @@ function HomePage () {
         targets: spherePathEls,
         strokeDashoffset: {
           value: [anime.setDashoffset, 0],
-          duration: 3900,
+          duration: 1400,
           easing: 'easeInOutCirc',
           delay: anime.stagger(190, { direction: 'reverse' })
         },
@@ -95,6 +94,18 @@ function HomePage () {
       alignItems={'center'}
       minHeight={calcFullscreen}
     >
+      <Typography
+        component={'h1'}
+        sx={{
+          position: 'absolute',
+          fontWeight: 'bold',
+          fontSize: {
+            xs: '42vw',
+            sm: '38vw',
+            md: '32vw'
+          }
+        }}
+      >YMK</Typography>
       <div className="animation-wrapper">
         <div className="sphere-animation">
           <svg className="sphere" viewBox="0 0 440 440" stroke="rgba(80,80,80,.35)">
