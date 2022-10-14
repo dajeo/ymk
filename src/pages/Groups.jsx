@@ -4,8 +4,9 @@ import {
   Card,
   CardActionArea,
   CardContent,
-  Grid,
-  Typography
+  Grid, Tooltip,
+  Typography,
+  useMediaQuery
 } from '@mui/material'
 import Translit from 'cyrillic-to-translit-js'
 import config from '../../config.json'
@@ -16,6 +17,7 @@ import Store from '../stores/GroupsStore'
 const translit = new Translit()
 
 function GroupsPage () {
+  const isLarge = useMediaQuery('(min-width: 600px)')
   const { department } = useParams()
   const [isLoaded, setIsLoaded] = useState(false)
 
@@ -47,29 +49,37 @@ function GroupsPage () {
               key={index}
               container
               spacing={1}
-              columns={{ xs: 4, sm: 8, md: 12, lg: 12, xl: 10 }}
+              columns={{ xs: 12, sm: 12, md: 12, lg: 12, xl: 10 }}
             >
               {[...course.getElementsByClassName('group_box')].map((group) => (
                 <Grid
                   key={group.getAttribute('value')}
-                  item xs={5} sm={4} md={4} lg={3} xl={2}
+                  item xs={4} md={2} lg={2} xl={1}
                 >
-                  <Card sx={{ minWidth: 275, height: 1 }}>
-                    <CardActionArea
-                      component={Link}
-                      sx={{ height: 1 }}
-                      to={`/schedule/${department}/${translit.transform(group.getElementsByClassName('num_group')[0].innerText)}`}
-                    >
-                      <CardContent>
-                        <Typography gutterBottom={true} variant="h5" component="div">
-                          {group.getElementsByClassName('num_group')[0].innerText}
-                        </Typography>
-                        <Typography variant="body2" color={'text.secondary'}>
-                          {group.getElementsByClassName('name_group')[0].innerHTML.toString().replace('<br>', ' ')}
-                        </Typography>
-                      </CardContent>
-                    </CardActionArea>
-                  </Card>
+                  <Tooltip
+                    sx={{ height: 1 }}
+                    disableInteractive
+                    title={group.getElementsByClassName('name_group')[0].innerHTML.toString().replace('<br>', ' ')}
+                  >
+                    <Card sx={{ height: 1 }}>
+                      <CardActionArea
+                        component={Link}
+                        onContextMenu={(e) => {
+                          e.preventDefault()
+                          e.stopPropagation()
+                          return false
+                        }}
+                        sx={{ height: 1 }}
+                        to={`/schedule/${department}/${translit.transform(group.getElementsByClassName('num_group')[0].innerText)}`}
+                      >
+                        <CardContent>
+                          <Typography noWrap={isLarge} variant={isLarge ? 'h5' : 'h6'} component="div">
+                            {group.getElementsByClassName('num_group')[0].innerText}
+                          </Typography>
+                        </CardContent>
+                      </CardActionArea>
+                    </Card>
+                  </Tooltip>
                 </Grid>
               ))}
             </Grid>
