@@ -43,7 +43,7 @@ function App () {
           <Header colorModeContext={ColorModeContext} />
 
           <div style={{ paddingTop: '8px', paddingBottom: '8px' }}>
-            <Container>
+            <Container maxWidth={'xl'}>
               <Routes>
                 <Route path={'/'} element={<HomePage />} />
                 <Route path={'/groups/:department'} element={<GroupsPage />} />

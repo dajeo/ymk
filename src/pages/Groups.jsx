@@ -47,12 +47,12 @@ function GroupsPage () {
               key={index}
               container
               spacing={1}
-              columns={{ xs: 4, sm: 8, md: 12 }}
+              columns={{ xs: 4, sm: 8, md: 12, lg: 12, xl: 10 }}
             >
               {[...course.getElementsByClassName('group_box')].map((group) => (
                 <Grid
                   key={group.getAttribute('value')}
-                  item xs={5} sm={4} md={4}
+                  item xs={5} sm={4} md={4} lg={3} xl={2}
                 >
                   <Card sx={{ minWidth: 275, height: 1 }}>
                     <CardActionArea
