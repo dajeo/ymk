@@ -4,9 +4,9 @@ import {
   Card,
   CardActionArea,
   CardContent,
-  Grid, Tooltip,
-  Typography,
-  useMediaQuery
+  Grid,
+  Tooltip,
+  Typography
 } from '@mui/material'
 import Translit from 'cyrillic-to-translit-js'
 import config from '../../config.json'
@@ -17,7 +17,6 @@ import Store from '../stores/GroupsStore'
 const translit = new Translit()
 
 function GroupsPage () {
-  const isLarge = useMediaQuery('(min-width: 600px)')
   const { department } = useParams()
   const [isLoaded, setIsLoaded] = useState(false)
 
@@ -54,14 +53,13 @@ function GroupsPage () {
               {[...course.getElementsByClassName('group_box')].map((group) => (
                 <Grid
                   key={group.getAttribute('value')}
-                  item xs={4} md={2} lg={2} xl={1}
+                  item xs={4} sm={3} md={2} lg={2} xl={1}
                 >
                   <Tooltip
-                    sx={{ height: 1 }}
                     disableInteractive
                     title={group.getElementsByClassName('name_group')[0].innerHTML.toString().replace('<br>', ' ')}
                   >
-                    <Card sx={{ height: 1 }}>
+                    <Card>
                       <CardActionArea
                         component={Link}
                         onContextMenu={(e) => {
@@ -69,11 +67,10 @@ function GroupsPage () {
                           e.stopPropagation()
                           return false
                         }}
-                        sx={{ height: 1 }}
                         to={`/schedule/${department}/${translit.transform(group.getElementsByClassName('num_group')[0].innerText)}`}
                       >
-                        <CardContent>
-                          <Typography noWrap={isLarge} variant={isLarge ? 'h5' : 'h6'} component="div">
+                        <CardContent sx={{ padding: '8px' }}>
+                          <Typography noWrap variant={'h6'}>
                             {group.getElementsByClassName('num_group')[0].innerText}
                           </Typography>
                         </CardContent>
