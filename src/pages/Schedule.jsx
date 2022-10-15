@@ -36,6 +36,7 @@ function SchedulePage () {
   function day (table, tableIndex, date, isToday) {
     return (
       <Paper
+        id={isToday ? 'scrollHere' : ''}
         key={tableIndex}
         sx={isToday ? { bgcolor: 'action.hover' } : {}}
       >
@@ -134,6 +135,15 @@ function SchedulePage () {
         setIsLoaded(true)
       })
   }, [])
+
+  useEffect(() => {
+    console.log('In effect')
+    const el = document.getElementById('scrollHere')
+
+    if (!el) return
+
+    el.scrollIntoView({ behavior: 'smooth' })
+  })
 
   function previousWeek () {
     updateSchedule('previous')
