@@ -130,7 +130,7 @@ function Header ({ colorModeContext }) {
           borderBottomLeftRadius: '6px'
         }}
       >
-        <Container>
+        <Container maxWidth={'xl'}>
           <Toolbar disableGutters={true} variant={'dense'}>
             <IconButton
               color={'inherit'}

@@ -33,7 +33,10 @@ function SchedulePage () {
   const groupReverse = translit.reverse(group).replace('Е', 'Э')
   const departmentReverse = translit.reverse(department).toUpperCase()
 
-  function day (table, tableIndex, date, isToday) {
+  function day (table, tableIndex, date) {
+    const isToday = table.getElementsByTagName('table')[0].style.color
+    const prop = { paddingTop: '2px', paddingBottom: '2px' }
+
     return (
       <Paper
         id={isToday ? 'scrollHere' : ''}
@@ -49,11 +52,11 @@ function SchedulePage () {
           <Table size={'small'}>
             <TableHead>
               <TableRow>
-                <TableCell align={'center'}>№</TableCell>
-                <TableCell align={'left'}>предмет</TableCell>
-                <TableCell align={'right'}>каб</TableCell>
-                <TableCell align={'right'}>преподаватель</TableCell>
-                <TableCell align={'right'}>время</TableCell>
+                <TableCell sx={prop} align={'center'}>№</TableCell>
+                <TableCell sx={prop} align={'left'}>предмет</TableCell>
+                <TableCell sx={prop} align={'right'}>каб</TableCell>
+                <TableCell sx={prop} align={'right'}>преподаватель</TableCell>
+                <TableCell sx={prop} align={'right'}>время</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -64,10 +67,10 @@ function SchedulePage () {
                 >
                   {[table.getElementsByClassName(`time_background${tableRow}`)[0]].map((lesson, lessonIndex) => (
                     <React.Fragment key={lessonIndex}>
-                      <TableCell align={'center'}>
+                      <TableCell sx={prop} align={'center'}>
                         {lesson.getElementsByTagName('td')[0].innerText}
                       </TableCell>
-                      <TableCell align={'left'} style={{ whiteSpace: 'pre-wrap' }}>
+                      <TableCell sx={prop} align={'left'} style={{ whiteSpace: 'pre-wrap' }}>
                         {(() => {
                           const item = lesson.getElementsByTagName('td')[1]
                           const link = item.getElementsByTagName('span')[0]
@@ -81,13 +84,13 @@ function SchedulePage () {
                           }
                         })()}
                       </TableCell>
-                      <TableCell align={'right'} style={{ whiteSpace: 'pre-wrap' }}>
+                      <TableCell sx={prop} align={'right'} style={{ whiteSpace: 'pre-wrap' }}>
                         {lesson.getElementsByTagName('td')[2].innerHTML.replace('<br>', '\n')}
                       </TableCell>
-                      <TableCell align={'right'} style={{ whiteSpace: 'pre-wrap' }}>
+                      <TableCell sx={prop} align={'right'} style={{ whiteSpace: 'pre-wrap' }}>
                         {lesson.getElementsByTagName('td')[3].innerHTML.replace('<br>', '\n')}
                       </TableCell>
-                      <TableCell align={'right'} style={{ whiteSpace: 'nowrap' }}>
+                      <TableCell sx={prop} align={'right'} style={{ whiteSpace: 'nowrap' }}>
                         {lesson.getElementsByTagName('td')[4].innerText}
                         <br />
                         {table.getElementsByClassName(`time_background${tableRow}`)[1].getElementsByTagName('td')[0].innerText}
@@ -173,25 +176,23 @@ function SchedulePage () {
         <Grid item xs={4} lg={5}>
           {[...schedule.getElementsByClassName('uchen')].map((table, tableIndex) => {
             const date = table.getElementsByClassName('back_date')[0].innerText
-            const isToday = table.getElementsByTagName('table')[0].style.color
 
             if (!date.startsWith('Понедельник') && !date.startsWith('Вторник') && !date.startsWith('Среда')) {
               return <React.Fragment key={tableIndex}></React.Fragment>
             }
 
-            return day(table, tableIndex, date, isToday)
+            return day(table, tableIndex, date)
           })}
         </Grid>
         <Grid item xs={4} lg={5}>
           {[...schedule.getElementsByClassName('uchen')].map((table, tableIndex) => {
             const date = table.getElementsByClassName('back_date')[0].innerText
-            const isToday = table.getElementsByTagName('table')[0].style.color
 
             if (!date.startsWith('Четверг') && !date.startsWith('Пятница') && !date.startsWith('Суббота')) {
               return <React.Fragment key={tableIndex}></React.Fragment>
             }
 
-            return day(table, tableIndex, date, isToday)
+            return day(table, tableIndex, date)
           })}
         </Grid>
       </Grid>
