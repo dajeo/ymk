@@ -140,7 +140,6 @@ function SchedulePage () {
   }, [])
 
   useEffect(() => {
-    console.log('In effect')
     const el = document.getElementById('scrollHere')
 
     if (!el) return
