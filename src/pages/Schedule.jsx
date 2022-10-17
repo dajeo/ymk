@@ -1,27 +1,14 @@
-﻿import {
-  Table,
-  TableContainer,
-  Paper,
-  TableHead,
-  TableCell,
-  TableBody,
-  TableRow,
-  Toolbar,
-  Typography,
-  Grid,
-  Box
-} from '@mui/material'
+﻿import { Grid, Box, IconButton } from '@mui/material'
+import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded'
 import { LoadingButton } from '@mui/lab'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import Translit from 'cyrillic-to-translit-js'
 import { observer } from 'mobx-react'
-import config from '../../config.json'
 import Progress from '../components/Progress'
 import Store from '../stores/ScheduleStore'
 import { calcSchedulePage } from '../utils'
-
-const translit = new Translit()
+import { fetchSchedule } from '../api'
+import ScheduleDay from '../components/ScheduleDay'
 
 function SchedulePage () {
   const { department, group } = useParams()
@@ -29,81 +16,8 @@ function SchedulePage () {
   const [schedule, setSchedule] = useState(Store.schedules.get(group))
   const [week, setWeek] = useState(0)
   const [isButtonLoading, setIsButtonLoading] = useState(false)
-
-  const groupReverse = translit.reverse(group).replace('Е', 'Э')
-  const departmentReverse = translit.reverse(department).toUpperCase()
-
-  function day (table, tableIndex, date) {
-    const isToday = table.getElementsByTagName('table')[0].style.color
-    const prop = { paddingTop: '2px', paddingBottom: '2px' }
-
-    return (
-      <Paper
-        key={tableIndex}
-        sx={isToday ? { bgcolor: 'action.hover' } : {}}
-      >
-        <Toolbar id={isToday ? 'scrollHere' : ''}>
-          <Typography>
-            {date} {isToday ? ' (Сегодня)' : ''}
-          </Typography>
-        </Toolbar>
-        <TableContainer sx={{ marginBottom: 1 }}>
-          <Table size={'small'}>
-            <TableHead>
-              <TableRow>
-                <TableCell sx={prop} align={'center'}>№</TableCell>
-                <TableCell sx={prop} align={'left'}>предмет</TableCell>
-                <TableCell sx={prop} align={'right'}>каб</TableCell>
-                <TableCell sx={prop} align={'right'}>преподаватель</TableCell>
-                <TableCell sx={prop} align={'right'}>время</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {[1, 2, 3, 4, 5].map((tableRow, rowIndex) => (
-                <TableRow
-                  key={rowIndex}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                >
-                  {[table.getElementsByClassName(`time_background${tableRow}`)[0]].map((lesson, lessonIndex) => (
-                    <React.Fragment key={lessonIndex}>
-                      <TableCell sx={prop} align={'center'}>
-                        {lesson.getElementsByTagName('td')[0].innerText}
-                      </TableCell>
-                      <TableCell sx={prop} align={'left'} style={{ whiteSpace: 'pre-wrap' }}>
-                        {(() => {
-                          const item = lesson.getElementsByTagName('td')[1]
-                          const link = item.getElementsByTagName('span')[0]
-
-                          if (!link) return item.innerHTML.replace('<br>', '\n')
-                          else {
-                            // If anything add replace here
-                            return <a href={link.getAttribute('data-href')}>
-                              {link.getElementsByTagName('u')[0].innerHTML}
-                            </a>
-                          }
-                        })()}
-                      </TableCell>
-                      <TableCell sx={prop} align={'right'} style={{ whiteSpace: 'pre-wrap' }}>
-                        {lesson.getElementsByTagName('td')[2].innerHTML.replace('<br>', '\n')}
-                      </TableCell>
-                      <TableCell sx={prop} align={'right'} style={{ whiteSpace: 'pre-wrap' }}>
-                        {lesson.getElementsByTagName('td')[3].innerHTML.replace('<br>', '\n')}
-                      </TableCell>
-                      <TableCell sx={prop} align={'right'} style={{ whiteSpace: 'nowrap' }}>
-                        {lesson.getElementsByTagName('td')[4].innerText}
-                        <br />
-                        {table.getElementsByClassName(`time_background${tableRow}`)[1].getElementsByTagName('td')[0].innerText}
-                      </TableCell>
-                    </React.Fragment>
-                  ))}
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Paper>
-    )
-  }
+  const [isInShortcut, setIsInShortcut] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
 
   function updateSchedule (action) {
     setIsButtonLoading(true)
@@ -111,39 +25,40 @@ function SchedulePage () {
     const updatedWeek = action === 'next' ? week + 1 : week - 1
     setWeek(updatedWeek)
 
-    fetch(`${config.apiUrl}/schedule/${departmentReverse}/${groupReverse}/${updatedWeek}`, { method: 'post' })
-      .then((res) => res.text())
+    fetchSchedule(department, group, updatedWeek)
       .then((data) => {
-        const buffer = document.createElement('div')
-        buffer.innerHTML = data
-        setSchedule(buffer)
+        setSchedule(data)
         setIsButtonLoading(false)
       })
   }
 
   useEffect(() => {
+    const shortcut = window.localStorage.quickShortcut
+
+    if (shortcut) {
+      const json = JSON.parse(shortcut)
+      if (json.group === group) setIsInShortcut(true)
+    }
+
     if (schedule) {
       setIsLoaded(true)
       return
     }
 
-    fetch(`${config.apiUrl}/schedule/${departmentReverse}/${groupReverse}/0`, { method: 'post' })
-      .then((res) => res.text())
+    fetchSchedule(department, group, 0)
       .then((data) => {
-        const buffer = document.createElement('div')
-        buffer.innerHTML = data
-        Store.addSchedule(group, buffer)
-        setSchedule(buffer)
+        Store.addSchedule(group, data)
+        setSchedule(data)
         setIsLoaded(true)
       })
   }, [])
 
   useEffect(() => {
+    if (isScrolled) return
     const el = document.getElementById('scrollHere')
-
     if (!el) return
-
-    el.scrollIntoView({ behavior: 'smooth' })
+    el.scrollIntoView({ behavior: 'smooth', block: 'end' })
+    setIsScrolled(true)
   })
 
   function previousWeek () {
@@ -154,11 +69,21 @@ function SchedulePage () {
     updateSchedule('next')
   }
 
+  function addGroup () {
+    if (isInShortcut) {
+      window.localStorage.removeItem('quickShortcut')
+    } else {
+      window.localStorage.quickShortcut = JSON.stringify({ department, group })
+    }
+
+    setIsInShortcut(!isInShortcut)
+  }
+
   if (!isLoaded) return <Progress />
 
   return (
     <>
-      <h1 id={'schedule_title'}>Расписание группы {groupReverse}</h1>
+      <h1 id={'schedule_title'}>Расписание группы {group}</h1>
       {schedule.getElementsByClassName('uchen')[0]
         ? ''
         : <Box
@@ -179,7 +104,7 @@ function SchedulePage () {
               return <React.Fragment key={tableIndex}></React.Fragment>
             }
 
-            return day(table, tableIndex, date)
+            return <ScheduleDay key={tableIndex} table={table} date={date} />
           })}
         </Grid>
         <Grid item xs={4} lg={5}>
@@ -190,12 +115,12 @@ function SchedulePage () {
               return <React.Fragment key={tableIndex}></React.Fragment>
             }
 
-            return day(table, tableIndex, date)
+            return <ScheduleDay key={tableIndex} table={table} date={date} />
           })}
         </Grid>
       </Grid>
       <Grid container spacing={1}>
-        <Grid item xs={6}>
+        <Grid item xs={5}>
           {schedule.getElementsByClassName('previous_week')[0]
             ? <LoadingButton
             loading={isButtonLoading}
@@ -204,7 +129,12 @@ function SchedulePage () {
           >Предыдущая</LoadingButton>
             : ''}
         </Grid>
-        <Grid item xs={6}>
+        <Grid item textAlign={'center'} xs={2}>
+          <IconButton onClick={addGroup}>
+            <FavoriteRoundedIcon sx={isInShortcut ? { color: 'red' } : {}} />
+          </IconButton>
+        </Grid>
+        <Grid item xs={5}>
           {schedule.getElementsByClassName('next_week')[0]
             ? <LoadingButton
             loading={isButtonLoading}

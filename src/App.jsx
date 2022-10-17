@@ -11,7 +11,7 @@ import ScrollToTop from './components/ScrollToTop'
 const ColorModeContext = createContext({ toggleColorMode: () => {} })
 
 function App () {
-  const currentTheme = window.localStorage.getItem('theme')
+  const currentTheme = window.localStorage.theme
   const [mode, setMode] = useState(currentTheme === 'dark' ? 'dark' : 'light')
 
   const colorMode = useMemo(
@@ -25,7 +25,7 @@ function App () {
 
   const theme = useMemo(
     () => {
-      window.localStorage.setItem('theme', mode)
+      window.localStorage.theme = mode
 
       return createTheme({
         palette: { mode }

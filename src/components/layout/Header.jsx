@@ -8,14 +8,8 @@ import {
   Typography,
   Button,
   IconButton,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemButton,
-  Divider,
   Drawer,
-  useTheme,
-  ListItemIcon
+  useTheme
 } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 import { Link, useLocation } from 'react-router-dom'
@@ -24,6 +18,7 @@ import {
   LightModeRounded
 } from '@mui/icons-material'
 import PropTypes from 'prop-types'
+import MobileDrawer from '../MobileDrawer'
 
 const navItems = [
   {
@@ -70,52 +65,6 @@ function Header ({ colorModeContext }) {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen)
   }
-
-  const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-      <Typography
-        variant={'h6'}
-        component={Link}
-        to={'/'}
-        sx={{
-          py: 2,
-          fontWeight: 'bold',
-          textDecoration: 'none',
-          color: 'inherit',
-          display: 'block'
-        }}
-      >
-        YMK
-      </Typography>
-
-      <List disablePadding={true}>
-        <Divider />
-
-        {navItems.map((item) => (
-          <ListItem key={item.name} disablePadding={true}>
-            <ListItemButton
-              component={Link}
-              to={item.link}
-              disabled={item.disabled}
-            >
-              <ListItemText primary={item.name} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-
-        <Divider />
-
-        <ListItem disablePadding={true}>
-          <ListItemButton onClick={colorMode.toggleColorMode}>
-            <ListItemIcon>
-              {iconTheme}
-            </ListItemIcon>
-            <ListItemText primary={textTheme} />
-          </ListItemButton>
-        </ListItem>
-      </List>
-    </Box>
-  )
 
   useEffect(() => {
     setMobileOpen(false)
@@ -194,7 +143,13 @@ function Header ({ colorModeContext }) {
             }
           }}
         >
-          {drawer}
+          <MobileDrawer
+            handleDrawerToggle={handleDrawerToggle}
+            navItems={navItems}
+            colorMode={colorMode}
+            iconTheme={iconTheme}
+            textTheme={textTheme}
+          />
         </Drawer>
       </Box>
     </>

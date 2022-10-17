@@ -8,13 +8,10 @@ import {
   Tooltip,
   Typography
 } from '@mui/material'
-import Translit from 'cyrillic-to-translit-js'
-import config from '../../config.json'
 import Progress from '../components/Progress'
 import { observer } from 'mobx-react'
 import Store from '../stores/GroupsStore'
-
-const translit = new Translit()
+import { fetchGroups } from '../api'
 
 function GroupsPage () {
   const { department } = useParams()
@@ -26,12 +23,9 @@ function GroupsPage () {
       return
     }
 
-    fetch(`${config.apiUrl}/groups/${department}`, { method: 'post' })
-      .then((res) => res.text())
+    fetchGroups(department)
       .then((data) => {
-        const buffer = document.createElement('div')
-        buffer.innerHTML = data
-        Store.setGroups(buffer)
+        Store.setGroups(data)
         setIsLoaded(true)
       })
   }, [])
@@ -67,7 +61,7 @@ function GroupsPage () {
                           e.stopPropagation()
                           return false
                         }}
-                        to={`/schedule/${department}/${translit.transform(group.getElementsByClassName('num_group')[0].innerText)}`}
+                        to={`/schedule/ОТП/${group.getElementsByClassName('num_group')[0].innerText}`}
                       >
                         <CardContent sx={{ padding: '8px' }}>
                           <Typography noWrap variant={'h6'}>
