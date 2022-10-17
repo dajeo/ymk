@@ -101,7 +101,7 @@ function SchedulePage () {
             const date = table.getElementsByClassName('back_date')[0].innerText
 
             if (!date.startsWith('Понедельник') && !date.startsWith('Вторник') && !date.startsWith('Среда')) {
-              return <React.Fragment key={tableIndex}></React.Fragment>
+              return null
             }
 
             return <ScheduleDay key={tableIndex} table={table} date={date} />
@@ -112,7 +112,7 @@ function SchedulePage () {
             const date = table.getElementsByClassName('back_date')[0].innerText
 
             if (!date.startsWith('Четверг') && !date.startsWith('Пятница') && !date.startsWith('Суббота')) {
-              return <React.Fragment key={tableIndex}></React.Fragment>
+              return null
             }
 
             return <ScheduleDay key={tableIndex} table={table} date={date} />

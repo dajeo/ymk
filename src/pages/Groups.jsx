@@ -44,35 +44,40 @@ function GroupsPage () {
               spacing={1}
               columns={{ xs: 12, sm: 12, md: 12, lg: 12, xl: 10 }}
             >
-              {[...course.getElementsByClassName('group_box')].map((group) => (
-                <Grid
-                  key={group.getAttribute('value')}
-                  item xs={4} sm={3} md={2} lg={2} xl={1}
-                >
-                  <Tooltip
-                    disableInteractive
-                    title={group.getElementsByClassName('name_group')[0].innerHTML.toString().replace('<br>', ' ')}
+              {[...course.getElementsByClassName('group_box')].map((group) => {
+                const numGroup = group.getElementsByClassName('num_group')[0].innerText
+                const nameGroup = group.getElementsByClassName('name_group')[0].innerHTML.toString().replace('<br>', ' ')
+
+                return (
+                  <Grid
+                    key={group.getAttribute('value')}
+                    item xs={4} sm={3} md={2} lg={2} xl={1}
                   >
-                    <Card>
-                      <CardActionArea
-                        component={Link}
-                        onContextMenu={(e) => {
-                          e.preventDefault()
-                          e.stopPropagation()
-                          return false
-                        }}
-                        to={`/schedule/ОТП/${group.getElementsByClassName('num_group')[0].innerText}`}
-                      >
-                        <CardContent sx={{ padding: '8px' }}>
-                          <Typography noWrap variant={'h6'}>
-                            {group.getElementsByClassName('num_group')[0].innerText}
-                          </Typography>
-                        </CardContent>
-                      </CardActionArea>
-                    </Card>
-                  </Tooltip>
-                </Grid>
-              ))}
+                    <Tooltip
+                      disableInteractive
+                      title={nameGroup}
+                    >
+                      <Card>
+                        <CardActionArea
+                          component={Link}
+                          onContextMenu={(e) => {
+                            e.preventDefault()
+                            e.stopPropagation()
+                            return false
+                          }}
+                          to={`/schedule/ОТП/${numGroup}`}
+                        >
+                          <CardContent sx={{ padding: '8px' }}>
+                            <Typography noWrap variant={'h6'}>
+                              {numGroup}
+                            </Typography>
+                          </CardContent>
+                        </CardActionArea>
+                      </Card>
+                    </Tooltip>
+                  </Grid>
+                )
+              })}
             </Grid>
           ))}
         </div>
