@@ -39,11 +39,10 @@ function SchedulePage () {
 
     return (
       <Paper
-        id={isToday ? 'scrollHere' : ''}
         key={tableIndex}
         sx={isToday ? { bgcolor: 'action.hover' } : {}}
       >
-        <Toolbar>
+        <Toolbar id={isToday ? 'scrollHere' : ''}>
           <Typography>
             {date} {isToday ? ' (Сегодня)' : ''}
           </Typography>
