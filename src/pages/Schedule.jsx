@@ -57,7 +57,7 @@ function SchedulePage () {
     if (isScrolled) return
     const el = document.getElementById('scrollHere')
     if (!el) return
-    el.scrollIntoView({ behavior: 'smooth', block: 'end' })
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' })
     setIsScrolled(true)
   })
 
