@@ -15,29 +15,36 @@ import { fetchGroups } from '../api'
 
 function GroupsPage () {
   const { department } = useParams()
+  const [groups, setGroups] = useState({})
   const [isLoaded, setIsLoaded] = useState(false)
 
   useEffect(() => {
-    if (Store.groups) {
+    setIsLoaded(false)
+
+    const buffer = Store.groups.get(department)
+
+    if (buffer) {
+      setGroups(buffer)
       setIsLoaded(true)
       return
     }
 
     fetchGroups(department)
       .then((data) => {
-        Store.setGroups(data)
+        Store.addGroups(department, data)
+        setGroups(data)
         setIsLoaded(true)
       })
-  }, [])
+  }, [department])
 
   if (!isLoaded) return <Progress />
 
   return (
     <>
-      {[...Store.groups.getElementsByClassName('zag_kurs')].map((course, index) => (
+      {[...groups.getElementsByClassName('zag_kurs')].map((course, index) => (
         <div key={index}>
           <h1>{course.innerText}</h1>
-          {[...Store.groups.getElementsByClassName(`kurs_container_${index + 1}`)].map((course) => (
+          {[...groups.getElementsByClassName(`kurs_container_${index + 1}`)].map((course) => (
             <Grid
               key={index}
               container
@@ -50,7 +57,7 @@ function GroupsPage () {
 
                 return (
                   <Grid
-                    key={group.getAttribute('value')}
+                    key={group.getAttribute('value') + nameGroup}
                     item xs={4} sm={3} md={2} lg={2} xl={1}
                   >
                     <Tooltip
@@ -65,7 +72,7 @@ function GroupsPage () {
                             e.stopPropagation()
                             return false
                           }}
-                          to={`/schedule/ОТП/${numGroup}`}
+                          to={`/ОТП/${numGroup}`}
                         >
                           <CardContent sx={{ padding: '8px' }}>
                             <Typography noWrap variant={'h6'}>

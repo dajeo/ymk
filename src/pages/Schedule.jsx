@@ -83,14 +83,14 @@ function SchedulePage () {
 
   return (
     <>
-      <h1 id={'schedule_title'}>Расписание группы {group}</h1>
+      <h1>Группа {group}</h1>
       {schedule.getElementsByClassName('uchen')[0]
         ? ''
         : <Box
           display={'flex'}
           justifyContent={'center'}
           alignItems={'center'}
-          minHeight={calcSchedulePage(document)}
+          minHeight={calcSchedulePage()}
         >
           <h3>Хм, здесь почему-то пусто 🤔</h3>
         </Box>

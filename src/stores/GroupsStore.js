@@ -1,14 +1,14 @@
 ﻿import { makeAutoObservable } from 'mobx'
 
 class Groups {
-  groups = null
+  groups = new Map()
 
   constructor () {
     makeAutoObservable(this)
   }
 
-  setGroups (groups) {
-    this.groups = groups
+  addGroups (department, groups) {
+    this.groups.set(department, groups)
   }
 }
 

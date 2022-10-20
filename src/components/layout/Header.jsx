@@ -23,17 +23,17 @@ import MobileDrawer from '../MobileDrawer'
 const navItems = [
   {
     name: 'ОТП',
-    link: '/groups/otp',
+    link: '/otp',
     disabled: false
   },
   {
     name: 'ОСГП',
-    link: '/groups/osgp',
+    link: '/',
     disabled: true
   },
   {
     name: 'ОЕНП',
-    link: '/groups/oenp',
+    link: '/',
     disabled: true
   }
 ]

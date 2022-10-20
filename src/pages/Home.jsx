@@ -2,6 +2,7 @@
 import { Box, Button, Typography } from '@mui/material'
 import { calcFullscreen } from '../utils'
 import { Link } from 'react-router-dom'
+import ChipAndDesc from '../components/ChipAndDesc'
 
 function HomePage () {
   const [shortcut, setShortcut] = useState(null)
@@ -33,8 +34,8 @@ function HomePage () {
           }
         }}
       >YMK</Typography>
-      <Box>
-        <Button component={Link} to={'/groups/otp'}>
+      <Box sx={{ marginBottom: '4px' }}>
+        <Button component={Link} to={'/otp'}>
           ОТП
         </Button>
         <Button disabled={true}>
@@ -44,15 +45,17 @@ function HomePage () {
           ОЕНП
         </Button>
       </Box>
-      <Button
-        component={Link}
-        to={shortcut ? `/schedule/${shortcut.department}/${shortcut.group}` : ''}
-        disabled={!shortcut}
-      >
-        {!shortcut
-          ? 'Найдите сердечко ❤'
-          : shortcut.group}
-      </Button>
+      {!shortcut
+        ? <ChipAndDesc
+          label={'Найдите сердечко ❤'}
+          description={'Чтобы добавить группу на гланвый экран - нажмите на сердечко в расписании вашей группы'}
+        />
+        : <Button
+          component={Link}
+          to={`/${shortcut.department}/${shortcut.group}`}
+        >
+          {shortcut.group}
+        </Button>}
     </Box>
   )
 }
