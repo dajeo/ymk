@@ -20,19 +20,27 @@ function ScheduleDay ({ table, date }) {
       id={isToday ? 'scrollHere' : ''}
       sx={isToday ? { bgcolor: 'action.hover' } : {}}
     >
-      <Toolbar variant={'dense'}>
+      <Toolbar variant={'dense'} disableGutters={true} sx={{ minHeight: '36px', paddingLeft: '8px' }}>
         <Typography>
           {date + (isToday ? ' (Сегодня)' : '')}
         </Typography>
       </Toolbar>
-      <TableContainer sx={{ marginBottom: 1, 'th, td': { paddingTop: '2px', paddingBottom: '2px' } }}>
+      <TableContainer sx={{
+        marginBottom: 1,
+        'th, td': {
+          paddingTop: '2px',
+          paddingBottom: '2px',
+          paddingLeft: '6px',
+          paddingRight: '6px'
+        }
+      }}>
         <Table size={'small'}>
           <TableHead>
             <TableRow>
               <TableCell align={'center'}>№</TableCell>
               <TableCell align={'left'}>предмет</TableCell>
               <TableCell align={'right'}>каб</TableCell>
-              <TableCell align={'right'}>преподаватель</TableCell>
+              <TableCell align={'right'}>преп</TableCell>
               <TableCell align={'right'}>время</TableCell>
             </TableRow>
           </TableHead>

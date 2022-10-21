@@ -11,7 +11,7 @@ import {
   Drawer,
   useTheme
 } from '@mui/material'
-import MenuIcon from '@mui/icons-material/Menu'
+import MenuRoundedIcon from '@mui/icons-material/MenuRounded'
 import { Link, useLocation } from 'react-router-dom'
 import {
   DarkModeRounded,
@@ -88,7 +88,7 @@ function Header ({ colorModeContext }) {
               onClick={handleDrawerToggle}
               sx={{ mr: 1, display: { sm: 'none' } }}
             >
-              <MenuIcon />
+              <MenuRoundedIcon />
             </IconButton>
             <div style={{ flexGrow: 1 }}>
               <Typography

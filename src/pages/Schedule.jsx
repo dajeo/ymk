@@ -95,8 +95,8 @@ function SchedulePage () {
           <h3>Хм, здесь почему-то пусто 🤔</h3>
         </Box>
       }
-      <Grid container columnSpacing={1} columns={{ xs: 4, lg: 10 }}>
-        <Grid item xs={4} lg={5}>
+      <Grid container columnSpacing={1} columns={{ xs: 4, md: 10 }}>
+        <Grid item xs={4} md={5}>
           {[...schedule.getElementsByClassName('uchen')].map((table, tableIndex) => {
             const date = table.getElementsByClassName('back_date')[0].innerText
 
@@ -107,7 +107,7 @@ function SchedulePage () {
             return <ScheduleDay key={tableIndex} table={table} date={date} />
           })}
         </Grid>
-        <Grid item xs={4} lg={5}>
+        <Grid item xs={4} md={5}>
           {[...schedule.getElementsByClassName('uchen')].map((table, tableIndex) => {
             const date = table.getElementsByClassName('back_date')[0].innerText
 
