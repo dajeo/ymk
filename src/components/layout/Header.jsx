@@ -23,7 +23,7 @@ import MobileDrawer from '../MobileDrawer'
 const navItems = [
   {
     name: 'ОТП',
-    link: '/otp',
+    link: 'students/otp',
     disabled: false
   },
   {
@@ -35,6 +35,11 @@ const navItems = [
     name: 'ОЕНП',
     link: '/',
     disabled: true
+  },
+  {
+    name: 'Преподаватели',
+    link: '/teachers',
+    disabled: false
   }
 ]
 

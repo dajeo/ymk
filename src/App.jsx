@@ -6,6 +6,7 @@ import Footer from './components/layout/Footer'
 import HomePage from './pages/Home'
 import GroupsPage from './pages/Groups'
 import SchedulePage from './pages/Schedule'
+import TeachersPage from './pages/Teachers'
 import ScrollToTop from './components/ScrollToTop'
 
 const ColorModeContext = createContext({ toggleColorMode: () => {} })
@@ -46,8 +47,9 @@ function App () {
             <Container maxWidth={'xl'}>
               <Routes>
                 <Route path={'/'} element={<HomePage />} />
-                <Route path={'/:department'} element={<GroupsPage />} />
-                <Route path={'/:department/:group'} element={<SchedulePage />} />
+                <Route path={'/teachers'} element={<TeachersPage />} />
+                <Route path={'/students/:department'} element={<GroupsPage />} />
+                <Route path={'/students/:department/:group'} element={<SchedulePage />} />
                 <Route path={'*'} element={
                   <h1 style={{ textAlign: 'center' }}>
                     Page not found

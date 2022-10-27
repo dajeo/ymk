@@ -72,7 +72,7 @@ function GroupsPage () {
                             e.stopPropagation()
                             return false
                           }}
-                          to={`/ОТП/${numGroup}`}
+                          to={`/students/ОТП/${numGroup}`}
                         >
                           <CardContent sx={{ padding: '8px' }}>
                             <Typography noWrap variant={'h6'}>

@@ -35,7 +35,7 @@ function HomePage () {
         }}
       >YMK</Typography>
       <Box sx={{ marginBottom: '4px' }}>
-        <Button component={Link} to={'/otp'}>
+        <Button component={Link} to={'students/otp'}>
           ОТП
         </Button>
         <Button disabled={true}>
@@ -43,6 +43,9 @@ function HomePage () {
         </Button>
         <Button disabled={true}>
           ОЕНП
+        </Button>
+        <Button component={Link} to={'/teachers'}>
+          Преподаватели
         </Button>
       </Box>
       {!shortcut
@@ -52,7 +55,7 @@ function HomePage () {
         />
         : <Button
           component={Link}
-          to={`/${shortcut.department}/${shortcut.group}`}
+          to={`students/${shortcut.department}/${shortcut.group}`}
         >
           {shortcut.group}
         </Button>}
