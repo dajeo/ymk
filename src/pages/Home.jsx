@@ -20,6 +20,7 @@ function HomePage () {
       alignItems={'center'}
       flexDirection={'column'}
       minHeight={calcFullscreen}
+      sx={{ '.block': { margin: '2px' } }}
     >
       <Typography
         sx={{
@@ -34,7 +35,7 @@ function HomePage () {
           }
         }}
       >YMK</Typography>
-      <Box sx={{ marginBottom: '4px' }}>
+      <Box className={'block'}>
         <Button component={Link} to={'students/otp'}>
           ОТП
         </Button>
@@ -44,21 +45,26 @@ function HomePage () {
         <Button disabled={true}>
           ОЕНП
         </Button>
+        <br />
+      </Box>
+      <Box className={'block'}>
         <Button component={Link} to={'/teachers'}>
           Преподаватели
         </Button>
       </Box>
-      {!shortcut
-        ? <ChipAndDesc
-          label={'Найдите сердечко ❤'}
-          description={'Чтобы добавить группу на гланвый экран - нажмите на сердечко в расписании вашей группы'}
-        />
-        : <Button
-          component={Link}
-          to={`students/${shortcut.department}/${shortcut.group}`}
-        >
-          {shortcut.group}
-        </Button>}
+      <Box className={'block'}>
+        {!shortcut
+          ? <ChipAndDesc
+            label={'Найдите сердечко ❤'}
+            description={'Чтобы добавить группу на гланвый экран - нажмите на сердечко в расписании вашей группы'}
+          />
+          : <Button
+            component={Link}
+            to={`students/${shortcut.department}/${shortcut.group}`}
+          >
+            {shortcut.group}
+          </Button>}
+      </Box>
     </Box>
   )
 }
