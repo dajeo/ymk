@@ -1,14 +1,9 @@
 import React, { useMemo, useState, createContext } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import {
-  Button,
   Container,
   createTheme,
   CssBaseline,
-  Dialog, DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
   ThemeProvider
 } from '@mui/material'
 import Header from './components/layout/Header'
@@ -23,15 +18,7 @@ const ColorModeContext = createContext({ toggleColorMode: () => {} })
 
 function App () {
   const currentTheme = window.localStorage.theme
-  const [open, setOpen] = useState(!window.localStorage.newDomainDialog)
   const [mode, setMode] = useState(currentTheme === 'dark' ? 'dark' : 'light')
-
-  const handleClose = (event, reason) => {
-    if (reason && reason === 'backdropClick') return
-
-    setOpen(false)
-    window.localStorage.newDomainDialog = 0
-  }
 
   const colorMode = useMemo(() => ({
     toggleColorMode: () => {
@@ -70,25 +57,6 @@ function App () {
                   </h1>
                 } />
               </Routes>
-
-              <Dialog
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-              >
-                <DialogTitle id="alert-dialog-title">
-                  {'Сайт переехал на новый домен'}
-                </DialogTitle>
-                <DialogContent>
-                  <DialogContentText id="alert-dialog-description">
-                    Вы будете автоматически перенаправлены на https://ymk.ink/
-                  </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                  <Button onClick={handleClose}>ОК</Button>
-                </DialogActions>
-              </Dialog>
             </Container>
           </div>
 
