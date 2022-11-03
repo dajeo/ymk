@@ -44,8 +44,8 @@ function App () {
           <ScrollToTop />
           <Header colorModeContext={ColorModeContext} />
 
-          <div style={{ paddingTop: '8px', paddingBottom: '8px' }}>
-            <Container maxWidth={'xl'}>
+          <div>
+            <Container disableGutters maxWidth={'xl'} sx={{ paddingLeft: '4px', paddingRight: '4px' }}>
               <Routes>
                 <Route path={'/'} element={<HomePage />} />
                 <Route path={'/teachers'} element={<TeachersPage />} />
