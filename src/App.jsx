@@ -1,6 +1,16 @@
 import React, { useMemo, useState, createContext } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { Container, createTheme, CssBaseline, ThemeProvider } from '@mui/material'
+import {
+  Button,
+  Container,
+  createTheme,
+  CssBaseline,
+  Dialog, DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  ThemeProvider
+} from '@mui/material'
 import Header from './components/layout/Header'
 import Footer from './components/layout/Footer'
 import HomePage from './pages/Home'
@@ -13,26 +23,30 @@ const ColorModeContext = createContext({ toggleColorMode: () => {} })
 
 function App () {
   const currentTheme = window.localStorage.theme
+  const [open, setOpen] = useState(!window.localStorage.newDomainDialog)
   const [mode, setMode] = useState(currentTheme === 'dark' ? 'dark' : 'light')
 
-  const colorMode = useMemo(
-    () => ({
-      toggleColorMode: () => {
-        setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'))
-      }
-    }),
-    []
+  const handleClose = (event, reason) => {
+    if (reason && reason === 'backdropClick') return
+
+    setOpen(false)
+    window.localStorage.newDomainDialog = 0
+  }
+
+  const colorMode = useMemo(() => ({
+    toggleColorMode: () => {
+      setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'))
+    }
+  }), []
   )
 
-  const theme = useMemo(
-    () => {
-      window.localStorage.theme = mode
+  const theme = useMemo(() => {
+    window.localStorage.theme = mode
 
-      return createTheme({
-        palette: { mode }
-      })
-    },
-    [mode]
+    return createTheme({
+      palette: { mode }
+    })
+  }, [mode]
   )
 
   return (
@@ -56,6 +70,25 @@ function App () {
                   </h1>
                 } />
               </Routes>
+
+              <Dialog
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+              >
+                <DialogTitle id="alert-dialog-title">
+                  {'Сайт переехал на новый домен'}
+                </DialogTitle>
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-description">
+                    Вы будете автоматически перенаправлены на https://ymk.ink/
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleClose}>ОК</Button>
+                </DialogActions>
+              </Dialog>
             </Container>
           </div>
 
