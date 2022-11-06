@@ -85,7 +85,7 @@ function ScheduleDay ({ table, date }) {
                             enterTouchDelay={0}
                             disableInteractive
                           >
-                            <IconButton disableRipple>
+                            <IconButton disableTouchRipple>
                               <ArrowDropDownRoundedIcon />
                             </IconButton>
                           </Tooltip>
