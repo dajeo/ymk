@@ -43,12 +43,12 @@ function GroupsPage () {
     <>
       {[...groups.getElementsByClassName('zag_kurs')].map((course, index) => (
         <div key={index}>
-          <h1>{course.innerText}</h1>
+          <Typography variant={'h4'} mt={'4px'} mb={'4px'}>{course.innerText}</Typography>
           {[...groups.getElementsByClassName(`kurs_container_${index + 1}`)].map((course) => (
             <Grid
               key={index}
               container
-              spacing={1}
+              spacing={'4px'}
               columns={{ xs: 12, sm: 12, md: 12, lg: 12, xl: 10 }}
             >
               {[...course.getElementsByClassName('group_box')].map((group) => {

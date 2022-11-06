@@ -1,4 +1,4 @@
-﻿import { Grid, Box, IconButton } from '@mui/material'
+﻿import { Grid, Box, IconButton, Typography } from '@mui/material'
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded'
 import { LoadingButton } from '@mui/lab'
 import React, { useEffect, useState } from 'react'
@@ -83,7 +83,7 @@ function SchedulePage () {
 
   return (
     <>
-      <h1>Группа {group}</h1>
+      <Typography variant={'h4'} mt={'4px'} mb={'4px'}>Группа {group}</Typography>
       {schedule.getElementsByClassName('uchen')[0]
         ? ''
         : <Box

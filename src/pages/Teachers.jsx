@@ -38,11 +38,11 @@ function TeachersPage () {
 
   return (
     <>
-      <h1>Преподаватели</h1>
+      <Typography variant={'h4'} mt={'4px'} mb={'4px'}>Преподаватели</Typography>
       <Grid
         container
-        spacing={1}
-        columns={{ xs: 2, sm: 12, md: 12, lg: 12, xl: 8 }}
+        spacing={'4px'}
+        columns={{ xs: 6, sm: 12, md: 12, lg: 12, xl: 8 }}
       >
         {[...teachers.getElementsByClassName('box_prepod')].map((teacher) => (
           <React.Fragment key={teacher.innerText}>
@@ -50,9 +50,7 @@ function TeachersPage () {
               const name = teacher.innerText
 
               return (
-                <Grid
-                  item xs={6} sm={4} md={3} lg={2} xl={1}
-                >
+                <Grid item xs={3} sm={4} md={3} lg={2} xl={1}>
                   <Card>
                     <CardActionArea
                       component={'a'}

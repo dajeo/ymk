@@ -4,7 +4,6 @@ import {
   List,
   ListItem,
   ListItemButton,
-  ListItemIcon,
   ListItemText,
   Typography
 } from '@mui/material'
@@ -12,7 +11,7 @@ import { Link } from 'react-router-dom'
 import React from 'react'
 import PropTypes from 'prop-types'
 
-function MobileDrawer ({ handleDrawerToggle, navItems, colorMode, iconTheme, textTheme }) {
+function MobileDrawer ({ handleDrawerToggle, navItems, colorMode, theme }) {
   return (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
       <Typography
@@ -49,10 +48,7 @@ function MobileDrawer ({ handleDrawerToggle, navItems, colorMode, iconTheme, tex
 
         <ListItem disablePadding={true}>
           <ListItemButton onClick={colorMode.toggleColorMode}>
-            <ListItemIcon>
-              {iconTheme}
-            </ListItemIcon>
-            <ListItemText primary={textTheme} />
+            <ListItemText primary={theme.palette.mode === 'dark' ? 'Выключить темную тему' : 'Включить темную тему'} />
           </ListItemButton>
         </ListItem>
       </List>
@@ -64,8 +60,7 @@ MobileDrawer.propTypes = {
   handleDrawerToggle: PropTypes.func,
   navItems: PropTypes.array,
   colorMode: PropTypes.object,
-  iconTheme: PropTypes.object,
-  textTheme: PropTypes.string
+  theme: PropTypes.object
 }
 
 export default MobileDrawer

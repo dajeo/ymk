@@ -1,16 +1,15 @@
 ﻿import React from 'react'
-import { Tooltip, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 
 function Footer () {
   return (
-    <Tooltip title={'Developed by Danil'}>
-      <Typography
-        color={'text.secondary'}
-        sx={{ textAlign: 'center', marginBottom: 2 }}
-      >
-        © {new Date().getFullYear()} {window.location.hostname}
-      </Typography>
-    </Tooltip>
+    <Typography
+      color={'text.secondary'}
+      m={2}
+      sx={{ textAlign: 'center' }}
+    >
+      © 2022 ymk.krabi.space
+    </Typography>
   )
 }
 

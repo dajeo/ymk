@@ -1,4 +1,5 @@
 import {
+  IconButton,
   Paper,
   Table,
   TableBody,
@@ -7,8 +8,10 @@ import {
   TableHead,
   TableRow,
   Toolbar,
+  Tooltip,
   Typography
 } from '@mui/material'
+import ArrowDropDownRoundedIcon from '@mui/icons-material/ArrowDropDownRounded'
 import React from 'react'
 import PropTypes from 'prop-types'
 
@@ -40,7 +43,7 @@ function ScheduleDay ({ table, date }) {
               <TableCell align={'center'}>№</TableCell>
               <TableCell align={'left'}>предмет</TableCell>
               <TableCell align={'right'}>каб</TableCell>
-              <TableCell align={'right'}>преп</TableCell>
+              <TableCell align={'center'}>преп</TableCell>
               <TableCell align={'right'}>время</TableCell>
             </TableRow>
           </TableHead>
@@ -55,7 +58,7 @@ function ScheduleDay ({ table, date }) {
                     <TableCell align={'center'}>
                       {lesson.getElementsByTagName('td')[0].innerText}
                     </TableCell>
-                    <TableCell align={'left'} style={{ whiteSpace: 'pre-wrap' }}>
+                    <TableCell align={'left'} sx={{ whiteSpace: 'pre-wrap' }}>
                       {(() => {
                         const item = lesson.getElementsByTagName('td')[1]
                         const link = item.getElementsByTagName('span')[0]
@@ -69,13 +72,27 @@ function ScheduleDay ({ table, date }) {
                         }
                       })()}
                     </TableCell>
-                    <TableCell align={'right'} style={{ whiteSpace: 'pre-wrap' }}>
+                    <TableCell align={'right'} sx={{ whiteSpace: 'pre-wrap' }}>
                       {lesson.getElementsByTagName('td')[2].innerHTML.replace('<br>', '\n')}
                     </TableCell>
-                    <TableCell align={'right'} style={{ whiteSpace: 'pre-wrap' }}>
-                      {lesson.getElementsByTagName('td')[3].innerHTML.replace('<br>', '\n')}
+                    <TableCell align={'center'} sx={{ height: 1 }}>
+                      {(() => {
+                        const teachers = lesson.getElementsByTagName('td')[3].innerHTML.replace('<br>', '\n')
+
+                        if (teachers) {
+                          return <Tooltip
+                            title={<div style={{ whiteSpace: 'pre-wrap' }}>{teachers}</div>}
+                            enterTouchDelay={0}
+                            disableInteractive
+                          >
+                            <IconButton>
+                              <ArrowDropDownRoundedIcon />
+                            </IconButton>
+                          </Tooltip>
+                        }
+                      })()}
                     </TableCell>
-                    <TableCell align={'right'} style={{ whiteSpace: 'nowrap' }}>
+                    <TableCell align={'right'} sx={{ whiteSpace: 'nowrap' }}>
                       {lesson.getElementsByTagName('td')[4].innerText}
                       <br />
                       {table.getElementsByClassName(`time_background${tableRow}`)[1].getElementsByTagName('td')[0].innerText}

@@ -4,7 +4,6 @@ import {
   Box,
   Container,
   Toolbar,
-  Tooltip,
   Typography,
   Button,
   IconButton,
@@ -44,28 +43,10 @@ const navItems = [
 ]
 
 function Header ({ colorModeContext }) {
-  function getTheme (theme) {
-    if (theme === 'dark') {
-      return { text: 'Выключить темную тему', icon: <LightModeRounded /> }
-    } else {
-      return { text: 'Включить темную тему', icon: <DarkModeRounded /> }
-    }
-  }
-
   const theme = useTheme()
   const colorMode = useContext(colorModeContext)
   const location = useLocation()
   const [mobileOpen, setMobileOpen] = useState(false)
-  const initTheme = getTheme(theme.palette.mode)
-  const [textTheme, setTextTheme] = useState(initTheme.text)
-  const [iconTheme, setIconTheme] = useState(initTheme.icon)
-
-  useEffect(() => {
-    const newTheme = getTheme(theme.palette.mode)
-
-    setTextTheme(newTheme.text)
-    setIconTheme(newTheme.icon)
-  }, [theme.palette.mode])
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen)
@@ -85,10 +66,9 @@ function Header ({ colorModeContext }) {
         }}
       >
         <Container maxWidth={'xl'}>
-          <Toolbar disableGutters={true} variant={'dense'}>
+          <Toolbar disableGutters variant={'dense'}>
             <IconButton
               color={'inherit'}
-              aria-label={'Open drawer'}
               edge={'start'}
               onClick={handleDrawerToggle}
               sx={{ mr: 1, display: { sm: 'none' } }}
@@ -113,22 +93,20 @@ function Header ({ colorModeContext }) {
             <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
               {navItems.map((item) => (
                 <Button
-                  color={'inherit'}
                   key={item.name}
+                  color={'inherit'}
                   component={Link}
                   to={item.link}
                   disabled={item.disabled}
-                  sx={{ color: '#fff', marginRight: 1 }}
+                  sx={{ color: '#fff' }}
                 >
                   {item.name}
                 </Button>
               ))}
 
-              <Tooltip title={textTheme}>
-                <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
-                  {iconTheme}
-                </IconButton>
-              </Tooltip>
+              <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color={'inherit'}>
+                {theme.palette.mode === 'dark' ? <LightModeRounded /> : <DarkModeRounded />}
+              </IconButton>
             </Box>
           </Toolbar>
         </Container>
@@ -152,8 +130,7 @@ function Header ({ colorModeContext }) {
             handleDrawerToggle={handleDrawerToggle}
             navItems={navItems}
             colorMode={colorMode}
-            iconTheme={iconTheme}
-            textTheme={textTheme}
+            theme={theme}
           />
         </Drawer>
       </Box>
