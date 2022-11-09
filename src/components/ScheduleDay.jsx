@@ -23,18 +23,15 @@ function ScheduleDay ({ table, date }) {
       id={isToday ? 'scrollHere' : ''}
       sx={isToday ? { bgcolor: 'action.hover' } : {}}
     >
-      <Toolbar disableGutters variant={'dense'} sx={{ minHeight: 0, paddingLeft: '4px' }}>
+      <Toolbar disableGutters variant={'dense'} sx={{ minHeight: 0, pl: '4px' }}>
         <Typography>
           {date + (isToday ? ' (Сегодня)' : '')}
         </Typography>
       </Toolbar>
       <TableContainer sx={{
-        marginBottom: '4px',
+        mb: '4px',
         'th, td': {
-          paddingTop: 0,
-          paddingBottom: 0,
-          paddingLeft: '4px',
-          paddingRight: '4px'
+          pt: 0, pb: 0, pl: '4px', pr: '4px'
         }
       }}>
         <Table size={'small'}>
@@ -85,7 +82,7 @@ function ScheduleDay ({ table, date }) {
                             enterTouchDelay={0}
                             disableInteractive
                           >
-                            <IconButton disableTouchRipple>
+                            <IconButton size={'small'}>
                               <ArrowDropDownRoundedIcon />
                             </IconButton>
                           </Tooltip>

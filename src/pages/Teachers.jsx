@@ -10,6 +10,7 @@ import Progress from '../components/Progress'
 import { observer } from 'mobx-react'
 import Store from '../stores/TeachersStore'
 import { fetchTeachers } from '../api'
+import Title from '../components/Title'
 
 function TeachersPage () {
   const [teachers, setTeachers] = useState({})
@@ -38,7 +39,7 @@ function TeachersPage () {
 
   return (
     <>
-      <Typography variant={'h4'} mt={'4px'} mb={'4px'}>Преподаватели</Typography>
+      <Title title={'Преподаватели'} />
       <Grid
         container
         spacing={'4px'}

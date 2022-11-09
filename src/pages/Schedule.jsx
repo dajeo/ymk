@@ -1,4 +1,4 @@
-﻿import { Grid, Box, IconButton, Typography } from '@mui/material'
+﻿import { Grid, Box, IconButton } from '@mui/material'
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded'
 import { LoadingButton } from '@mui/lab'
 import React, { useEffect, useState } from 'react'
@@ -9,6 +9,7 @@ import Store from '../stores/ScheduleStore'
 import { calcSchedulePage } from '../utils'
 import { fetchSchedule } from '../api'
 import ScheduleDay from '../components/ScheduleDay'
+import Title from '../components/Title'
 
 function SchedulePage () {
   const { department, group } = useParams()
@@ -83,7 +84,7 @@ function SchedulePage () {
 
   return (
     <>
-      <Typography variant={'h4'} mt={'4px'} mb={'4px'}>Группа {group}</Typography>
+      <Title title={`Группа ${group}`} />
       {schedule.getElementsByClassName('uchen')[0]
         ? ''
         : <Box

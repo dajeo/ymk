@@ -45,7 +45,7 @@ function App () {
           <Header colorModeContext={ColorModeContext} />
 
           <div>
-            <Container disableGutters maxWidth={'xl'} sx={{ paddingLeft: '4px', paddingRight: '4px' }}>
+            <Container disableGutters maxWidth={'xl'} sx={{ pl: '4px', pr: '4px' }}>
               <Routes>
                 <Route path={'/'} element={<HomePage />} />
                 <Route path={'/teachers'} element={<TeachersPage />} />
