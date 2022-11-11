@@ -104,10 +104,11 @@ function Header ({ colorModeContext }) {
                 </Button>
               ))}
 
-              <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color={'inherit'}>
-                {theme.palette.mode === 'dark' ? <LightModeRounded /> : <DarkModeRounded />}
-              </IconButton>
             </Box>
+
+            <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color={'inherit'}>
+              {theme.palette.mode === 'dark' ? <LightModeRounded /> : <DarkModeRounded />}
+            </IconButton>
           </Toolbar>
         </Container>
       </AppBar>
@@ -129,8 +130,6 @@ function Header ({ colorModeContext }) {
           <MobileDrawer
             handleDrawerToggle={handleDrawerToggle}
             navItems={navItems}
-            colorMode={colorMode}
-            theme={theme}
           />
         </Drawer>
       </Box>

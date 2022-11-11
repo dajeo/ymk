@@ -12,6 +12,7 @@ import HomePage from './pages/Home'
 import GroupsPage from './pages/Groups'
 import SchedulePage from './pages/Schedule'
 import TeachersPage from './pages/Teachers'
+import TeacherSchedulePage from './pages/TeacherSchedule'
 import ScrollToTop from './components/ScrollToTop'
 
 const ColorModeContext = createContext({ toggleColorMode: () => {} })
@@ -49,6 +50,7 @@ function App () {
               <Routes>
                 <Route path={'/'} element={<HomePage />} />
                 <Route path={'/teachers'} element={<TeachersPage />} />
+                <Route path={'/teachers/:teacher'} element={<TeacherSchedulePage />} />
                 <Route path={'/students/:department'} element={<GroupsPage />} />
                 <Route path={'/students/:department/:group'} element={<SchedulePage />} />
                 <Route path={'*'} element={

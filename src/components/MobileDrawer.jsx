@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom'
 import React from 'react'
 import PropTypes from 'prop-types'
 
-function MobileDrawer ({ handleDrawerToggle, navItems, colorMode, theme }) {
+function MobileDrawer ({ handleDrawerToggle, navItems }) {
   return (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
       <Typography
@@ -29,11 +29,11 @@ function MobileDrawer ({ handleDrawerToggle, navItems, colorMode, theme }) {
         YMK
       </Typography>
 
-      <List disablePadding={true}>
+      <List disablePadding>
         <Divider />
 
         {navItems.map((item) => (
-          <ListItem key={item.name} disablePadding={true}>
+          <ListItem key={item.name} disablePadding>
             <ListItemButton
               component={Link}
               to={item.link}
@@ -43,14 +43,6 @@ function MobileDrawer ({ handleDrawerToggle, navItems, colorMode, theme }) {
             </ListItemButton>
           </ListItem>
         ))}
-
-        <Divider />
-
-        <ListItem disablePadding={true}>
-          <ListItemButton onClick={colorMode.toggleColorMode}>
-            <ListItemText primary={theme.palette.mode === 'dark' ? 'Выключить темную тему' : 'Включить темную тему'} />
-          </ListItemButton>
-        </ListItem>
       </List>
     </Box>
   )
@@ -58,9 +50,7 @@ function MobileDrawer ({ handleDrawerToggle, navItems, colorMode, theme }) {
 
 MobileDrawer.propTypes = {
   handleDrawerToggle: PropTypes.func,
-  navItems: PropTypes.array,
-  colorMode: PropTypes.object,
-  theme: PropTypes.object
+  navItems: PropTypes.array
 }
 
 export default MobileDrawer

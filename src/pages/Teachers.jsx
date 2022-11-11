@@ -11,6 +11,7 @@ import { observer } from 'mobx-react'
 import Store from '../stores/TeachersStore'
 import { fetchTeachers } from '../api'
 import Title from '../components/Title'
+import { Link } from 'react-router-dom'
 
 function TeachersPage () {
   const [teachers, setTeachers] = useState({})
@@ -54,13 +55,13 @@ function TeachersPage () {
                 <Grid item xs={3} sm={4} md={3} lg={2} xl={1}>
                   <Card>
                     <CardActionArea
-                      component={'a'}
+                      component={Link}
                       onContextMenu={(e) => {
                         e.preventDefault()
                         e.stopPropagation()
                         return false
                       }}
-                      href={`https://ямк-салехард.рф/mobile/teacher/shedule/?name=${name}&last=last`}
+                      to={`/teachers/${name}`}
                     >
                       <CardContent sx={{ padding: '8px' }}>
                         <Typography noWrap variant={'h6'}>
