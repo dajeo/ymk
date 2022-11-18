@@ -19,36 +19,13 @@ import {
 import PropTypes from 'prop-types'
 import MobileDrawer from '../MobileDrawer'
 
-const navItems = [
-  {
-    name: 'ОТП',
-    link: 'students/otp',
-    disabled: false
-  },
-  {
-    name: 'ОСГП',
-    link: '/',
-    disabled: true
-  },
-  {
-    name: 'ОЕНП',
-    link: '/',
-    disabled: true
-  },
-  {
-    name: 'Преподаватели',
-    link: '/teachers',
-    disabled: false
-  }
-]
-
 function Header ({ colorModeContext }) {
   const theme = useTheme()
   const colorMode = useContext(colorModeContext)
   const location = useLocation()
   const [mobileOpen, setMobileOpen] = useState(false)
 
-  const handleDrawerToggle = () => {
+  const handleDrawer = () => {
     setMobileOpen(!mobileOpen)
   }
 
@@ -69,13 +46,12 @@ function Header ({ colorModeContext }) {
           <Toolbar disableGutters variant={'dense'}>
             <IconButton
               color={'inherit'}
-              edge={'start'}
-              onClick={handleDrawerToggle}
+              onClick={handleDrawer}
               sx={{ mr: 1, display: { sm: 'none' } }}
             >
               <MenuRoundedIcon />
             </IconButton>
-            <div style={{ flexGrow: 1 }}>
+            <Box sx={{ flex: 1, textAlign: { xs: 'center', sm: 'left' } }}>
               <Typography
                 variant={'h6'}
                 component={Link}
@@ -88,22 +64,23 @@ function Header ({ colorModeContext }) {
               >
                 YMK
               </Typography>
-            </div>
+            </Box>
 
             <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-              {navItems.map((item) => (
-                <Button
-                  key={item.name}
-                  color={'inherit'}
-                  component={Link}
-                  to={item.link}
-                  disabled={item.disabled}
-                  sx={{ color: '#fff' }}
-                >
-                  {item.name}
-                </Button>
-              ))}
-
+              <Button
+                color={'inherit'}
+                component={Link}
+                to={'students/otp'}
+              >
+                ОТП
+              </Button>
+              <Button
+                color={'inherit'}
+                component={Link}
+                to={'teachers'}
+              >
+                Преподаватели
+              </Button>
             </Box>
 
             <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color={'inherit'}>
@@ -117,7 +94,7 @@ function Header ({ colorModeContext }) {
         <Drawer
           variant="temporary"
           open={mobileOpen}
-          onClose={handleDrawerToggle}
+          onClose={handleDrawer}
           ModalProps={{ keepMounted: true }}
           sx={{
             '& .MuiDrawer-paper': {
@@ -127,10 +104,7 @@ function Header ({ colorModeContext }) {
             }
           }}
         >
-          <MobileDrawer
-            handleDrawerToggle={handleDrawerToggle}
-            navItems={navItems}
-          />
+          <MobileDrawer onClick={handleDrawer} />
         </Drawer>
       </Box>
     </>

@@ -9,11 +9,10 @@ import {
 } from '@mui/material'
 import { Link } from 'react-router-dom'
 import React from 'react'
-import PropTypes from 'prop-types'
 
-function MobileDrawer ({ handleDrawerToggle, navItems }) {
+function MobileDrawer () {
   return (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
+    <Box sx={{ textAlign: 'center' }}>
       <Typography
         variant={'h6'}
         component={Link}
@@ -29,28 +28,22 @@ function MobileDrawer ({ handleDrawerToggle, navItems }) {
         YMK
       </Typography>
 
-      <List disablePadding>
-        <Divider />
+      <Divider />
 
-        {navItems.map((item) => (
-          <ListItem key={item.name} disablePadding>
-            <ListItemButton
-              component={Link}
-              to={item.link}
-              disabled={item.disabled}
-            >
-              <ListItemText primary={item.name} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+      <List>
+        <ListItem disablePadding>
+          <ListItemButton component={Link} to={'students/otp'}>
+            <ListItemText primary={'ОТП'} />
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton component={Link} to={'teachers'}>
+            <ListItemText primary={'Преподаватели'} />
+          </ListItemButton>
+        </ListItem>
       </List>
     </Box>
   )
-}
-
-MobileDrawer.propTypes = {
-  handleDrawerToggle: PropTypes.func,
-  navItems: PropTypes.array
 }
 
 export default MobileDrawer

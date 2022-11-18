@@ -20,7 +20,6 @@ function HomePage () {
       alignItems={'center'}
       flexDirection={'column'}
       minHeight={calcFullscreen}
-      sx={{ '.block': { margin: '2px' } }}
     >
       <Typography
         sx={{
@@ -35,24 +34,15 @@ function HomePage () {
           }
         }}
       >YMK</Typography>
-      <Box className={'block'}>
+      <Box>
         <Button component={Link} to={'students/otp'}>
           ОТП
         </Button>
-        <Button disabled={true}>
-          ОСГП
-        </Button>
-        <Button disabled={true}>
-          ОЕНП
-        </Button>
-        <br />
-      </Box>
-      <Box className={'block'}>
-        <Button component={Link} to={'/teachers'}>
+        <Button component={Link} to={'teachers'}>
           Преподаватели
         </Button>
       </Box>
-      <Box className={'block'}>
+      <Box sx={{ mt: 1 }}>
         {!shortcut
           ? <ChipAndDesc
             label={'Найдите сердечко ❤'}
