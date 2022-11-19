@@ -1,8 +1,7 @@
 ﻿import React, { useEffect, useState } from 'react'
-import { Box, Button, Typography } from '@mui/material'
+import { Box, Button, Typography, Chip } from '@mui/material'
 import { calcFullscreen } from '../utils'
 import { Link } from 'react-router-dom'
-import ChipAndDesc from '../components/ChipAndDesc'
 
 function HomePage () {
   const [shortcut, setShortcut] = useState(null)
@@ -26,6 +25,7 @@ function HomePage () {
           zIndex: -999,
           userSelect: 'none',
           msUserSelect: 'none',
+          MozUserSelect: 'none',
           WebkitUserSelect: 'none',
           fontWeight: 'bold',
           fontSize: {
@@ -44,10 +44,7 @@ function HomePage () {
       </Box>
       <Box sx={{ mt: 1 }}>
         {!shortcut
-          ? <ChipAndDesc
-            label={'Найдите сердечко ❤'}
-            description={'Чтобы добавить группу на гланвый экран - нажмите на сердечко в расписании вашей группы'}
-          />
+          ? <Chip label={'Найдите сердечко ❤'} />
           : <Button
             component={Link}
             to={`students/${shortcut.department}/${shortcut.group}`}

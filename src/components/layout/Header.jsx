@@ -10,28 +10,16 @@ import {
   Drawer,
   useTheme
 } from '@mui/material'
-import MenuRoundedIcon from '@mui/icons-material/MenuRounded'
 import { Link, useLocation } from 'react-router-dom'
 import {
   DarkModeRounded,
   LightModeRounded
 } from '@mui/icons-material'
 import PropTypes from 'prop-types'
-import MobileDrawer from '../MobileDrawer'
 
 function Header ({ colorModeContext }) {
   const theme = useTheme()
   const colorMode = useContext(colorModeContext)
-  const location = useLocation()
-  const [mobileOpen, setMobileOpen] = useState(false)
-
-  const handleDrawer = () => {
-    setMobileOpen(!mobileOpen)
-  }
-
-  useEffect(() => {
-    setMobileOpen(false)
-  }, [location.pathname])
 
   return (
     <>
@@ -44,14 +32,7 @@ function Header ({ colorModeContext }) {
       >
         <Container maxWidth={'xl'}>
           <Toolbar disableGutters variant={'dense'}>
-            <IconButton
-              color={'inherit'}
-              onClick={handleDrawer}
-              sx={{ mr: 1, display: { sm: 'none' } }}
-            >
-              <MenuRoundedIcon />
-            </IconButton>
-            <Box sx={{ flex: 1, textAlign: { xs: 'center', sm: 'left' } }}>
+            <Box sx={{ flex: 1 }}>
               <Typography
                 variant={'h6'}
                 component={Link}
@@ -89,24 +70,6 @@ function Header ({ colorModeContext }) {
           </Toolbar>
         </Container>
       </AppBar>
-
-      <Box component="nav">
-        <Drawer
-          variant="temporary"
-          open={mobileOpen}
-          onClose={handleDrawer}
-          ModalProps={{ keepMounted: true }}
-          sx={{
-            '& .MuiDrawer-paper': {
-              width: 300,
-              borderTopRightRadius: '6px',
-              borderBottomRightRadius: '6px'
-            }
-          }}
-        >
-          <MobileDrawer onClick={handleDrawer} />
-        </Drawer>
-      </Box>
     </>
   )
 }
