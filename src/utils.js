@@ -1,5 +1,5 @@
 ﻿function calcSchedulePage () {
-  return 'calc(100vh - 194px)'
+  return 'calc(100vh - 130px)'
 }
 
 function calcFullscreen () {

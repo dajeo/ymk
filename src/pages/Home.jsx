@@ -1,6 +1,5 @@
 ﻿import React, { useEffect, useState } from 'react'
-import { Box, Button, Typography, Chip } from '@mui/material'
-import { calcFullscreen } from '../utils'
+import { Box, Button, Typography } from '@mui/material'
 import { Link } from 'react-router-dom'
 
 function HomePage () {
@@ -35,16 +34,8 @@ function HomePage () {
         }}
       >YMK</Typography>
       <Box>
-        <Button component={Link} to={'students/otp'}>
-          ОТП
-        </Button>
-        <Button component={Link} to={'teachers'}>
-          Преподаватели
-        </Button>
-      </Box>
-      <Box sx={{ mt: 1 }}>
         {!shortcut
-          ? <Chip label={'Найдите сердечко ❤'} />
+          ? null
           : <Button
             component={Link}
             to={`students/${shortcut.department}/${shortcut.group}`}

@@ -84,9 +84,9 @@ function SchedulePage () {
 
   return (
     <>
-      <Title title={`Группа ${group}`} />
+      <Title title={group} />
       {schedule.getElementsByClassName('uchen')[0]
-        ? ''
+        ? null
         : <Box
           display={'flex'}
           justifyContent={'center'}

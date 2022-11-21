@@ -37,7 +37,7 @@ function Header () {
               </Typography>
             </Box>
 
-            <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+            <Box>
               <Button
                 color={'inherit'}
                 component={Link}

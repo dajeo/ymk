@@ -67,7 +67,7 @@ function TeacherSchedulePage () {
     <>
       <Title title={teacher} />
       {schedule.getElementsByClassName('container_table')[0]
-        ? ''
+        ? null
         : <Box
           display={'flex'}
           justifyContent={'center'}
