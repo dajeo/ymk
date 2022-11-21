@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 function Title ({ title }) {
   return (
-    <Typography variant={'h4'} mt={'4px'} mb={'4px'}>
+    <Typography variant={'h4'}>
       {title}
     </Typography>
   )

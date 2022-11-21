@@ -18,7 +18,7 @@ function HomePage () {
       justifyContent={'center'}
       alignItems={'center'}
       flexDirection={'column'}
-      minHeight={calcFullscreen}
+      minHeight={1}
     >
       <Typography
         sx={{

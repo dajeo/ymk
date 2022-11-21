@@ -3,7 +3,7 @@
 }
 
 function calcFullscreen () {
-  return 'calc(100vh - 104px)'
+  return 'calc(100vh - 48px)'
 }
 
 export { calcSchedulePage, calcFullscreen }

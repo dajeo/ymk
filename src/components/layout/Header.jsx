@@ -1,33 +1,23 @@
-﻿import React, { useState, useEffect, useContext } from 'react'
+﻿import React from 'react'
 import {
   AppBar,
   Box,
   Container,
   Toolbar,
   Typography,
-  Button,
-  IconButton,
-  Drawer,
-  useTheme
+  Button
 } from '@mui/material'
-import { Link, useLocation } from 'react-router-dom'
-import {
-  DarkModeRounded,
-  LightModeRounded
-} from '@mui/icons-material'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
-function Header ({ colorModeContext }) {
-  const theme = useTheme()
-  const colorMode = useContext(colorModeContext)
-
+function Header () {
   return (
     <>
       <AppBar
-        position={'sticky'}
+        position={'static'}
         sx={{
-          borderBottomRightRadius: '6px',
-          borderBottomLeftRadius: '6px'
+          borderBottomRightRadius: '8px',
+          borderBottomLeftRadius: '8px'
         }}
       >
         <Container maxWidth={'xl'}>
@@ -63,19 +53,11 @@ function Header ({ colorModeContext }) {
                 Преподаватели
               </Button>
             </Box>
-
-            <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color={'inherit'}>
-              {theme.palette.mode === 'dark' ? <LightModeRounded /> : <DarkModeRounded />}
-            </IconButton>
           </Toolbar>
         </Container>
       </AppBar>
     </>
   )
-}
-
-Header.propTypes = {
-  colorModeContext: PropTypes.object
 }
 
 export default Header
