@@ -1,4 +1,4 @@
-import React, { useMemo, useState, createContext } from 'react'
+import React, { useMemo, useState } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import {
   Container,
@@ -19,7 +19,7 @@ function App () {
   const [mode, setMode] = useState(colorScheme.matches ? 'dark' : 'light')
   const theme = useMemo(() => createTheme({ palette: { mode } }), [mode])
 
-  colorScheme.addEventListener('change', event => setMode(event.matches ? 'dark' : 'light'));
+  colorScheme.addEventListener('change', event => setMode(event.matches ? 'dark' : 'light'))
 
   return (
     <ThemeProvider theme={theme}>

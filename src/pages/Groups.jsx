@@ -20,8 +20,6 @@ function GroupsPage () {
   const [isLoaded, setIsLoaded] = useState(false)
 
   useEffect(() => {
-    setIsLoaded(false)
-
     const buffer = Store.groups.get(department)
 
     if (buffer) {

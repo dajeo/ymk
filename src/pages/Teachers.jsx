@@ -18,8 +18,6 @@ function TeachersPage () {
   const [isLoaded, setIsLoaded] = useState(false)
 
   useEffect(() => {
-    setIsLoaded(false)
-
     const buffer = Store.teachers
 
     if (buffer) {
