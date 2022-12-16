@@ -6,13 +6,12 @@ import {
   CssBaseline,
   ThemeProvider
 } from '@mui/material'
-import Header from './components/layout/Header'
+import Navigation from './components/Navigation'
 import HomePage from './pages/Home'
 import GroupsPage from './pages/Groups'
 import SchedulePage from './pages/Schedule'
 import TeachersPage from './pages/Teachers'
 import TeacherSchedulePage from './pages/TeacherSchedule'
-import { calcFullscreen } from './utils'
 
 function App () {
   const colorScheme = window.matchMedia('(prefers-color-scheme: dark)')
@@ -25,9 +24,7 @@ function App () {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <BrowserRouter>
-        <Header />
-
-        <Container disableGutters maxWidth={'xl'} sx={{ pl: '4px', pr: '4px', height: calcFullscreen() }}>
+        <Container disableGutters maxWidth={'xl'} sx={{ pl: '4px', pr: '4px', mb: '56px' }}>
           <Routes>
             <Route path={'/'} element={<HomePage />} />
             <Route path={'/teachers'} element={<TeachersPage />} />
@@ -35,10 +32,17 @@ function App () {
             <Route path={'/students/:department'} element={<GroupsPage />} />
             <Route path={'/students/:department/:group'} element={<SchedulePage />} />
             <Route path={'*'} element={
-              <h1 style={{ textAlign: 'center' }}>Page not found</h1>
+              <h1 style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: 'calc(100vh - 78px)'
+              }}>Page not found</h1>
             } />
           </Routes>
         </Container>
+
+        <Navigation />
       </BrowserRouter>
     </ThemeProvider>
   )

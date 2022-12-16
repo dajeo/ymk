@@ -1,9 +1,9 @@
 ﻿function calcSchedulePage () {
-  return 'calc(100vh - 130px)'
+  return 'calc(100vh - 160px)'
 }
 
 function calcFullscreen () {
-  return 'calc(100vh - 48px)'
+  return 'calc(100vh - 104px)'
 }
 
 export { calcSchedulePage, calcFullscreen }

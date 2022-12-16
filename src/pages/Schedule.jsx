@@ -76,7 +76,8 @@ function SchedulePage () {
     } else {
       window.localStorage.quickShortcut = JSON.stringify({ department, group })
     }
-
+    
+    window.dispatchEvent(new Event('storage'))
     setIsInShortcut(!isInShortcut)
   }
 
