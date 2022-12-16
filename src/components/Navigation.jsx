@@ -4,6 +4,10 @@ import {
   BottomNavigationAction,
 	Paper
 } from '@mui/material'
+import HomeRoundedIcon from '@mui/icons-material/HomeRounded'
+import ReorderRoundedIcon from '@mui/icons-material/ReorderRounded'
+import PeopleRoundedIcon from '@mui/icons-material/PeopleRounded'
+import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded'
 import { Link } from 'react-router-dom'
 
 function Navigation () {
@@ -29,13 +33,14 @@ function Navigation () {
       <BottomNavigation
         showLabels
       >
-				<BottomNavigationAction label="Главная" component={Link} to={'/'} />
-        <BottomNavigationAction label="ОТП" component={Link} to={'students/otp'} />
-        <BottomNavigationAction label="Преподаватели" component={Link} to={'teachers'} />
+				<BottomNavigationAction label="Главная" icon={<HomeRoundedIcon />} component={Link} to={'/'} />
+        <BottomNavigationAction label="ОТП" icon={<ReorderRoundedIcon />} component={Link} to={'students/otp'} />
+        <BottomNavigationAction label="Преподаватели" icon={<PeopleRoundedIcon />} component={Link} to={'teachers'} />
 				{!shortcut
           ? null
           : <BottomNavigationAction
 						label={shortcut.group}
+            icon={<DashboardRoundedIcon />}
             component={Link}
             to={`students/${shortcut.department}/${shortcut.group}`}
           	/>
