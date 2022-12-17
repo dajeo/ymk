@@ -29,20 +29,18 @@ function Navigation () {
   })
 
   return (
-    <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
-      <BottomNavigation
-        showLabels
-      >
+    <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }}>
+      <BottomNavigation showLabels>
 				<BottomNavigationAction label="Главная" icon={<HomeRoundedIcon />} component={Link} to={'/'} />
         <BottomNavigationAction label="ОТП" icon={<ReorderRoundedIcon />} component={Link} to={'students/otp'} />
         <BottomNavigationAction label="Преподаватели" icon={<PeopleRoundedIcon />} component={Link} to={'teachers'} />
 				{!shortcut
           ? null
           : <BottomNavigationAction
-						label={shortcut.group}
-            icon={<DashboardRoundedIcon />}
-            component={Link}
-            to={`students/${shortcut.department}/${shortcut.group}`}
+              label={shortcut.group}
+              icon={<DashboardRoundedIcon />}
+              component={Link}
+              to={`students/${shortcut.department}/${shortcut.group}`}
           	/>
 				}
       </BottomNavigation>

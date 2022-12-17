@@ -7,14 +7,15 @@ function HomePage () {
       display={'flex'}
       justifyContent={'center'}
       alignItems={'center'}
+      flexDirection={'column'}
       sx={{ height: 'calc(100vh - 56px)' }}
     >
-      <Typography
-        sx={{
-          fontWeight: 'bold',
-          fontSize: '16vw'
-        }}
-      >YMK</Typography>
+      <Typography variant={'h1'} sx={{ fontWeight: 'bold' }}>
+        YMK
+      </Typography>
+      <Typography variant={'body2'}>
+        Developed by Danil
+      </Typography>
     </Box>
   )
 }
