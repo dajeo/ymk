@@ -8,7 +8,7 @@ function HomePage () {
       justifyContent={'center'}
       alignItems={'center'}
       flexDirection={'column'}
-      sx={{ height: 'calc(100vh - 56px)' }}
+      height={'calc(100vh - 56px)'}
     >
       <Typography variant={'h1'} sx={{ fontWeight: 'bold' }}>
         YMK

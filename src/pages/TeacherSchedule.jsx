@@ -5,7 +5,6 @@ import { useParams } from 'react-router-dom'
 import { observer } from 'mobx-react'
 import Progress from '../components/Progress'
 import Store from '../stores/TeacherScheduleStore'
-import { calcSchedulePage } from '../utils'
 import { fetchTeacherSchedule } from '../api'
 import TeacherScheduleDay from '../components/TeacherScheduleDay'
 import Title from '../components/Title'
@@ -66,17 +65,6 @@ function TeacherSchedulePage () {
   return (
     <>
       <Title title={teacher} />
-      {schedule.getElementsByClassName('container_table')[0]
-        ? null
-        : <Box
-          display={'flex'}
-          justifyContent={'center'}
-          alignItems={'center'}
-          minHeight={calcSchedulePage()}
-        >
-          <h3>Хм, здесь почему-то пусто 🤔</h3>
-        </Box>
-      }
       <Grid container columnSpacing={'4px'} columns={{ xs: 4, md: 10 }}>
         <Grid item xs={4} md={5}>
           {[...schedule.getElementsByClassName('container_table')].map((table, tableIndex) => {

@@ -6,7 +6,6 @@ import { useParams } from 'react-router-dom'
 import { observer } from 'mobx-react'
 import Progress from '../components/Progress'
 import Store from '../stores/ScheduleStore'
-import { calcSchedulePage } from '../utils'
 import { fetchSchedule } from '../api'
 import ScheduleDay from '../components/ScheduleDay'
 import Title from '../components/Title'
@@ -92,7 +91,7 @@ function SchedulePage () {
           display={'flex'}
           justifyContent={'center'}
           alignItems={'center'}
-          minHeight={calcSchedulePage()}
+          height={'calc(100vh - 138px)'}
         >
           <h3>Хм, здесь почему-то пусто 🤔</h3>
         </Box>

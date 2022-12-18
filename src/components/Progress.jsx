@@ -1,18 +1,8 @@
 ﻿import React from 'react'
-import { Box, CircularProgress } from '@mui/material'
-import { calcFullscreen } from '../utils'
+import { LinearProgress } from '@mui/material'
 
 function Progress () {
-  return (
-    <Box
-      display={'flex'}
-      justifyContent={'center'}
-      alignItems={'center'}
-      minHeight={calcFullscreen}
-    >
-      <CircularProgress />
-    </Box>
-  )
+  return <LinearProgress sx={{ ml: '-4px', mr: '-4px' }} />
 }
 
 export default Progress
