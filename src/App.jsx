@@ -12,6 +12,7 @@ import GroupsPage from './pages/Groups'
 import SchedulePage from './pages/Schedule'
 import TeachersPage from './pages/Teachers'
 import TeacherSchedulePage from './pages/TeacherSchedule'
+import NewDomainDialog from './components/NewDomainDialog'
 
 function App () {
   const colorScheme = window.matchMedia('(prefers-color-scheme: dark)')
@@ -24,6 +25,8 @@ function App () {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <BrowserRouter>
+        <NewDomainDialog />
+
         <Container disableGutters maxWidth={'xl'} sx={{ pl: '4px', pr: '4px', mb: '56px' }}>
           <Routes>
             <Route path={'/'} element={<HomePage />} />
