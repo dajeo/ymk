@@ -8,6 +8,7 @@ import Store from '../stores/TeacherScheduleStore'
 import { fetchTeacherSchedule } from '../api'
 import TeacherScheduleDay from '../components/TeacherScheduleDay'
 import Title from '../components/Title'
+import Container from '../components/Container'
 
 function TeacherSchedulePage () {
   const { teacher } = useParams()
@@ -63,7 +64,7 @@ function TeacherSchedulePage () {
   if (!isLoaded) return <Progress />
 
   return (
-    <>
+    <Container>
       <Title title={teacher} />
       <Grid container columnSpacing={'4px'} columns={{ xs: 4, md: 10 }}>
         <Grid item xs={4} md={5}>
@@ -109,7 +110,7 @@ function TeacherSchedulePage () {
             : ''}
         </Grid>
       </Grid>
-    </>
+    </Container>
   )
 }
 

@@ -2,7 +2,7 @@
 import { LinearProgress } from '@mui/material'
 
 function Progress () {
-  return <LinearProgress sx={{ ml: '-4px', mr: '-4px' }} />
+  return <LinearProgress />
 }
 
 export default Progress

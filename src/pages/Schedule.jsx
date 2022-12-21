@@ -9,6 +9,7 @@ import Store from '../stores/ScheduleStore'
 import { fetchSchedule } from '../api'
 import ScheduleDay from '../components/ScheduleDay'
 import Title from '../components/Title'
+import Container from '../components/Container'
 
 function SchedulePage () {
   const { department, group } = useParams()
@@ -75,7 +76,7 @@ function SchedulePage () {
     } else {
       window.localStorage.quickShortcut = JSON.stringify({ department, group })
     }
-    
+
     window.dispatchEvent(new Event('storage'))
     setIsInShortcut(!isInShortcut)
   }
@@ -83,7 +84,7 @@ function SchedulePage () {
   if (!isLoaded) return <Progress />
 
   return (
-    <>
+    <Container>
       <Title title={group} />
       {schedule.getElementsByClassName('uchen')[0]
         ? null
@@ -145,7 +146,7 @@ function SchedulePage () {
             : ''}
         </Grid>
       </Grid>
-    </>
+    </Container>
   )
 }
 

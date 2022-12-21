@@ -12,6 +12,7 @@ import Store from '../stores/TeachersStore'
 import { fetchTeachers } from '../api'
 import Title from '../components/Title'
 import { Link } from 'react-router-dom'
+import Container from '../components/Container'
 
 function TeachersPage () {
   const [teachers, setTeachers] = useState({})
@@ -37,7 +38,7 @@ function TeachersPage () {
   if (!isLoaded) return <Progress />
 
   return (
-    <>
+    <Container>
       <Title title={'Преподаватели'} />
       <Grid
         container
@@ -74,7 +75,7 @@ function TeachersPage () {
           </React.Fragment>
         ))}
       </Grid>
-    </>
+    </Container>
   )
 }
 

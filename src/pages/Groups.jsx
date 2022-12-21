@@ -13,6 +13,7 @@ import { observer } from 'mobx-react'
 import Store from '../stores/GroupsStore'
 import { fetchGroups } from '../api'
 import Title from '../components/Title'
+import Container from '../components/Container'
 
 function GroupsPage () {
   const { department } = useParams()
@@ -39,7 +40,7 @@ function GroupsPage () {
   if (!isLoaded) return <Progress />
 
   return (
-    <>
+    <Container>
       {[...groups.getElementsByClassName('zag_kurs')].map((course, index) => (
         <div key={index}>
           <Title title={course.innerText} />
@@ -88,7 +89,7 @@ function GroupsPage () {
           ))}
         </div>
       ))}
-    </>
+    </Container>
   )
 }
 

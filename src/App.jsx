@@ -1,7 +1,6 @@
 import React, { useMemo, useState } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import {
-  Container,
   createTheme,
   CssBaseline,
   ThemeProvider
@@ -27,23 +26,21 @@ function App () {
       <BrowserRouter>
         <NewDomainDialog />
 
-        <Container disableGutters maxWidth={'xl'} sx={{ pl: '4px', pr: '4px', mb: '56px' }}>
-          <Routes>
-            <Route path={'/'} element={<HomePage />} />
-            <Route path={'/teachers'} element={<TeachersPage />} />
-            <Route path={'/teachers/:teacher'} element={<TeacherSchedulePage />} />
-            <Route path={'/students/:department'} element={<GroupsPage />} />
-            <Route path={'/students/:department/:group'} element={<SchedulePage />} />
-            <Route path={'*'} element={
-              <h1 style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: 'calc(100vh - 78px)'
-              }}>Page not found</h1>
-            } />
-          </Routes>
-        </Container>
+        <Routes>
+          <Route path={'/'} element={<HomePage />} />
+          <Route path={'/teachers'} element={<TeachersPage />} />
+          <Route path={'/teachers/:teacher'} element={<TeacherSchedulePage />} />
+          <Route path={'/students/:department'} element={<GroupsPage />} />
+          <Route path={'/students/:department/:group'} element={<SchedulePage />} />
+          <Route path={'*'} element={
+            <h1 style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: 'calc(100vh - 78px)'
+            }}>Page not found</h1>
+          } />
+        </Routes>
 
         <Navigation />
       </BrowserRouter>
