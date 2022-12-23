@@ -2,7 +2,7 @@
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded'
 import { LoadingButton } from '@mui/lab'
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useLocation } from 'react-router-dom'
 import { observer } from 'mobx-react'
 import Progress from '../components/Progress'
 import Store from '../stores/ScheduleStore'
@@ -12,6 +12,7 @@ import Title from '../components/Title'
 import Container from '../components/Container'
 
 function SchedulePage () {
+  const location = useLocation()
   const { department, group } = useParams()
   const [isLoaded, setIsLoaded] = useState(false)
   const [schedule, setSchedule] = useState(Store.schedules.get(group))
@@ -41,7 +42,9 @@ function SchedulePage () {
       if (json.group === group) setIsInShortcut(true)
     }
 
-    if (schedule) {
+    const tempSchedule = Store.schedules.get(group)
+    if (tempSchedule) {
+      setSchedule(tempSchedule)
       setIsLoaded(true)
       return
     }
@@ -52,7 +55,7 @@ function SchedulePage () {
         setSchedule(data)
         setIsLoaded(true)
       })
-  }, [])
+  }, [location])
 
   useEffect(() => {
     if (isScrolled) return

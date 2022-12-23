@@ -1,4 +1,4 @@
-import { Grid, Box } from '@mui/material'
+import { Grid } from '@mui/material'
 import { LoadingButton } from '@mui/lab'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
@@ -32,7 +32,9 @@ function TeacherSchedulePage () {
   }
 
   useEffect(() => {
-    if (schedule) {
+    const tempSchedule = Store.schedules.get(teacher)
+    if (tempSchedule) {
+      setSchedule(tempSchedule)
       setIsLoaded(true)
       return
     }
