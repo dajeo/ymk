@@ -64,7 +64,7 @@ function GroupsPage () {
                       disableInteractive
                       title={nameGroup}
                     >
-                      <Card>
+                      <Card variant={'outlined'}>
                         <CardActionArea
                           component={Link}
                           onContextMenu={(e) => {
@@ -74,7 +74,7 @@ function GroupsPage () {
                           }}
                           to={`/students/ОТП/${numGroup}`}
                         >
-                          <CardContent sx={{ padding: '8px' }}>
+                          <CardContent sx={{ padding: '6px' }}>
                             <Typography noWrap variant={'h6'}>
                               {numGroup}
                             </Typography>

@@ -52,7 +52,7 @@ function TeachersPage () {
 
               return (
                 <Grid item xs={3} sm={4} md={3} lg={2} xl={1}>
-                  <Card>
+                  <Card variant={'outlined'}>
                     <CardActionArea
                       component={Link}
                       onContextMenu={(e) => {
@@ -62,7 +62,7 @@ function TeachersPage () {
                       }}
                       to={`/teachers/${name}`}
                     >
-                      <CardContent sx={{ padding: '8px' }}>
+                      <CardContent sx={{ padding: '6px' }}>
                         <Typography noWrap variant={'h6'}>
                           {name}
                         </Typography>
