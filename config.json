@@ -1,3 +1,4 @@
 ﻿{
-  "apiUrl": "https://ymk-api.vercel.app"
+  "apiUrl": "https://ymk-api.vercel.app",
+  "version": "2.9"
 }

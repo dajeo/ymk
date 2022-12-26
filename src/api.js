@@ -15,6 +15,8 @@ const fetcher = url => fetch(url, { method: "POST" })
   .then(res => res.text())
   .then(data => createEl(data));
 
+const jsonFetcher = url => fetch(url).then(res => res.json());
+
 function useGroups(department) {
   const { data, error, isLoading } = useSWR(url(`students/${department}`), fetcher);
 
@@ -55,4 +57,12 @@ function useTeachersSchedule(teacher, week) {
   };
 }
 
-export { useGroups, useSchedule, useTeachers, useTeachersSchedule };
+function useVersion(version) {
+  const { data, error, isLoading } = useSWR(url(`/checkVersion/${version}`), jsonFetcher);
+
+  return {
+    data
+  };
+}
+
+export { useGroups, useSchedule, useTeachers, useTeachersSchedule, useVersion };

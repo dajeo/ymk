@@ -14,6 +14,14 @@ export function Schedule() {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
+    const shortcut = window.localStorage.quickShortcut;
+    if (shortcut) {
+      const json = JSON.parse(shortcut);
+      if (json.group === group) setIsInShortcut(true);
+    }
+  }, []);
+
+  useEffect(() => {
     if (isScrolled) return;
     const el = document.getElementById("scrollHere");
     if (!el) return;

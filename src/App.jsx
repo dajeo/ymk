@@ -1,25 +1,46 @@
 import React, { useMemo, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import {
+  Button,
   createTheme,
-  CssBaseline,
+  CssBaseline, Snackbar,
   ThemeProvider
 } from "@mui/material";
 import * as Pages from "./pages";
 import { Navigation, NewDomainDialog } from "./components";
+import { useVersion } from "./api";
+import { version } from "../config.json";
 
 function App() {
+  const { data } = useVersion(version);
+  console.log(data);
   const colorScheme = window.matchMedia("(prefers-color-scheme: dark)");
   const [mode, setMode] = useState(colorScheme.matches ? "dark" : "light");
+  const [snackOpen, setSnackOpen] = useState(false);
   const theme = useMemo(() => createTheme({ palette: { mode } }), [mode]);
 
   colorScheme.addEventListener("change", event => setMode(event.matches ? "dark" : "light"));
+
+  function handleClose() {
+    setSnackOpen(false);
+    location.reload();
+  }
+
+  const action = <Button color={"inherit"} size={"small"} onClick={handleClose}>Перезагрузить</Button>;
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <BrowserRouter>
         <NewDomainDialog />
+
+        <Snackbar
+          sx={{ mb: "56px" }}
+          open={snackOpen}
+          autoHideDuration={6000}
+          message={"Вы сейчас просматриваете устаревшую версию"}
+          action={action}
+        />
 
         <Routes>
           <Route path={"/"} element={<Pages.Home />} />
