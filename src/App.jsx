@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import {
   Button,
@@ -12,14 +12,18 @@ import { useVersion } from "./api";
 import { version } from "../config.json";
 
 function App() {
-  const { data } = useVersion(version);
-  console.log(data);
+  const { data, isLoading } = useVersion(version);
   const colorScheme = window.matchMedia("(prefers-color-scheme: dark)");
   const [mode, setMode] = useState(colorScheme.matches ? "dark" : "light");
   const [snackOpen, setSnackOpen] = useState(false);
   const theme = useMemo(() => createTheme({ palette: { mode } }), [mode]);
 
   colorScheme.addEventListener("change", event => setMode(event.matches ? "dark" : "light"));
+
+  useEffect(() => {
+    if (isLoading) return;
+    setSnackOpen(!data.latest);
+  }, [data]);
 
   function handleClose() {
     setSnackOpen(false);
