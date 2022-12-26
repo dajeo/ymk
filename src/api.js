@@ -1,37 +1,58 @@
-import config from '../config.json'
+import config from "../config.json";
+import useSWR from "swr";
 
-function createEl (html) {
-  const buffer = document.createElement('div')
-  buffer.innerHTML = html
-  return buffer
+function createEl(html) {
+  const buffer = document.createElement("div");
+  buffer.innerHTML = html;
+  return buffer;
 }
 
-function fetchTeachers () {
-  return fetch(`${config.apiUrl}/teachers`,
-    { method: 'post' })
-    .then((res) => res.text())
-    .then((data) => createEl(data))
+function url(key) {
+  return `${config.apiUrl}/${key}`;
 }
 
-function fetchTeacherSchedule (teacher, week) {
-  return fetch(`${config.apiUrl}/teachers/${teacher}/${week}`,
-    { method: 'post' })
-    .then((res) => res.text())
-    .then((data) => createEl(data))
+const fetcher = url => fetch(url, { method: "POST" })
+  .then(res => res.text())
+  .then(data => createEl(data));
+
+function useGroups(department) {
+  const { data, error, isLoading } = useSWR(url(`students/${department}`), fetcher);
+
+  return {
+    groups: data,
+    isError: error,
+    isLoading
+  };
 }
 
-function fetchGroups (department) {
-  return fetch(`${config.apiUrl}/students/${department}`,
-    { method: 'post' })
-    .then((res) => res.text())
-    .then((data) => createEl(data))
+function useSchedule(department, group, week) {
+  const { data, error, isLoading } = useSWR(url(`students/${department}/${group}/${week}`), fetcher);
+
+  return {
+    schedule: data,
+    isError: error,
+    isLoading
+  };
 }
 
-function fetchSchedule (department, group, week) {
-  return fetch(`${config.apiUrl}/students/${department}/${group}/${week}`,
-    { method: 'post' })
-    .then((res) => res.text())
-    .then((data) => createEl(data))
+function useTeachers() {
+  const { data, error, isLoading } = useSWR(url("teachers"), fetcher);
+
+  return {
+    teachers: data,
+    isError: error,
+    isLoading
+  };
 }
 
-export { fetchTeachers, fetchTeacherSchedule, fetchGroups, fetchSchedule }
+function useTeachersSchedule(teacher, week) {
+  const { data, error, isLoading } = useSWR(url(`teachers/${teacher}/${week}`), fetcher);
+
+  return {
+    schedule: data,
+    isError: error,
+    isLoading
+  };
+}
+
+export { useGroups, useSchedule, useTeachers, useTeachersSchedule };

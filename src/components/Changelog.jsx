@@ -1,11 +1,11 @@
-import React from 'react'
-import { Card, CardContent, Typography } from '@mui/material'
-import PropTypes from 'prop-types'
+import React from "react";
+import { Card, CardContent, Typography } from "@mui/material";
+import PropTypes from "prop-types";
 
-function Changelog ({ v, date, children }) {
+export function Changelog({ v, date, children }) {
   return (
-    <Card variant="outlined" sx={{ maxWidth: 600, mb: '8px' }}>
-      <CardContent sx={{ '&:last-child': { pb: '16px' } }}>
+    <Card variant="outlined" sx={{ maxWidth: 600, mb: "4px" }}>
+      <CardContent sx={{ p: "10px", "&:last-child": { pb: "10px" } }}>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
           {date}
         </Typography>
@@ -17,13 +17,11 @@ function Changelog ({ v, date, children }) {
         </Typography>
       </CardContent>
     </Card>
-  )
+  );
 }
 
 Changelog.propTypes = {
   v: PropTypes.string,
   date: PropTypes.string,
   children: PropTypes.oneOfType([PropTypes.array, PropTypes.object])
-}
-
-export default Changelog
+};

@@ -1,8 +1,10 @@
-﻿import React from 'react'
-import { LinearProgress } from '@mui/material'
+﻿import React from "react";
+import { Backdrop, CircularProgress } from "@mui/material";
 
-function Progress () {
-  return <LinearProgress />
+export function Progress() {
+  return (
+    <Backdrop open={true} sx={{ zIndex: 999 }}>
+      <CircularProgress color={"inherit"} />
+    </Backdrop>
+  );
 }
-
-export default Progress

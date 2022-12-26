@@ -1,5 +1,5 @@
-﻿import React, { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+﻿import React from "react";
+import { Link, useParams } from "react-router-dom";
 import {
   Card,
   CardActionArea,
@@ -7,75 +7,54 @@ import {
   Grid,
   Tooltip,
   Typography
-} from '@mui/material'
-import Progress from '../components/Progress'
-import { observer } from 'mobx-react'
-import Store from '../stores/GroupsStore'
-import { fetchGroups } from '../api'
-import Title from '../components/Title'
-import Container from '../components/Container'
+} from "@mui/material";
+import { useGroups } from "../api";
+import { Progress, Title, Container, Error } from "../components";
 
-function GroupsPage () {
-  const { department } = useParams()
-  const [groups, setGroups] = useState({})
-  const [isLoaded, setIsLoaded] = useState(false)
+export function Groups() {
+  const { department } = useParams();
+  const { groups, isError, isLoading } = useGroups(department);
 
-  useEffect(() => {
-    const buffer = Store.groups.get(department)
-
-    if (buffer) {
-      setGroups(buffer)
-      setIsLoaded(true)
-      return
-    }
-
-    fetchGroups(department)
-      .then((data) => {
-        Store.addGroups(department, data)
-        setGroups(data)
-        setIsLoaded(true)
-      })
-  }, [department])
-
-  if (!isLoaded) return <Progress />
+  if (isError) return <Error />;
+  if (isLoading) return <Progress />;
 
   return (
     <Container>
-      {[...groups.getElementsByClassName('zag_kurs')].map((course, index) => (
+      {[...groups.getElementsByClassName("zag_kurs")].map((course, index) => (
         <div key={index}>
-          <Title title={course.innerText} />
+          <Title title={course.innerText}/>
           {[...groups.getElementsByClassName(`kurs_container_${index + 1}`)].map((course) => (
             <Grid
               key={index}
               container
-              spacing={'4px'}
+              spacing={"4px"}
               columns={{ xs: 12, sm: 12, md: 12, lg: 12, xl: 10 }}
             >
-              {[...course.getElementsByClassName('group_box')].map((group) => {
-                const numGroup = group.getElementsByClassName('num_group')[0].innerText
-                const nameGroup = group.getElementsByClassName('name_group')[0].innerHTML.toString().replace('<br>', ' ')
+              {[...course.getElementsByClassName("group_box")].map((group) => {
+                const numGroup = group.getElementsByClassName("num_group")[0].innerText;
+                const nameGroup = group.getElementsByClassName("name_group")[0].innerHTML.toString().replace("<br>", " ");
 
                 return (
                   <Grid
-                    key={group.getAttribute('value') + nameGroup}
+                    key={group.getAttribute("value") + nameGroup}
                     item xs={4} sm={3} md={2} lg={2} xl={1}
                   >
                     <Tooltip
                       disableInteractive
                       title={nameGroup}
                     >
-                      <Card variant={'outlined'}>
+                      <Card variant={"outlined"}>
                         <CardActionArea
                           component={Link}
                           onContextMenu={(e) => {
-                            e.preventDefault()
-                            e.stopPropagation()
-                            return false
+                            e.preventDefault();
+                            e.stopPropagation();
+                            return false;
                           }}
                           to={`/students/ОТП/${numGroup}`}
                         >
-                          <CardContent sx={{ padding: '6px' }}>
-                            <Typography noWrap variant={'h6'}>
+                          <CardContent sx={{ padding: "6px" }}>
+                            <Typography noWrap variant={"h6"}>
                               {numGroup}
                             </Typography>
                           </CardContent>
@@ -83,14 +62,12 @@ function GroupsPage () {
                       </Card>
                     </Tooltip>
                   </Grid>
-                )
+                );
               })}
             </Grid>
           ))}
         </div>
       ))}
     </Container>
-  )
+  );
 }
-
-export default observer(GroupsPage)
