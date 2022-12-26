@@ -19,7 +19,7 @@ export function Home() {
       <Container>
         <Changelog v={"2.10"} date={"26 december 2022"}>
           <Item>Добавлено уведомление о выходе новой версии</Item>
-          <Item>Исправлено состояние сердечка на странице расписание</Item>
+          <Item>Исправлено состояние сердечка на странице расписания</Item>
         </Changelog>
 
         <Changelog v={"2.9"} date={"26 december 2022"}>
