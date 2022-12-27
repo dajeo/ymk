@@ -59,7 +59,7 @@ function useTeachersSchedule(teacher: string | string[] | undefined, week: numbe
 }
 
 function useVersion(version: string) {
-  const { data, error, isLoading } = useSWR(`/checkVersion/${version}`, jsonFetcher);
+  const { data, error, isLoading } = useSWR(`/api/checkVersion/${version}`, jsonFetcher);
 
   return {
     data,
