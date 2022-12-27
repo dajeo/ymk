@@ -16,6 +16,7 @@
 /dev-dist
 /dist
 /build
+.next
 
 # misc
 .DS_Store

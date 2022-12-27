@@ -1,15 +1,16 @@
-﻿import { Grid, Box, IconButton } from "@mui/material";
+import { Grid, Box, IconButton } from "@mui/material";
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import { LoadingButton } from "@mui/lab";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { useSchedule } from "../api";
-import { Progress, ScheduleDay, Title, Container, Error } from "../components";
+import { useSchedule } from "../../../utils/api";
+import { Progress, ScheduleDay, Title, Container, Error } from "../../../components";
+import { useRouter } from "next/router";
 
-export function Schedule() {
-  const { department, group } = useParams();
+export default function Schedule() {
+  const router = useRouter();
+  const { department, group } = router.query;
   const [week, setWeek] = useState(0);
-  const { schedule, isError, isLoading } = useSchedule(department, group, week);
+  const { schedule, isError, isLoading } = useSchedule(department!.toString(), group!.toString(), week);
   const [isInShortcut, setIsInShortcut] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -19,7 +20,7 @@ export function Schedule() {
       const json = JSON.parse(shortcut);
       if (json.group === group) setIsInShortcut(true);
     }
-  }, []);
+  }, [group]);
 
   useEffect(() => {
     if (isScrolled) return;
@@ -27,7 +28,7 @@ export function Schedule() {
     if (!el) return;
     el.scrollIntoView({ behavior: "smooth", block: "center" });
     setIsScrolled(true);
-  });
+  }, [isScrolled]);
 
   function previousWeek() {
     setWeek(week - 1);
@@ -53,8 +54,8 @@ export function Schedule() {
 
   return (
     <Container>
-      <Title title={group} />
-      {schedule.getElementsByClassName("uchen")[0]
+      <Title title={group!.toString()} />
+      {schedule!.getElementsByClassName("uchen")[0]
         ? null
         : <Box
           display={"flex"}
@@ -67,8 +68,8 @@ export function Schedule() {
       }
       <Grid container columnSpacing={"4px"} columns={{ xs: 4, md: 10 }}>
         <Grid item xs={4} md={5}>
-          {[...schedule.getElementsByClassName("uchen")].map((table, tableIndex) => {
-            const date = table.getElementsByClassName("back_date")[0].innerText;
+          {[...schedule!.getElementsByClassName("uchen")].map((table, tableIndex) => {
+            const date = table.getElementsByClassName("back_date")[0].innerHTML;
 
             if (!date.startsWith("Понедельник") && !date.startsWith("Вторник") && !date.startsWith("Среда")) {
               return null;
@@ -78,8 +79,8 @@ export function Schedule() {
           })}
         </Grid>
         <Grid item xs={4} md={5}>
-          {[...schedule.getElementsByClassName("uchen")].map((table, tableIndex) => {
-            const date = table.getElementsByClassName("back_date")[0].innerText;
+          {[...schedule!.getElementsByClassName("uchen")].map((table, tableIndex) => {
+            const date = table.getElementsByClassName("back_date")[0].innerHTML;
 
             if (!date.startsWith("Четверг") && !date.startsWith("Пятница") && !date.startsWith("Суббота")) {
               return null;
@@ -91,11 +92,11 @@ export function Schedule() {
       </Grid>
       <Grid container spacing={1}>
         <Grid item xs={5}>
-          {schedule.getElementsByClassName("previous_week")[0]
+          {schedule!.getElementsByClassName("previous_week")[0]
             ? <LoadingButton
-            fullWidth
-            onClick={previousWeek}
-          >Предыдущая</LoadingButton>
+              fullWidth
+              onClick={previousWeek}
+            >Предыдущая</LoadingButton>
             : ""}
         </Grid>
         <Grid item textAlign={"center"} xs={2}>
@@ -104,11 +105,11 @@ export function Schedule() {
           </IconButton>
         </Grid>
         <Grid item xs={5}>
-          {schedule.getElementsByClassName("next_week")[0]
+          {schedule!.getElementsByClassName("next_week")[0]
             ? <LoadingButton
-            fullWidth
-            onClick={nextWeek}
-          >Следующая</LoadingButton>
+              fullWidth
+              onClick={nextWeek}
+            >Следующая</LoadingButton>
             : ""}
         </Grid>
       </Grid>

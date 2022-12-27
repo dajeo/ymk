@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 import {
   Card,
   CardActionArea,
@@ -6,11 +6,11 @@ import {
   Grid,
   Typography
 } from "@mui/material";
-import { useTeachers } from "../api";
-import { Link } from "react-router-dom";
-import { Progress, Title, Container, Error } from "../components";
+import { useTeachers } from "../../utils/api";
+import { Progress, Title, Container, Error } from "../../components";
+import Link from "next/link";
 
-export function Teachers() {
+export default function Teachers() {
   const { teachers, isError, isLoading } = useTeachers();
 
   if (isError) return <Error />;
@@ -24,10 +24,10 @@ export function Teachers() {
         spacing={"4px"}
         columns={{ xs: 6, sm: 12, md: 12, lg: 12, xl: 8 }}
       >
-        {[...teachers.getElementsByClassName("box_prepod")].map((teacher) => (
-          <React.Fragment key={teacher.innerText}>
+        {[...teachers!.getElementsByClassName("box_prepod")].map((teacher) => (
+          <React.Fragment key={teacher.innerHTML}>
             {(() => {
-              const name = teacher.innerText;
+              const name = teacher.innerHTML;
 
               return (
                 <Grid item xs={3} sm={4} md={3} lg={2} xl={1}>
@@ -39,7 +39,7 @@ export function Teachers() {
                         e.stopPropagation();
                         return false;
                       }}
-                      to={`/teachers/${name}`}
+                      href={`/teachers/${name}`}
                     >
                       <CardContent sx={{ padding: "6px" }}>
                         <Typography noWrap variant={"h6"}>

@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import {
   IconButton,
   Paper,
@@ -12,10 +13,13 @@ import {
   Typography
 } from "@mui/material";
 import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
-import React from "react";
-import PropTypes from "prop-types";
 
-export function TeacherScheduleDay({ table, date }) {
+interface Props {
+  table: Element
+  date: string
+}
+
+export function TeacherScheduleDay({ table, date }: Props) {
   const isToday = table.getElementsByTagName("table")[0].style.color;
 
   return (
@@ -46,7 +50,7 @@ export function TeacherScheduleDay({ table, date }) {
           </TableHead>
           <TableBody>
             {[2, 3, 4, 5, 6].map((tableRow) => (
-              <React.Fragment key={tableRow}>
+              <Fragment key={tableRow}>
                 {[table.getElementsByTagName("tr")[tableRow]].map((lesson) => {
                   if (lesson === undefined) return null;
 
@@ -66,7 +70,7 @@ export function TeacherScheduleDay({ table, date }) {
                           if (!link) return item.innerHTML.replace("<br>", "\n");
                           else {
                             // If anything add replace here
-                            return <a href={link.getAttribute("data-href")}>
+                            return <a href={link.getAttribute("data-href")!}>
                               {link.getElementsByTagName("u")[0].innerHTML}
                             </a>;
                           }
@@ -98,7 +102,7 @@ export function TeacherScheduleDay({ table, date }) {
                     </TableRow>
                   );
                 })}
-              </React.Fragment>
+              </Fragment>
             ))}
           </TableBody>
         </Table>
@@ -106,8 +110,3 @@ export function TeacherScheduleDay({ table, date }) {
     </Paper>
   );
 }
-
-TeacherScheduleDay.propTypes = {
-  table: PropTypes.object,
-  date: PropTypes.string
-};

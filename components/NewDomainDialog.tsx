@@ -1,9 +1,13 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 
 export function NewDomainDialog() {
-  const newDomainDialog = window.localStorage.newDomainDialog;
-  const [open, setOpen] = React.useState(!newDomainDialog || newDomainDialog !== "false");
+  const [open, setOpen] = React.useState(false);
+
+  useEffect(() => {
+    const newDomainDialog = window.localStorage.newDomainDialog;
+    setOpen(!newDomainDialog || newDomainDialog !== "false");
+  }, []);
 
   const handleClose = () => {
     window.localStorage.newDomainDialog = false;

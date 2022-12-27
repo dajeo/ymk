@@ -1,23 +1,23 @@
 import config from "../config.json";
 import useSWR from "swr";
 
-function createEl(html) {
+function createEl(html: string) {
   const buffer = document.createElement("div");
   buffer.innerHTML = html;
   return buffer;
 }
 
-function url(key) {
+function url(key: string) {
   return `${config.apiUrl}/${key}`;
 }
 
-const fetcher = url => fetch(url, { method: "POST" })
+const fetcher = (url: string) => fetch(url, { method: "POST" })
   .then(res => res.text())
   .then(data => createEl(data));
 
-const jsonFetcher = url => fetch(url).then(res => res.json());
+const jsonFetcher = (url: string) => fetch(url).then(res => res.json());
 
-function useGroups(department) {
+function useGroups(department: string) {
   const { data, error, isLoading } = useSWR(url(`students/${department}`), fetcher);
 
   return {
@@ -27,7 +27,7 @@ function useGroups(department) {
   };
 }
 
-function useSchedule(department, group, week) {
+function useSchedule(department: string, group: string, week: number) {
   const { data, error, isLoading } = useSWR(url(`students/${department}/${group}/${week}`), fetcher);
 
   return {
@@ -47,7 +47,7 @@ function useTeachers() {
   };
 }
 
-function useTeachersSchedule(teacher, week) {
+function useTeachersSchedule(teacher: string, week: number) {
   const { data, error, isLoading } = useSWR(url(`teachers/${teacher}/${week}`), fetcher);
 
   return {
@@ -57,7 +57,7 @@ function useTeachersSchedule(teacher, week) {
   };
 }
 
-function useVersion(version) {
+function useVersion(version: string) {
   const { data, error, isLoading } = useSWR(url(`checkVersion/${version}`), jsonFetcher);
 
   return {

@@ -15,7 +15,12 @@ import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
 import React from "react";
 import PropTypes from "prop-types";
 
-export function ScheduleDay({ table, date }) {
+interface Props {
+  table: Element
+  date: string
+}
+
+export function ScheduleDay({ table, date }: Props) {
   const isToday = table.getElementsByTagName("table")[0].style.color;
 
   return (
@@ -63,7 +68,7 @@ export function ScheduleDay({ table, date }) {
                         if (!link) return item.innerHTML.replace("<br>", "\n");
                         else {
                           // If anything add replace here
-                          return <a href={link.getAttribute("data-href")}>
+                          return <a href={link.getAttribute("data-href")!}>
                             {link.getElementsByTagName("u")[0].innerHTML}
                           </a>;
                         }

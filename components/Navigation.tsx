@@ -8,10 +8,15 @@ import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import ReorderRoundedIcon from "@mui/icons-material/ReorderRounded";
 import PeopleRoundedIcon from "@mui/icons-material/PeopleRounded";
 import DashboardRoundedIcon from "@mui/icons-material/DashboardRounded";
-import { Link } from "react-router-dom";
+import Link from "next/link";
+
+interface Shortcut {
+  department: string
+  group: string
+}
 
 export function Navigation() {
-  const [shortcut, setShortcut] = useState(null);
+  const [shortcut, setShortcut] = useState<Shortcut | null>(null);
 
   const updateLocalStorage = () => {
     const localShortcut = window.localStorage.quickShortcut;
@@ -21,26 +26,26 @@ export function Navigation() {
   };
 
   useEffect(() => {
+    window.addEventListener("storage", () => {
+      updateLocalStorage();
+    });
+
     updateLocalStorage();
   }, []);
-
-  window.addEventListener("storage", () => {
-    updateLocalStorage();
-  });
 
   return (
     <Paper sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}>
       <BottomNavigation showLabels>
-        <BottomNavigationAction label="Главная" icon={<HomeRoundedIcon />} component={Link} to={"/"} />
-        <BottomNavigationAction label="ОТП" icon={<ReorderRoundedIcon />} component={Link} to={"students/otp"} />
-        <BottomNavigationAction label="Преподаватели" icon={<PeopleRoundedIcon />} component={Link} to={"teachers"} />
+        <BottomNavigationAction label="Главная" icon={<HomeRoundedIcon />} component={Link} href={"/"} />
+        <BottomNavigationAction label="ОТП" icon={<ReorderRoundedIcon />} component={Link} href={"/students/otp"} />
+        <BottomNavigationAction label="Преподаватели" icon={<PeopleRoundedIcon />} component={Link} href={"/teachers"} />
         {!shortcut
           ? null
           : <BottomNavigationAction
               label={shortcut.group}
               icon={<DashboardRoundedIcon />}
               component={Link}
-              to={`students/${shortcut.department}/${shortcut.group}`}
+              href={`/students/${shortcut.department}/${shortcut.group}`}
           />
         }
       </BottomNavigation>

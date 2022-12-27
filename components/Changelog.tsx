@@ -1,8 +1,13 @@
 import React from "react";
 import { Card, CardContent, Typography } from "@mui/material";
-import PropTypes from "prop-types";
 
-export function Changelog({ v, date, children }) {
+interface Props {
+  v: string
+  date: string
+  children: React.ReactNode
+}
+
+export function Changelog({ v, date, children }: Props) {
   return (
     <Card variant="outlined" sx={{ maxWidth: 600, mb: "4px" }}>
       <CardContent sx={{ p: "10px", "&:last-child": { pb: "10px" } }}>
@@ -19,9 +24,3 @@ export function Changelog({ v, date, children }) {
     </Card>
   );
 }
-
-Changelog.propTypes = {
-  v: PropTypes.string,
-  date: PropTypes.string,
-  children: PropTypes.oneOfType([PropTypes.array, PropTypes.object])
-};

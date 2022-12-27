@@ -1,8 +1,8 @@
-﻿import React from "react";
+import React from "react";
 import { Box, Typography } from "@mui/material";
 import { Changelog, Item, Container } from "../components";
 
-export function Home() {
+export default function Home() {
   return (
     <Box
       display={"flex"}

@@ -1,5 +1,4 @@
-﻿import React from "react";
-import { Link, useParams } from "react-router-dom";
+import React from "react";
 import {
   Card,
   CardActionArea,
@@ -8,22 +7,25 @@ import {
   Tooltip,
   Typography
 } from "@mui/material";
-import { useGroups } from "../api";
-import { Progress, Title, Container, Error } from "../components";
+import { useGroups } from "../../utils/api";
+import { Progress, Title, Container, Error } from "../../components";
+import { useRouter } from "next/router";
+import Link from "next/link";
 
-export function Groups() {
-  const { department } = useParams();
-  const { groups, isError, isLoading } = useGroups(department);
+export default function Groups() {
+  const router = useRouter();
+  const { department } = router.query;
+  const { groups, isError, isLoading } = useGroups(department!.toString());
 
   if (isError) return <Error />;
   if (isLoading) return <Progress />;
 
   return (
     <Container>
-      {[...groups.getElementsByClassName("zag_kurs")].map((course, index) => (
+      {[...groups!.getElementsByClassName("zag_kurs")].map((course, index) => (
         <div key={index}>
-          <Title title={course.innerText}/>
-          {[...groups.getElementsByClassName(`kurs_container_${index + 1}`)].map((course) => (
+          <Title title={course.innerHTML}/>
+          {[...groups!.getElementsByClassName(`kurs_container_${index + 1}`)].map((course) => (
             <Grid
               key={index}
               container
@@ -31,7 +33,7 @@ export function Groups() {
               columns={{ xs: 12, sm: 12, md: 12, lg: 12, xl: 10 }}
             >
               {[...course.getElementsByClassName("group_box")].map((group) => {
-                const numGroup = group.getElementsByClassName("num_group")[0].innerText;
+                const numGroup = group.getElementsByClassName("num_group")[0].innerHTML;
                 const nameGroup = group.getElementsByClassName("name_group")[0].innerHTML.toString().replace("<br>", " ");
 
                 return (
@@ -51,7 +53,7 @@ export function Groups() {
                             e.stopPropagation();
                             return false;
                           }}
-                          to={`/students/ОТП/${numGroup}`}
+                          href={`/students/ОТП/${numGroup}`}
                         >
                           <CardContent sx={{ padding: "6px" }}>
                             <Typography noWrap variant={"h6"}>

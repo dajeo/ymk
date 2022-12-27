@@ -1,8 +1,11 @@
 import React from "react";
 import { Box, Container as MuiContainer } from "@mui/material";
-import PropTypes from "prop-types";
 
-export function Container({ children }) {
+interface Props {
+  children: React.ReactNode
+}
+
+export function Container({ children }: Props) {
   return (
     <Box>
       <MuiContainer
@@ -15,7 +18,3 @@ export function Container({ children }) {
     </Box>
   );
 }
-
-Container.propTypes = {
-  children: PropTypes.array
-};
