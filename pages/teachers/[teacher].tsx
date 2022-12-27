@@ -10,7 +10,7 @@ export default function TeacherSchedule() {
   const { teacher } = router.query;
   const [week, setWeek] = useState(0);
   const [isScrolled, setIsScrolled] = useState(false);
-  const { schedule, isError, isLoading } = useTeachersSchedule(teacher!.toString(), week);
+  const { schedule, isError, isLoading } = useTeachersSchedule(teacher, week);
 
   useEffect(() => {
     if (isScrolled) return;

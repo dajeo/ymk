@@ -15,7 +15,7 @@ import Link from "next/link";
 export default function Groups() {
   const router = useRouter();
   const { department } = router.query;
-  const { groups, isError, isLoading } = useGroups(department!.toString());
+  const { groups, isError, isLoading } = useGroups(department);
 
   if (isError) return <Error />;
   if (isLoading) return <Progress />;

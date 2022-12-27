@@ -10,7 +10,7 @@ export default function Schedule() {
   const router = useRouter();
   const { department, group } = router.query;
   const [week, setWeek] = useState(0);
-  const { schedule, isError, isLoading } = useSchedule(department!.toString(), group!.toString(), week);
+  const { schedule, isError, isLoading } = useSchedule(department, group, week);
   const [isInShortcut, setIsInShortcut] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -69,7 +69,7 @@ export default function Schedule() {
       <Grid container columnSpacing={"4px"} columns={{ xs: 4, md: 10 }}>
         <Grid item xs={4} md={5}>
           {[...schedule!.getElementsByClassName("uchen")].map((table, tableIndex) => {
-            const date = table.getElementsByClassName("back_date")[0].innerHTML;
+            const date = (table.getElementsByClassName("back_date")[0] as HTMLElement).innerText;
 
             if (!date.startsWith("Понедельник") && !date.startsWith("Вторник") && !date.startsWith("Среда")) {
               return null;
@@ -80,7 +80,7 @@ export default function Schedule() {
         </Grid>
         <Grid item xs={4} md={5}>
           {[...schedule!.getElementsByClassName("uchen")].map((table, tableIndex) => {
-            const date = table.getElementsByClassName("back_date")[0].innerHTML;
+            const date = (table.getElementsByClassName("back_date")[0] as HTMLElement).innerText;
 
             if (!date.startsWith("Четверг") && !date.startsWith("Пятница") && !date.startsWith("Суббота")) {
               return null;

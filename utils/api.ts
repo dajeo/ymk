@@ -17,7 +17,7 @@ const fetcher = (url: string) => fetch(url, { method: "POST" })
 
 const jsonFetcher = (url: string) => fetch(url).then(res => res.json());
 
-function useGroups(department: string) {
+function useGroups(department: string | string[] | undefined) {
   const { data, error, isLoading } = useSWR(url(`students/${department}`), fetcher);
 
   return {
@@ -27,7 +27,7 @@ function useGroups(department: string) {
   };
 }
 
-function useSchedule(department: string, group: string, week: number) {
+function useSchedule(department: string | string[] | undefined, group: string | string[] | undefined, week: number) {
   const { data, error, isLoading } = useSWR(url(`students/${department}/${group}/${week}`), fetcher);
 
   return {
@@ -47,7 +47,7 @@ function useTeachers() {
   };
 }
 
-function useTeachersSchedule(teacher: string, week: number) {
+function useTeachersSchedule(teacher: string | string[] | undefined, week: number) {
   const { data, error, isLoading } = useSWR(url(`teachers/${teacher}/${week}`), fetcher);
 
   return {
