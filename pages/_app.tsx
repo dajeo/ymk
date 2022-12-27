@@ -10,6 +10,7 @@ import {
 import { Navigation, NewDomainDialog } from "../components";
 import { useVersion } from "../utils/api";
 import Head from "next/head";
+import { Analytics } from "@vercel/analytics/react";
 
 const version = "2.10";
 
@@ -56,6 +57,7 @@ export default function App({ Component, pageProps }: AppProps) {
         />
 
         <Component {...pageProps} />
+        <Analytics />
 
         <Navigation />
       </ThemeProvider>
