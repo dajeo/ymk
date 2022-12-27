@@ -1,5 +1,6 @@
-import config from "../config.json";
 import useSWR from "swr";
+
+const apiUrl = "https://ymk-api.vercel.app";
 
 function createEl(html: string) {
   const buffer = document.createElement("div");
@@ -8,7 +9,7 @@ function createEl(html: string) {
 }
 
 function url(key: string) {
-  return `${config.apiUrl}/${key}`;
+  return `${apiUrl}/${key}`;
 }
 
 const fetcher = (url: string) => fetch(url, { method: "POST" })
@@ -58,7 +59,7 @@ function useTeachersSchedule(teacher: string | string[] | undefined, week: numbe
 }
 
 function useVersion(version: string) {
-  const { data, error, isLoading } = useSWR(url(`checkVersion/${version}`), jsonFetcher);
+  const { data, error, isLoading } = useSWR(`/checkVersion/${version}`, jsonFetcher);
 
   return {
     data,
