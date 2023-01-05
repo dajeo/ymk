@@ -34,6 +34,8 @@ export default function App({ Component, pageProps }: AppProps) {
       maxSize: 8,
       stop: true
     });
+    tempSf.start();
+    tempSf.hide();
     setSf(tempSf);
 
     const colorScheme = window.matchMedia("(prefers-color-scheme: dark)");
@@ -48,8 +50,8 @@ export default function App({ Component, pageProps }: AppProps) {
 
   useEffect(() => {
     if (!sf || sfIsLoading || sfError) return;
-    if (sfData.isNewYear) sf.start();
-    else sf.stop();
+    if (sfData.isNewYear) sf.show();
+    else sf.hide();
   }, [sf, sfData, sfError, sfIsLoading]);
 
   function handleClose() {
