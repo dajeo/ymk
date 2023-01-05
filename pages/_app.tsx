@@ -31,10 +31,8 @@ export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
     const tempSf = new Snowflakes({
       minSize: 1,
-      maxSize: 8,
-      stop: true
+      maxSize: 8
     });
-    tempSf.start();
     tempSf.hide();
     setSf(tempSf);
 
