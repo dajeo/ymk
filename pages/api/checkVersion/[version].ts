@@ -7,8 +7,11 @@ type Data = {
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
   const { version } = req.query;
-  const latestVersion = await get("latestVersion");
-  let isLatest = version === latestVersion;
-
-  res.status(200).json({ latest: isLatest });
+  try {
+    const latestVersion = await get("latestVersion");
+    const isLatest = version === latestVersion;
+    res.status(200).json({ latest: isLatest });
+  } catch (e) {
+   res.status(200).json({ latest: true });
+  }
 }

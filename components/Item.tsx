@@ -6,7 +6,7 @@ interface Props {
 
 export function Item({ children }: Props) {
   return (
-    <span style={{ display: "list-item", listStylePosition: "inside" }}>
+    <span className={"item"} style={{ display: "list-item", listStylePosition: "inside" }}>
         {children}
     </span>
   );

@@ -12,19 +12,30 @@ import {
   ThemeProvider
 } from "@mui/material";
 import { Navigation, NewDomainDialog } from "../components";
-import { useVersion } from "../utils/api";
+import { useSnowflakes, useVersion } from "../utils/api";
 import Head from "next/head";
 import { Analytics } from "@vercel/analytics/react";
+import Snowflakes from "magic-snowflakes";
 
-const version = "2.10";
+const version = "3.0";
 
 export default function App({ Component, pageProps }: AppProps) {
   const { data, error, isLoading } = useVersion(version);
+  // @ts-ignore
+  const { sfData, sfError, sfIsLoading } = useSnowflakes();
+  const [sf, setSf] = useState<Snowflakes | null>(null);
   const [mode, setMode] = useState("dark");
   const [snackOpen, setSnackOpen] = useState(false);
   const theme = useMemo(() => createTheme({ palette: { mode: mode === "light" ? "light" : "dark" } }), [mode]);
 
   useEffect(() => {
+    const tempSf = new Snowflakes({
+      minSize: 1,
+      maxSize: 8,
+      stop: true
+    });
+    setSf(tempSf);
+
     const colorScheme = window.matchMedia("(prefers-color-scheme: dark)");
     colorScheme.addEventListener("change", event => setMode(event.matches ? "dark" : "light"));
     setMode(colorScheme.matches ? "dark" : "light");
@@ -34,6 +45,12 @@ export default function App({ Component, pageProps }: AppProps) {
     if (isLoading || error) return;
     setSnackOpen(!data.latest);
   }, [data, error, isLoading]);
+
+  useEffect(() => {
+    if (!sf || !sfData || sfIsLoading || sfError) return;
+    if (sfData.isNewYear) sf.start();
+    else sf.stop();
+  }, [sf, sfData, sfError, sfIsLoading]);
 
   function handleClose() {
     setSnackOpen(false);

@@ -1,15 +1,9 @@
 import useSWR from "swr";
 
-const apiUrl = "https://ymk-api.vercel.app";
-
 function createEl(html: string) {
   const buffer = document.createElement("div");
   buffer.innerHTML = html;
   return buffer;
-}
-
-function url(key: string) {
-  return `${apiUrl}/${key}`;
 }
 
 const fetcher = (url: string) => fetch(url, { method: "POST" })
@@ -19,53 +13,40 @@ const fetcher = (url: string) => fetch(url, { method: "POST" })
 const jsonFetcher = (url: string) => fetch(url).then(res => res.json());
 
 function useGroups(department: string | string[] | undefined) {
-  const { data, error, isLoading } = useSWR(url(`students/${department}`), fetcher);
-
-  return {
-    groups: data,
-    isError: error,
-    isLoading
-  };
+  const { data, error, isLoading } = useSWR(`/api/students/${department}`, fetcher);
+  return { groups: data, isError: error, isLoading };
 }
 
 function useSchedule(department: string | string[] | undefined, group: string | string[] | undefined, week: number) {
-  const { data, error, isLoading } = useSWR(url(`students/${department}/${group}/${week}`), fetcher);
-
-  return {
-    schedule: data,
-    isError: error,
-    isLoading
-  };
+  const { data, error, isLoading } = useSWR(`/api/students/${department}/${group}/${week}`, fetcher);
+  return { schedule: data, isError: error, isLoading };
 }
 
 function useTeachers() {
-  const { data, error, isLoading } = useSWR(url("teachers"), fetcher);
-
-  return {
-    teachers: data,
-    isError: error,
-    isLoading
-  };
+  const { data, error, isLoading } = useSWR("/api/teachers", fetcher);
+  return {teachers: data, isError: error, isLoading };
 }
 
 function useTeachersSchedule(teacher: string | string[] | undefined, week: number) {
-  const { data, error, isLoading } = useSWR(url(`teachers/${teacher}/${week}`), fetcher);
-
-  return {
-    schedule: data,
-    isError: error,
-    isLoading
-  };
+  const { data, error, isLoading } = useSWR(`/api/teachers/${teacher}/${week}`, fetcher);
+  return { schedule: data, isError: error, isLoading };
 }
 
 function useVersion(version: string) {
   const { data, error, isLoading } = useSWR(`/api/checkVersion/${version}`, jsonFetcher);
-
-  return {
-    data,
-    error,
-    isLoading
-  };
+  return { data, error, isLoading };
 }
 
-export { useGroups, useSchedule, useTeachers, useTeachersSchedule, useVersion };
+function useSnowflakes(): { data: { isNewYear: boolean }, error: any, isLoading: boolean } {
+  const { data, error, isLoading } = useSWR("/api/snowflakes", jsonFetcher);
+  return { data, error, isLoading };
+}
+
+export {
+  useGroups,
+  useSchedule,
+  useTeachers,
+  useTeachersSchedule,
+  useVersion,
+  useSnowflakes
+};
