@@ -37,9 +37,9 @@ function useVersion(version: string) {
   return { data, error, isLoading };
 }
 
-function useSnowflakes(): { data: { isNewYear: boolean }, error: any, isLoading: boolean } {
+function useSnowflakes(): { sfData: { isNewYear: boolean }, sfError: any, sfIsLoading: boolean } {
   const { data, error, isLoading } = useSWR("/api/snowflakes", jsonFetcher);
-  return { data, error, isLoading };
+  return { sfData: data, sfError: error, sfIsLoading: isLoading };
 }
 
 export {

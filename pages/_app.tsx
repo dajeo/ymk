@@ -47,7 +47,7 @@ export default function App({ Component, pageProps }: AppProps) {
   }, [data, error, isLoading]);
 
   useEffect(() => {
-    if (!sf || !sfData || sfIsLoading || sfError) return;
+    if (!sf || sfIsLoading || sfError) return;
     if (sfData.isNewYear) sf.start();
     else sf.stop();
   }, [sf, sfData, sfError, sfIsLoading]);
@@ -57,7 +57,7 @@ export default function App({ Component, pageProps }: AppProps) {
     location.reload();
   }
 
-  const action = <Button color={"inherit"} size={"small"} onClick={handleClose}>Перезагрузить</Button>;
+  const action = <Button color="inherit" size="small" onClick={handleClose}>Перезагрузить</Button>;
 
   return (
     <div>
