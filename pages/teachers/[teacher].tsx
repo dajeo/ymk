@@ -34,7 +34,7 @@ export default function TeacherSchedule() {
   return (
     <Container>
       <Title title={teacher!.toString()} />
-      <Grid container columnSpacing={"4px"} columns={{ xs: 4, md: 10 }}>
+      <Grid container columnSpacing="4px" columns={{ xs: 4, md: 10 }}>
         <Grid item xs={4} md={5}>
           {[...schedule!.getElementsByClassName("container_table")].map((table, tableIndex) => {
             const date = table.getElementsByClassName("back_date")[0].innerHTML;

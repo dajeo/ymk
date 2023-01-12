@@ -54,19 +54,22 @@ export default function Schedule() {
 
   return (
     <Container>
-      <Title title={group!.toString()} />
+      <Box
+        display="flex"
+        justifyContent="space-between"
+      >
+        <Title title={group!.toString()} />
+        <IconButton onClick={addGroup}>
+          <FavoriteRoundedIcon sx={isInShortcut ? { color: "red" } : {}} />
+        </IconButton>
+      </Box>
       {schedule!.getElementsByClassName("uchen")[0]
         ? null
-        : <Box
-          display={"flex"}
-          justifyContent={"center"}
-          alignItems={"center"}
-          height={"calc(100vh - 138px)"}
-        >
+        : <Box display="flex" justifyContent="center" alignItems="center" height="calc(100vh - 138px)">
           <h3>Хм, здесь почему-то пусто 🤔</h3>
         </Box>
       }
-      <Grid container columnSpacing={"4px"} columns={{ xs: 4, md: 10 }}>
+      <Grid container columnSpacing="4px" columns={{ xs: 4, md: 10 }}>
         <Grid item xs={4} md={5}>
           {[...schedule!.getElementsByClassName("uchen")].map((table, tableIndex) => {
             const date = (table.getElementsByClassName("back_date")[0] as HTMLElement).innerText;
@@ -91,7 +94,7 @@ export default function Schedule() {
         </Grid>
       </Grid>
       <Grid container spacing={1}>
-        <Grid item xs={5}>
+        <Grid item xs={6}>
           {schedule!.getElementsByClassName("previous_week")[0]
             ? <LoadingButton
               fullWidth
@@ -99,12 +102,7 @@ export default function Schedule() {
             >Предыдущая</LoadingButton>
             : ""}
         </Grid>
-        <Grid item textAlign={"center"} xs={2}>
-          <IconButton onClick={addGroup}>
-            <FavoriteRoundedIcon sx={isInShortcut ? { color: "red" } : {}} />
-          </IconButton>
-        </Grid>
-        <Grid item xs={5}>
+        <Grid item xs={6}>
           {schedule!.getElementsByClassName("next_week")[0]
             ? <LoadingButton
               fullWidth

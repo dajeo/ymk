@@ -7,7 +7,7 @@ interface Props {
 
 export function Title({ title }: Props) {
   return (
-    <Typography variant={"h4"}>
+    <Typography variant="h4">
       {title}
     </Typography>
   );

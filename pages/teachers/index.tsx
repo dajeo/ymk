@@ -18,10 +18,10 @@ export default function Teachers() {
 
   return (
     <Container>
-      <Title title={"Преподаватели"} />
+      <Title title="Преподаватели" />
       <Grid
         container
-        spacing={"4px"}
+        spacing="4px"
         columns={{ xs: 6, sm: 12, md: 12, lg: 12, xl: 8 }}
       >
         {[...teachers!.getElementsByClassName("box_prepod")].map((teacher) => (
@@ -31,7 +31,7 @@ export default function Teachers() {
 
               return (
                 <Grid item xs={3} sm={4} md={3} lg={2} xl={1}>
-                  <Card variant={"outlined"}>
+                  <Card variant="outlined">
                     <CardActionArea
                       component={Link}
                       onContextMenu={(e) => {
@@ -42,7 +42,7 @@ export default function Teachers() {
                       href={`/teachers/${name}`}
                     >
                       <CardContent sx={{ padding: "6px" }}>
-                        <Typography noWrap variant={"h6"}>
+                        <Typography noWrap variant="h6">
                           {name}
                         </Typography>
                       </CardContent>

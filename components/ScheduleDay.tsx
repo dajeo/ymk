@@ -13,7 +13,6 @@ import {
 } from "@mui/material";
 import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
 import React from "react";
-import PropTypes from "prop-types";
 
 interface Props {
   table: Element
@@ -28,7 +27,7 @@ export function ScheduleDay({ table, date }: Props) {
       id={isToday ? "scrollHere" : ""}
       sx={isToday ? { bgcolor: "action.hover" } : {}}
     >
-      <Toolbar disableGutters variant={"dense"} sx={{ minHeight: 0, pl: "4px" }}>
+      <Toolbar disableGutters variant="dense" sx={{ minHeight: 0, pl: "4px" }}>
         <Typography>
           {date + (isToday ? " (Сегодня)" : "")}
         </Typography>
@@ -39,14 +38,14 @@ export function ScheduleDay({ table, date }: Props) {
           pt: 0, pb: 0, pl: "4px", pr: "4px"
         }
       }}>
-        <Table size={"small"}>
+        <Table size="small">
           <TableHead>
             <TableRow>
-              <TableCell align={"center"}>№</TableCell>
-              <TableCell align={"left"}>предмет</TableCell>
-              <TableCell align={"right"}>каб</TableCell>
-              <TableCell align={"center"}>преп</TableCell>
-              <TableCell align={"right"}>время</TableCell>
+              <TableCell align="center">№</TableCell>
+              <TableCell align="left">предмет</TableCell>
+              <TableCell align="right">каб</TableCell>
+              <TableCell align="center">преп</TableCell>
+              <TableCell align="right">время</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -57,10 +56,10 @@ export function ScheduleDay({ table, date }: Props) {
               >
                 {[table.getElementsByClassName(`time_background${tableRow}`)[0]].map((lesson, lessonIndex) => (
                   <React.Fragment key={lessonIndex}>
-                    <TableCell align={"center"}>
+                    <TableCell align="center">
                       {lesson.getElementsByTagName("td")[0].innerText}
                     </TableCell>
-                    <TableCell align={"left"} sx={{ whiteSpace: "pre-wrap" }}>
+                    <TableCell align="left" sx={{ whiteSpace: "pre-wrap" }}>
                       {(() => {
                         const item = lesson.getElementsByTagName("td")[1];
                         const link = item.getElementsByTagName("span")[0];
@@ -74,10 +73,10 @@ export function ScheduleDay({ table, date }: Props) {
                         }
                       })()}
                     </TableCell>
-                    <TableCell align={"right"} sx={{ whiteSpace: "pre-wrap" }}>
+                    <TableCell align="right" sx={{ whiteSpace: "pre-wrap" }}>
                       {lesson.getElementsByTagName("td")[2].innerHTML.replace("<br>", "\n")}
                     </TableCell>
-                    <TableCell align={"center"} sx={{ height: 1 }}>
+                    <TableCell align="center" sx={{ height: 1 }}>
                       {(() => {
                         const teachers = lesson.getElementsByTagName("td")[3].innerHTML.replace("<br>", "\n");
 
@@ -87,14 +86,14 @@ export function ScheduleDay({ table, date }: Props) {
                             enterTouchDelay={0}
                             disableInteractive
                           >
-                            <IconButton size={"small"}>
+                            <IconButton size="small">
                               <ArrowDropDownRoundedIcon />
                             </IconButton>
                           </Tooltip>;
                         }
                       })()}
                     </TableCell>
-                    <TableCell align={"right"} sx={{ whiteSpace: "nowrap" }}>
+                    <TableCell align="right" sx={{ whiteSpace: "nowrap" }}>
                       {lesson.getElementsByTagName("td")[4].innerText}
                       <br />
                       {table.getElementsByClassName(`time_background${tableRow}`)[1].getElementsByTagName("td")[0].innerText}
@@ -109,8 +108,3 @@ export function ScheduleDay({ table, date }: Props) {
     </Paper>
   );
 }
-
-ScheduleDay.propTypes = {
-  table: PropTypes.object,
-  date: PropTypes.string
-};

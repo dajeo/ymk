@@ -17,14 +17,13 @@ import Head from "next/head";
 import { Analytics } from "@vercel/analytics/react";
 import Snowflakes from "magic-snowflakes";
 
-const version = "3.0";
+const version = "3.1";
 
 export default function App({ Component, pageProps }: AppProps) {
   const { data, error, isLoading } = useVersion(version);
-  // @ts-ignore
   const { sfData, sfError, sfIsLoading } = useSnowflakes();
   const [sf, setSf] = useState<Snowflakes | null>(null);
-  const [mode, setMode] = useState("dark");
+  const [mode, setMode] = useState("light");
   const [snackOpen, setSnackOpen] = useState(false);
   const theme = useMemo(() => createTheme({ palette: { mode: mode === "light" ? "light" : "dark" } }), [mode]);
 
@@ -36,9 +35,21 @@ export default function App({ Component, pageProps }: AppProps) {
     tempSf.hide();
     setSf(tempSf);
 
+    const storageTheme = window.localStorage.theme;
+
     const colorScheme = window.matchMedia("(prefers-color-scheme: dark)");
-    colorScheme.addEventListener("change", event => setMode(event.matches ? "dark" : "light"));
-    setMode(colorScheme.matches ? "dark" : "light");
+
+    if (storageTheme === "system") {
+      colorScheme.addEventListener("change", event => setMode(event.matches ? "dark" : "light"));
+      setMode(colorScheme.matches ? "dark" : "light");
+    } else setMode(storageTheme);
+
+    window.addEventListener("storage", () => {
+      const tempTheme = window.localStorage.theme;
+      if (!tempTheme) return;
+      if (tempTheme === "system") setMode(colorScheme.matches ? "dark" : "light");
+      else setMode(tempTheme);
+    });
   }, []);
 
   useEffect(() => {
@@ -73,7 +84,7 @@ export default function App({ Component, pageProps }: AppProps) {
           sx={{ mb: "56px" }}
           open={snackOpen}
           autoHideDuration={6000}
-          message={"Вы просматриваете устаревшую версию"}
+          message="Вы просматриваете устаревшую версию"
           action={action}
         />
 

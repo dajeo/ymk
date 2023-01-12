@@ -29,7 +29,7 @@ export default function Groups() {
             <Grid
               key={index}
               container
-              spacing={"4px"}
+              spacing="4px"
               columns={{ xs: 12, sm: 12, md: 12, lg: 12, xl: 10 }}
             >
               {[...course.getElementsByClassName("group_box")].map((group) => {
@@ -45,7 +45,7 @@ export default function Groups() {
                       disableInteractive
                       title={nameGroup}
                     >
-                      <Card variant={"outlined"}>
+                      <Card variant="outlined">
                         <CardActionArea
                           component={Link}
                           onContextMenu={(e) => {
@@ -56,7 +56,7 @@ export default function Groups() {
                           href={`/students/ОТП/${numGroup}`}
                         >
                           <CardContent sx={{ padding: "6px" }}>
-                            <Typography noWrap variant={"h6"}>
+                            <Typography noWrap variant="h6">
                               {numGroup}
                             </Typography>
                           </CardContent>

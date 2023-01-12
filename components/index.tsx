@@ -8,3 +8,4 @@ export * from "./Progress";
 export * from "./ScheduleDay";
 export * from "./TeacherScheduleDay";
 export * from "./Title";
+export * from "./SettingsDrawer";

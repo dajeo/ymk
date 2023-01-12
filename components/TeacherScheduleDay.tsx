@@ -27,7 +27,7 @@ export function TeacherScheduleDay({ table, date }: Props) {
       id={isToday ? "scrollHere" : ""}
       sx={isToday ? { bgcolor: "action.hover" } : {}}
     >
-      <Toolbar disableGutters variant={"dense"} sx={{ minHeight: 0, pl: "4px" }}>
+      <Toolbar disableGutters variant="dense" sx={{ minHeight: 0, pl: "4px" }}>
         <Typography>
           {date + (isToday ? " (Сегодня)" : "")}
         </Typography>
@@ -38,31 +38,31 @@ export function TeacherScheduleDay({ table, date }: Props) {
           pt: 0, pb: 0, pl: "4px", pr: "4px"
         }
       }}>
-        <Table size={"small"}>
+        <Table size="small">
           <TableHead>
             <TableRow>
-              <TableCell align={"center"}>№</TableCell>
-              <TableCell align={"left"}>предмет</TableCell>
-              <TableCell align={"right"}>каб</TableCell>
-              <TableCell align={"center"}>преп</TableCell>
-              <TableCell align={"right"}>группа</TableCell>
+              <TableCell align="center">№</TableCell>
+              <TableCell align="left">предмет</TableCell>
+              <TableCell align="right">каб</TableCell>
+              <TableCell align="center">преп</TableCell>
+              <TableCell align="right">группа</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {[2, 3, 4, 5, 6].map((tableRow) => (
               <Fragment key={tableRow}>
                 {[table.getElementsByTagName("tr")[tableRow]].map((lesson) => {
-                  if (lesson === undefined) return null;
+                  if (!lesson) return null;
 
                   return (
                     <TableRow
                       key={tableRow}
                       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     >
-                      <TableCell align={"center"}>
+                      <TableCell align="center">
                         {lesson.getElementsByTagName("td")[0].innerText}
                       </TableCell>
-                      <TableCell align={"left"} sx={{ whiteSpace: "pre-wrap" }}>
+                      <TableCell align="left" sx={{ whiteSpace: "pre-wrap" }}>
                         {(() => {
                           const item = lesson.getElementsByTagName("td")[1];
                           const link = item.getElementsByTagName("span")[0];
@@ -76,10 +76,10 @@ export function TeacherScheduleDay({ table, date }: Props) {
                           }
                         })()}
                       </TableCell>
-                      <TableCell align={"right"} sx={{ whiteSpace: "pre-wrap" }}>
+                      <TableCell align="right" sx={{ whiteSpace: "pre-wrap" }}>
                         {lesson.getElementsByTagName("td")[2].innerHTML.replace("<br>", "\n")}
                       </TableCell>
-                      <TableCell align={"center"} sx={{ height: 1 }}>
+                      <TableCell align="center" sx={{ height: 1 }}>
                         {(() => {
                           const teachers = lesson.getElementsByTagName("td")[3].innerHTML.replace("<br>", "\n");
 
@@ -89,14 +89,14 @@ export function TeacherScheduleDay({ table, date }: Props) {
                               enterTouchDelay={0}
                               disableInteractive
                             >
-                              <IconButton size={"small"}>
+                              <IconButton size="small">
                                 <ArrowDropDownRoundedIcon />
                               </IconButton>
                             </Tooltip>;
                           }
                         })()}
                       </TableCell>
-                      <TableCell align={"right"} sx={{ whiteSpace: "nowrap" }}>
+                      <TableCell align="right" sx={{ whiteSpace: "nowrap" }}>
                         {lesson.getElementsByTagName("td")[4].innerText}
                       </TableCell>
                     </TableRow>
