@@ -68,7 +68,6 @@ export function Navigation() {
           vertical: "bottom",
           horizontal: "center"
         }}
-        sx={{ backdropFilter: "blur(4px)" }}
       >
         <MenuItem component={Link} href="/students/otp">
           <ListItemIcon>
@@ -90,7 +89,6 @@ export function Navigation() {
         ModalProps={{
           keepMounted: true
         }}
-        sx={{ backdropFilter: "blur(4px)" }}
       >
         <SettingsDrawer />
       </Drawer>
