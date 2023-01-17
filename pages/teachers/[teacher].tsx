@@ -1,8 +1,6 @@
-import { useEffect, useState } from "react";
-import { Grid } from "@mui/material";
-import { LoadingButton } from "@mui/lab";
+import React, { useEffect, useState } from "react";
 import { useTeachersSchedule } from "../../utils/api";
-import { Progress, TeacherScheduleDay, Title, Container, Error } from "../../components";
+import { Progress, Error, List } from "../../components";
 import { useRouter } from "next/router";
 
 export default function TeacherSchedule() {
@@ -32,50 +30,12 @@ export default function TeacherSchedule() {
   if (isLoading) return <Progress />;
 
   return (
-    <Container>
-      <Title title={teacher!.toString()} />
-      <Grid container columnSpacing="4px" columns={{ xs: 4, md: 10 }}>
-        <Grid item xs={4} md={5}>
-          {[...schedule!.getElementsByClassName("container_table")].map((table, tableIndex) => {
-            const date = table.getElementsByClassName("back_date")[0].innerHTML;
-
-            if (!date.startsWith("Понедельник") && !date.startsWith("Вторник") && !date.startsWith("Среда")) {
-              return null;
-            }
-
-            return <TeacherScheduleDay key={tableIndex} table={table} date={date} />;
-          })}
-        </Grid>
-        <Grid item xs={4} md={5}>
-          {[...schedule!.getElementsByClassName("container_table")].map((table, tableIndex) => {
-            const date = table.getElementsByClassName("back_date")[0].innerHTML;
-
-            if (!date.startsWith("Четверг") && !date.startsWith("Пятница") && !date.startsWith("Суббота")) {
-              return null;
-            }
-
-            return <TeacherScheduleDay key={tableIndex} table={table} date={date} />;
-          })}
-        </Grid>
-      </Grid>
-      <Grid container spacing={1}>
-        <Grid item xs={6}>
-          {schedule!.getElementsByClassName("previous_week")[0]
-            ? <LoadingButton
-              fullWidth
-              onClick={previousWeek}
-            >Предыдущая</LoadingButton>
-            : ""}
-        </Grid>
-        <Grid item xs={6}>
-          {schedule!.getElementsByClassName("next_week")[0]
-            ? <LoadingButton
-              fullWidth
-              onClick={nextWeek}
-            >Следующая</LoadingButton>
-            : ""}
-        </Grid>
-      </Grid>
-    </Container>
+    <List
+      title={teacher!.toString()}
+      schedule={schedule}
+      previousWeek={previousWeek}
+      nextWeek={nextWeek}
+      type="teacher"
+    />
   );
 }

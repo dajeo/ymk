@@ -1,17 +1,21 @@
 import { useState, useEffect, MouseEvent } from "react";
 import {
   BottomNavigation,
-  BottomNavigationAction, ListItemIcon, ListItemText,
+  BottomNavigationAction,
+  ListItemIcon,
+  ListItemText,
   Menu,
   MenuItem,
   Paper
 } from "@mui/material";
-import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
-import CalendarMonthRoundedIcon from "@mui/icons-material/CalendarMonthRounded";
-import ReorderRoundedIcon from "@mui/icons-material/ReorderRounded";
-import PeopleRoundedIcon from "@mui/icons-material/PeopleRounded";
-import DashboardRoundedIcon from "@mui/icons-material/DashboardRounded";
-import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
+import {
+  HomeRounded,
+  CalendarMonthRounded,
+  ReorderRounded,
+  PeopleRounded,
+  DashboardRounded,
+  SettingsRounded
+} from "@mui/icons-material";
 import Link from "next/link";
 import Drawer from "@mui/material/Drawer";
 import { SettingsDrawer } from "./SettingsDrawer";
@@ -71,13 +75,13 @@ export function Navigation() {
       >
         <MenuItem component={Link} href="/students/otp">
           <ListItemIcon>
-            <ReorderRoundedIcon />
+            <ReorderRounded />
           </ListItemIcon>
           <ListItemText>ОТП</ListItemText>
         </MenuItem>
         <MenuItem component={Link} href="/teachers">
           <ListItemIcon>
-            <PeopleRoundedIcon />
+            <PeopleRounded />
           </ListItemIcon>
           <ListItemText>Преподаватели</ListItemText>
         </MenuItem>
@@ -90,21 +94,21 @@ export function Navigation() {
           keepMounted: true
         }}
       >
-        <SettingsDrawer />
+        <SettingsDrawer handleClose={handleDrawerClose} />
       </Drawer>
       <BottomNavigation showLabels>
-        <BottomNavigationAction label="Главная" icon={<HomeRoundedIcon />} component={Link} href="/" />
-        <BottomNavigationAction label="Расписание" icon={<CalendarMonthRoundedIcon />} onClick={handleMenuClick} />
+        <BottomNavigationAction label="Главная" icon={<HomeRounded />} component={Link} href="/" />
+        <BottomNavigationAction label="Расписание" icon={<CalendarMonthRounded />} onClick={handleMenuClick} />
         {!shortcut
           ? null
           : <BottomNavigationAction
               label={shortcut.group}
-              icon={<DashboardRoundedIcon />}
+              icon={<DashboardRounded />}
               component={Link}
               href={`/students/${shortcut.department}/${shortcut.group}`}
           />
         }
-        <BottomNavigationAction label="Настройки" icon={<SettingsRoundedIcon />} onClick={handleDrawerClick} />
+        <BottomNavigationAction label="Настройки" icon={<SettingsRounded />} onClick={handleDrawerClick} />
       </BottomNavigation>
     </Paper>
   );
