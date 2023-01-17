@@ -9,10 +9,10 @@ export function NewDomainDialog() {
     setOpen(!newDomainDialog || newDomainDialog !== "false");
   }, []);
 
-  const handleClose = () => {
+  function handleClose() {
     window.localStorage.newDomainDialog = false;
     setOpen(false);
-  };
+  }
 
   return (
     <Dialog open={open}>

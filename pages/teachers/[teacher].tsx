@@ -5,10 +5,16 @@ import { useRouter } from "next/router";
 
 export default function TeacherSchedule() {
   const router = useRouter();
-  const { teacher } = router.query;
+  const [teacher, setTeacher] = useState("");
   const [week, setWeek] = useState(0);
   const [isScrolled, setIsScrolled] = useState(false);
   const { schedule, isError, isLoading } = useTeachersSchedule(teacher, week);
+
+  useEffect(() => {
+    if (!router.isReady) return;
+
+    setTeacher(router.query["teacher"]!.toString());
+  }, [router.isReady, router.query]);
 
   useEffect(() => {
     if (isScrolled) return;

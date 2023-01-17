@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Card,
   CardActionArea,
@@ -14,8 +14,14 @@ import Link from "next/link";
 
 export default function Groups() {
   const router = useRouter();
-  const { department } = router.query;
+  const [department, setDepartment] = useState("");
   const { groups, isError, isLoading } = useGroups(department);
+
+  useEffect(() => {
+    if (!router.isReady) return;
+
+    setDepartment(router.query["department"]!.toString());
+  }, [router.isReady, router.query]);
 
   if (isError) return <Error />;
   if (isLoading) return <Progress />;

@@ -12,12 +12,12 @@ const fetcher = (url: string) => fetch(url, { method: "POST" })
 
 const jsonFetcher = (url: string) => fetch(url).then(res => res.json());
 
-function useGroups(department: string | string[] | undefined) {
+function useGroups(department: string) {
   const { data, error, isLoading } = useSWR(`/api/students/${department}`, fetcher);
   return { groups: data, isError: error, isLoading };
 }
 
-function useSchedule(department: string | string[] | undefined, group: string | string[] | undefined, week: number) {
+function useSchedule(department: string, group: string, week: number) {
   const { data, error, isLoading } = useSWR(`/api/students/${department}/${group}/${week}`, fetcher);
   return { schedule: data, isError: error, isLoading };
 }
@@ -27,7 +27,7 @@ function useTeachers() {
   return {teachers: data, isError: error, isLoading };
 }
 
-function useTeachersSchedule(teacher: string | string[] | undefined, week: number) {
+function useTeachersSchedule(teacher: string, week: number) {
   const { data, error, isLoading } = useSWR(`/api/teachers/${teacher}/${week}`, fetcher);
   return { schedule: data, isError: error, isLoading };
 }

@@ -31,24 +31,24 @@ export function Navigation() {
   const menuOpen = Boolean(anchorMenuEl);
   const [shortcut, setShortcut] = useState<Shortcut | null>(null);
 
-  const handleDrawerClick = () => {
+  function handleDrawerClick() {
     setDrawerOpen(true);
-  };
-  const handleDrawerClose = () => {
+  }
+  function handleDrawerClose() {
     setDrawerOpen(false);
-  };
-  const handleMenuClick = (e: MouseEvent<HTMLButtonElement>) => {
+  }
+  function handleMenuClick(e: MouseEvent<HTMLButtonElement>) {
     setAnchorMenuEl(e.currentTarget);
-  };
-  const handleMenuClose = () => {
+  }
+  function handleMenuClose() {
     setAnchorMenuEl(null);
-  };
-  const updateLocalStorage = () => {
+  }
+  function updateLocalStorage() {
     const localShortcut = window.localStorage.quickShortcut;
 
     if (localShortcut) setShortcut(JSON.parse(localShortcut));
     else setShortcut(null);
-  };
+  }
 
   useEffect(() => {
     window.addEventListener("storage", () => {
