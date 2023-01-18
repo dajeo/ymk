@@ -51,6 +51,7 @@ export function SettingsDrawer({ handleClose }: Props) {
         <ToggleButtonGroup
           value={theme}
           exclusive
+          size="small"
           onChange={handleChange}
         >
           <ToggleButton value="light">

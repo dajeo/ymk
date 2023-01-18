@@ -10,4 +10,4 @@ export * from "./Title";
 export * from "./SettingsDrawer";
 export * from "./GroupBody";
 export * from "./TeacherBody";
-export * from "./List";
+export * from "./Schedule";

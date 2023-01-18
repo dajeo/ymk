@@ -12,7 +12,7 @@ import { Progress, Title, Container, Error } from "../../components";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
-export default function Groups() {
+export default function GroupsPage() {
   const router = useRouter();
   const [department, setDepartment] = useState("");
   const { groups, isError, isLoading } = useGroups(department);

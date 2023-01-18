@@ -16,7 +16,7 @@ interface Props {
   type: "group" | "teacher"
 }
 
-export function List({ title, addGroup, isInShortcut, schedule, previousWeek, nextWeek, type }: Props) {
+export function Schedule({ title, addGroup, isInShortcut, schedule, previousWeek, nextWeek, type }: Props) {
   return (
     <Container>
       <Box

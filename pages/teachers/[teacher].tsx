@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useTeachersSchedule } from "../../utils/api";
-import { Progress, Error, List } from "../../components";
+import { Progress, Error, Schedule } from "../../components";
 import { useRouter } from "next/router";
 
-export default function TeacherSchedule() {
+export default function TeacherSchedulePage() {
   const router = useRouter();
   const [teacher, setTeacher] = useState("");
   const [week, setWeek] = useState(0);
@@ -18,11 +18,12 @@ export default function TeacherSchedule() {
 
   useEffect(() => {
     if (isScrolled) return;
+    if (!teacher) return;
     const el = document.getElementById("scrollHere");
     if (!el) return;
     el.scrollIntoView({ behavior: "smooth", block: "center" });
     setIsScrolled(true);
-  }, [isScrolled]);
+  }, [isScrolled, teacher]);
 
   function previousWeek() {
     setWeek(week - 1);
@@ -36,7 +37,7 @@ export default function TeacherSchedule() {
   if (isLoading) return <Progress />;
 
   return (
-    <List
+    <Schedule
       title={teacher!.toString()}
       schedule={schedule}
       previousWeek={previousWeek}

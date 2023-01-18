@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useSchedule } from "../../../utils/api";
-import { Progress, Error, List } from "../../../components";
+import { Progress, Error, Schedule } from "../../../components";
 import { useRouter } from "next/router";
 
-export default function Schedule() {
+export default function SchedulePage() {
   const router = useRouter();
   const [department, setDepartment] = useState("");
   const [group, setGroup] = useState("");
@@ -29,11 +29,12 @@ export default function Schedule() {
 
   useEffect(() => {
     if (isScrolled) return;
+    if (!schedule) return;
     const el = document.getElementById("scrollHere");
     if (!el) return;
     el.scrollIntoView({ behavior: "smooth", block: "center" });
     setIsScrolled(true);
-  }, [isScrolled]);
+  }, [isScrolled, schedule]);
 
   function previousWeek() {
     setWeek(week - 1);
@@ -58,8 +59,8 @@ export default function Schedule() {
   if (isLoading) return <Progress />;
 
   return (
-    <List
-      title={group!.toString()}
+    <Schedule
+      title={group}
       addGroup={addGroup}
       isInShortcut={isInShortcut}
       schedule={schedule}

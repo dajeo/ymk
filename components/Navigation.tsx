@@ -1,24 +1,19 @@
-import { useState, useEffect, MouseEvent } from "react";
+import { useState, useEffect } from "react";
 import {
   BottomNavigation,
   BottomNavigationAction,
-  ListItemIcon,
-  ListItemText,
-  Menu,
-  MenuItem,
   Paper
 } from "@mui/material";
 import {
   HomeRounded,
   CalendarMonthRounded,
-  ReorderRounded,
-  PeopleRounded,
   DashboardRounded,
   SettingsRounded
 } from "@mui/icons-material";
 import Link from "next/link";
 import Drawer from "@mui/material/Drawer";
 import { SettingsDrawer } from "./SettingsDrawer";
+import { ScheduleDrawer } from "./ScheduleDrawer";
 
 interface Shortcut {
   department: string
@@ -26,22 +21,24 @@ interface Shortcut {
 }
 
 export function Navigation() {
-  const [drawerOpen, setDrawerOpen] = useState(false);
-  const [anchorMenuEl, setAnchorMenuEl] = useState<null | HTMLElement>(null);
-  const menuOpen = Boolean(anchorMenuEl);
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [scheduleOpen, setScheduleOpen] = useState(false);
   const [shortcut, setShortcut] = useState<Shortcut | null>(null);
 
-  function handleDrawerClick() {
-    setDrawerOpen(true);
+  function handleSettingsClick() {
+    setSettingsOpen(true);
   }
-  function handleDrawerClose() {
-    setDrawerOpen(false);
+  function handleSettingsClose() {
+    setSettingsOpen(false);
   }
-  function handleMenuClick(e: MouseEvent<HTMLButtonElement>) {
-    setAnchorMenuEl(e.currentTarget);
+  function handleScheduleClick() {
+    setScheduleOpen(true);
   }
-  function handleMenuClose() {
-    setAnchorMenuEl(null);
+  function handleScheduleClose() {
+    setScheduleOpen(false);
+
+    const el = document.getElementById("bug-drawer");
+    if (el) el.remove();
   }
   function updateLocalStorage() {
     const localShortcut = window.localStorage.quickShortcut;
@@ -60,45 +57,25 @@ export function Navigation() {
 
   return (
     <Paper sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}>
-      <Menu
-        anchorEl={anchorMenuEl}
-        open={menuOpen}
-        onClose={handleMenuClose}
-        anchorOrigin={{
-          vertical: "top",
-          horizontal: "center"
-        }}
-        transformOrigin={{
-          vertical: "bottom",
-          horizontal: "center"
-        }}
-      >
-        <MenuItem component={Link} href="/students/otp">
-          <ListItemIcon>
-            <ReorderRounded />
-          </ListItemIcon>
-          <ListItemText>ОТП</ListItemText>
-        </MenuItem>
-        <MenuItem component={Link} href="/teachers">
-          <ListItemIcon>
-            <PeopleRounded />
-          </ListItemIcon>
-          <ListItemText>Преподаватели</ListItemText>
-        </MenuItem>
-      </Menu>
+      <div id="bug-drawer">
+        <Drawer
+          anchor="bottom"
+          open={scheduleOpen}
+          onClose={handleScheduleClose}
+        >
+          <ScheduleDrawer handleClose={handleScheduleClose} />
+        </Drawer>
+      </div>
       <Drawer
         anchor="right"
-        open={drawerOpen}
-        onClose={handleDrawerClose}
-        ModalProps={{
-          keepMounted: true
-        }}
+        open={settingsOpen}
+        onClose={handleSettingsClose}
       >
-        <SettingsDrawer handleClose={handleDrawerClose} />
+        <SettingsDrawer handleClose={handleSettingsClose} />
       </Drawer>
       <BottomNavigation showLabels>
         <BottomNavigationAction label="Главная" icon={<HomeRounded />} component={Link} href="/" />
-        <BottomNavigationAction label="Расписание" icon={<CalendarMonthRounded />} onClick={handleMenuClick} />
+        <BottomNavigationAction label="Расписание" icon={<CalendarMonthRounded />} onClick={handleScheduleClick} />
         {!shortcut
           ? null
           : <BottomNavigationAction
@@ -108,7 +85,7 @@ export function Navigation() {
               href={`/students/${shortcut.department}/${shortcut.group}`}
           />
         }
-        <BottomNavigationAction label="Настройки" icon={<SettingsRounded />} onClick={handleDrawerClick} />
+        <BottomNavigationAction label="Настройки" icon={<SettingsRounded />} onClick={handleSettingsClick} />
       </BottomNavigation>
     </Paper>
   );

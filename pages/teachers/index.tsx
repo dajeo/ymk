@@ -10,7 +10,7 @@ import { useTeachers } from "../../utils/api";
 import { Progress, Title, Container, Error } from "../../components";
 import Link from "next/link";
 
-export default function Teachers() {
+export default function TeachersPage() {
   const { teachers, isError, isLoading } = useTeachers();
 
   if (isError) return <Error />;
