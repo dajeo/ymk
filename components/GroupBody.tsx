@@ -1,4 +1,4 @@
-import React from "react";
+import { Fragment } from "react";
 import { IconButton, TableBody, TableCell, TableRow, Tooltip } from "@mui/material";
 import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
 
@@ -10,7 +10,7 @@ export function GroupBody({ table }: Props) {
   return (
     <TableBody>
       {[1, 2, 3, 4, 5].map((tableRow) => (
-        <React.Fragment key={tableRow}>
+        <Fragment key={tableRow}>
           {[table.getElementsByClassName(`time_background${tableRow}`)[0]].map((lesson, lessonIndex) => (
             <TableRow
               key={lessonIndex}
@@ -60,7 +60,7 @@ export function GroupBody({ table }: Props) {
               </TableCell>
             </TableRow>
           ))}
-        </React.Fragment>
+        </Fragment>
       ))}
     </TableBody>
   );

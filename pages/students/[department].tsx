@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Card,
   CardActionArea,
@@ -14,7 +14,7 @@ import Link from "next/link";
 
 export default function GroupsPage() {
   const router = useRouter();
-  const [department, setDepartment] = useState("");
+  const [department, setDepartment] = useState("otp");
   const { groups, isError, isLoading } = useGroups(department);
 
   useEffect(() => {

@@ -4,7 +4,6 @@ import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import { ScheduleTable } from "./ScheduleTable";
 import { LoadingButton } from "@mui/lab";
 import { Container } from "./Container";
-import React from "react";
 
 interface Props {
   title: string,

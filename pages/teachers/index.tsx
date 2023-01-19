@@ -1,4 +1,4 @@
-import React from "react";
+import { Fragment } from "react";
 import {
   Card,
   CardActionArea,
@@ -25,7 +25,7 @@ export default function TeachersPage() {
         columns={{ xs: 6, sm: 12, md: 12, lg: 12, xl: 8 }}
       >
         {[...teachers!.getElementsByClassName("box_prepod")].map((teacher) => (
-          <React.Fragment key={teacher.innerHTML}>
+          <Fragment key={teacher.innerHTML}>
             {(() => {
               const name = teacher.innerHTML;
 
@@ -51,7 +51,7 @@ export default function TeachersPage() {
                 </Grid>
               );
             })()}
-          </React.Fragment>
+          </Fragment>
         ))}
       </Grid>
     </Container>

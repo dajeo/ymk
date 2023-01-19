@@ -1,5 +1,4 @@
-﻿import React from "react";
-import { Backdrop, CircularProgress } from "@mui/material";
+﻿import { Backdrop, CircularProgress } from "@mui/material";
 
 export function Progress() {
   return (

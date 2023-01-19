@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSchedule } from "../../../utils/api";
 import { Progress, Error, Schedule } from "../../../components";
 import { useRouter } from "next/router";

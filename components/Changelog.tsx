@@ -1,9 +1,9 @@
-import React from "react";
+import { ReactNode } from "react";
 import { Card, CardContent, Typography } from "@mui/material";
 
 interface Props {
   v: string
-  children: React.ReactNode
+  children: ReactNode
 }
 
 export function Changelog({ v, children }: Props) {

@@ -1,8 +1,8 @@
-import React from "react";
+import { ReactNode } from "react";
 import { Box, Container as MuiContainer } from "@mui/material";
 
 interface Props {
-  children: React.ReactNode
+  children: ReactNode
 }
 
 export function Container({ children }: Props) {

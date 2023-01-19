@@ -8,7 +8,6 @@ import {
   Toolbar,
   Typography
 } from "@mui/material";
-import React from "react";
 import { GroupBody } from "./GroupBody";
 import { TeacherBody } from "./TeacherBody";
 
