@@ -10,7 +10,7 @@ export function Changelog({ v, children }: Props) {
   return (
     <Card variant="outlined" sx={{ maxWidth: 600, mb: "4px" }}>
       <CardContent sx={{ p: "10px", "&:last-child": { pb: "10px" } }}>
-        <Typography variant="h6" sx={{ fontWeight: "100" }}>
+        <Typography variant="h6" sx={{ fontWeight: "300" }}>
           Version {v}
         </Typography>
         <Typography variant="body2">

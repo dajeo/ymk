@@ -23,7 +23,7 @@ export function ScheduleTable({ table, date, type }: Props) {
   return (
     <Paper
       id={isToday ? "scrollHere" : ""}
-      sx={isToday ? { bgcolor: "#1f5290", color: "white", "th, td": { color: "white" } } : {}}
+      sx={isToday ? { bgcolor: "#1f5290", color: "white", "th, td": { color: "white", borderColor: "white" } } : {}}
     >
       <Toolbar disableGutters variant="dense" sx={{ minHeight: 0, pl: "4px" }}>
         <Typography>
