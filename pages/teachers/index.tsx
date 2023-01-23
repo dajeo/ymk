@@ -16,6 +16,10 @@ export default function TeachersPage() {
   if (isError) return <Error />;
   if (isLoading) return <Progress />;
 
+  if (!teachers) {
+    return "Error while rendering.";
+  }
+  
   return (
     <Container>
       <Title title="Преподаватели" />
@@ -24,7 +28,7 @@ export default function TeachersPage() {
         spacing="4px"
         columns={{ xs: 6, sm: 12, md: 12, lg: 12, xl: 8 }}
       >
-        {[...teachers!.getElementsByClassName("box_prepod")].map((teacher) => (
+        {[...teachers.getElementsByClassName("box_prepod")].map((teacher) => (
           <Fragment key={teacher.innerHTML}>
             {(() => {
               const name = teacher.innerHTML;

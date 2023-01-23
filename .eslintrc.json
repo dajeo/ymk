@@ -1,5 +1,10 @@
 {
-  "extends": "next/core-web-vitals",
+  "plugins": ["@typescript-eslint"],
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
   "rules": {
     "quotes": ["error", "double"],
     "semi": ["error", "always"],

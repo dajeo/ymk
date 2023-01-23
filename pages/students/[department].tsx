@@ -20,18 +20,25 @@ export default function GroupsPage() {
   useEffect(() => {
     if (!router.isReady) return;
 
-    setDepartment(router.query["department"]!.toString());
+    const departmentTemp = router.query["department"];
+    if (!departmentTemp) return;
+
+    setDepartment(departmentTemp.toString());
   }, [router.isReady, router.query]);
 
   if (isError) return <Error />;
   if (isLoading) return <Progress />;
 
+  if (!groups) {
+    return "Error while rendering.";
+  }
+
   return (
     <Container>
-      {[...groups!.getElementsByClassName("zag_kurs")].map((course, index) => (
+      {[...groups.getElementsByClassName("zag_kurs")].map((course, index) => (
         <div key={index}>
           <Title title={course.innerHTML}/>
-          {[...groups!.getElementsByClassName(`kurs_container_${index + 1}`)].map((course) => (
+          {[...groups.getElementsByClassName(`kurs_container_${index + 1}`)].map((course) => (
             <Grid
               key={index}
               container

@@ -15,8 +15,13 @@ export default function SchedulePage() {
   useEffect(() => {
     if (!router.isReady) return;
 
-    setDepartment(router.query["department"]!.toString());
-    setGroup(router.query["group"]!.toString());
+    const departmentTemp = router.query["department"];
+    const groupTemp = router.query["group"];
+
+    if (!departmentTemp || !groupTemp) return;
+
+    setDepartment(departmentTemp.toString());
+    setGroup(groupTemp.toString());
   }, [router.isReady, router.query]);
 
   useEffect(() => {

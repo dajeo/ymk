@@ -26,8 +26,9 @@ export function GroupBody({ table }: Props) {
 
                   if (!link) return item.innerHTML.replace("<br>", "\n");
                   else {
-                    // If anything add replace here
-                    return <a style={{ color: "inherit" }} href={link.getAttribute("data-href")!}>
+                    const href = link.getAttribute("data-href");
+                    if (!href) return link.getElementsByTagName("u")[0].innerHTML;
+                    else return <a style={{ color: "inherit" }} href={href}>
                       {link.getElementsByTagName("u")[0].innerHTML}
                     </a>;
                   }

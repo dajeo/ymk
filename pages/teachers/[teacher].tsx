@@ -13,7 +13,10 @@ export default function TeacherSchedulePage() {
   useEffect(() => {
     if (!router.isReady) return;
 
-    setTeacher(router.query["teacher"]!.toString());
+    const teacherTemp = router.query["teacher"];
+    if (!teacherTemp) return;
+
+    setTeacher(teacherTemp.toString());
   }, [router.isReady, router.query]);
 
   useEffect(() => {
@@ -38,7 +41,7 @@ export default function TeacherSchedulePage() {
 
   return (
     <Schedule
-      title={teacher!.toString()}
+      title={teacher}
       schedule={schedule}
       previousWeek={previousWeek}
       nextWeek={nextWeek}
