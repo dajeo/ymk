@@ -5,24 +5,12 @@ import { useRouter } from "next/router";
 
 export default function SchedulePage() {
   const router = useRouter();
-  const [department, setDepartment] = useState("");
-  const [group, setGroup] = useState("");
+  const [department, setDepartment] = useState(router.query["department"]);
+  const [group, setGroup] = useState(router.query["group"]);
   const [week, setWeek] = useState(0);
   const { schedule, isError, isLoading } = useSchedule(department, group, week);
   const [isInShortcut, setIsInShortcut] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-
-  useEffect(() => {
-    if (!router.isReady) return;
-
-    const departmentTemp = router.query["department"];
-    const groupTemp = router.query["group"];
-
-    if (!departmentTemp || !groupTemp) return;
-
-    setDepartment(departmentTemp.toString());
-    setGroup(groupTemp.toString());
-  }, [router.isReady, router.query]);
 
   useEffect(() => {
     const shortcut = window.localStorage.quickShortcut;
