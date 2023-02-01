@@ -20,7 +20,7 @@ function useGroups(department: string) {
   return { groups: data, isError: error, isLoading };
 }
 
-function useSchedule(department?: string, group?: string, week?: number) {
+function useSchedule(department: string | string[], group: string | string[], week: number) {
   const { data, error, isLoading } = useSWR(`/api/students/${department}/${group}/${week}`, fetcher, config);
   return { schedule: data, isError: error, isLoading };
 }
