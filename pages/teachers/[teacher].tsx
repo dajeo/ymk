@@ -21,12 +21,12 @@ export default function TeacherSchedulePage() {
 
   useEffect(() => {
     if (isScrolled) return;
-    if (!teacher) return;
+    if (!data) return;
     const el = document.getElementById("scrollHere");
     if (!el) return;
     el.scrollIntoView({ behavior: "smooth", block: "center" });
     setIsScrolled(true);
-  }, [isScrolled, teacher]);
+  }, [isScrolled, data]);
 
   function previousWeek() {
     setWeek(week - 1);
