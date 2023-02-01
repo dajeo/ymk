@@ -11,15 +11,15 @@ import { Progress, Title, Container, Error } from "../../components";
 import Link from "next/link";
 
 export default function TeachersPage() {
-  const { teachers, isError, isLoading } = useTeachers();
+  const { data, error, isLoading } = useTeachers();
 
-  if (isError) return <Error />;
+  if (error) return <Error />;
   if (isLoading) return <Progress />;
 
-  if (!teachers) {
+  if (!data) {
     return "Error while rendering.";
   }
-  
+
   return (
     <Container>
       <Title title="Преподаватели" />
@@ -28,7 +28,7 @@ export default function TeachersPage() {
         spacing="4px"
         columns={{ xs: 6, sm: 12, md: 12, lg: 12, xl: 8 }}
       >
-        {[...teachers.getElementsByClassName("box_prepod")].map((teacher) => (
+        {[...data.getElementsByClassName("box_prepod")].map((teacher) => (
           <Fragment key={teacher.innerHTML}>
             {(() => {
               const name = teacher.innerHTML;

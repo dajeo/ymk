@@ -1,4 +1,5 @@
-import useSWR, { SWRConfiguration } from "swr";
+import useSWR, { SWRConfiguration, SWRResponse } from "swr";
+import axios from "axios";
 
 function createEl(html: string) {
   const buffer = document.createElement("div");
@@ -7,37 +8,34 @@ function createEl(html: string) {
 }
 
 const config: SWRConfiguration = {
+  revalidateIfStale: false,
   revalidateOnReconnect: false,
-  revalidateOnFocus: false
+  revalidateOnFocus: false,
+  shouldRetryOnError: false
 };
 
-const fetcher = (url: string) => fetch(url, { method: "POST" })
-  .then(res => res.text())
-  .then(data => createEl(data));
+function fetcher(url: string) {
+  return axios.post(url).then(res => res.data).then(data => createEl(data));
+}
+
+function useFetch(url: string): SWRResponse<HTMLDivElement, Error> {
+  return useSWR(`/api/${url}`, fetcher, config);
+}
 
 function useGroups(department: string) {
-  const { data, error, isLoading } = useSWR(`/api/students/${department}`, fetcher, config);
-  return { groups: data, isError: error, isLoading };
+  return useFetch(`students/${department}`);
 }
 
 function useSchedule(department: string | string[] | undefined, group: string | string[] | undefined, week: number) {
-  const { data, error, isLoading } = useSWR(`/api/students/${department}/${group}/${week}`, fetcher, config);
-  return { schedule: data, isError: error, isLoading };
+  return useFetch(`students/${department}/${group}/${week}`);
 }
 
 function useTeachers() {
-  const { data, error, isLoading } = useSWR("/api/teachers", fetcher, config);
-  return {teachers: data, isError: error, isLoading };
+  return useFetch("teachers");
 }
 
 function useTeachersSchedule(teacher: string, week: number) {
-  const { data, error, isLoading } = useSWR(`/api/teachers/${teacher}/${week}`, fetcher, config);
-  return { schedule: data, isError: error, isLoading };
+  return useFetch(`teachers/${teacher}/${week}`);
 }
 
-export {
-  useGroups,
-  useSchedule,
-  useTeachers,
-  useTeachersSchedule
-};
+export { useGroups, useSchedule, useTeachers, useTeachersSchedule };

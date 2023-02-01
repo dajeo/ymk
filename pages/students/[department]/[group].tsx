@@ -5,12 +5,24 @@ import { useRouter } from "next/router";
 
 export default function SchedulePage() {
   const router = useRouter();
-  const [department, setDepartment] = useState(router.query["department"]);
-  const [group, setGroup] = useState(router.query["group"]);
+  const [department, setDepartment] = useState("");
+  const [group, setGroup] = useState("");
   const [week, setWeek] = useState(0);
-  const { schedule, isError, isLoading } = useSchedule(department, group, week);
+  const { data, error, isLoading } = useSchedule(department, group, week);
   const [isInShortcut, setIsInShortcut] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    if (!router.isReady) return;
+
+    const departmentTemp = router.query["department"];
+    const groupTemp = router.query["group"];
+
+    if (!departmentTemp || !groupTemp) return;
+
+    setDepartment(departmentTemp.toString());
+    setGroup(groupTemp.toString());
+  }, [router.isReady, router.query]);
 
   useEffect(() => {
     const shortcut = window.localStorage.quickShortcut;
@@ -22,12 +34,12 @@ export default function SchedulePage() {
 
   useEffect(() => {
     if (isScrolled) return;
-    if (!schedule) return;
+    if (!data) return;
     const el = document.getElementById("scrollHere");
     if (!el) return;
     el.scrollIntoView({ behavior: "smooth", block: "center" });
     setIsScrolled(true);
-  }, [isScrolled, schedule]);
+  }, [isScrolled, data]);
 
   function previousWeek() {
     setWeek(week - 1);
@@ -48,7 +60,7 @@ export default function SchedulePage() {
     setIsInShortcut(!isInShortcut);
   }
 
-  if (isError) return <Error />;
+  if (error) return <Error />;
   if (isLoading) return <Progress />;
 
   return (
@@ -56,7 +68,7 @@ export default function SchedulePage() {
       title={group}
       addGroup={addGroup}
       isInShortcut={isInShortcut}
-      schedule={schedule}
+      schedule={data}
       previousWeek={previousWeek}
       nextWeek={nextWeek}
       type="group"

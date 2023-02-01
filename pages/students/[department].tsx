@@ -15,7 +15,7 @@ import Link from "next/link";
 export default function GroupsPage() {
   const router = useRouter();
   const [department, setDepartment] = useState("otp");
-  const { groups, isError, isLoading } = useGroups(department);
+  const { data, error, isLoading } = useGroups(department);
 
   useEffect(() => {
     if (!router.isReady) return;
@@ -26,19 +26,19 @@ export default function GroupsPage() {
     setDepartment(departmentTemp.toString());
   }, [router.isReady, router.query]);
 
-  if (isError) return <Error />;
+  if (error) return <Error />;
   if (isLoading) return <Progress />;
 
-  if (!groups) {
+  if (!data) {
     return "Error while rendering.";
   }
 
   return (
     <Container>
-      {[...groups.getElementsByClassName("zag_kurs")].map((course, index) => (
+      {[...data.getElementsByClassName("zag_kurs")].map((course, index) => (
         <div key={index}>
           <Title title={course.innerHTML}/>
-          {[...groups.getElementsByClassName(`kurs_container_${index + 1}`)].map((course) => (
+          {[...data.getElementsByClassName(`kurs_container_${index + 1}`)].map((course) => (
             <Grid
               key={index}
               container

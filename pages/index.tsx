@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <Box display="flex" alignItems="center" flexDirection="column">
       <Typography variant="h1" sx={{ fontWeight: "bold" }}>
-        YMK
+        ЯМК
       </Typography>
       <Typography variant="body2" sx={{ mt: "-20px", mb: "6px" }}>
         Developed by <a style={{ color: "inherit" }} href="https://github.com/HeadcrabJ">Headcrab</a>

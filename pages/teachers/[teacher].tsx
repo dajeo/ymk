@@ -8,7 +8,7 @@ export default function TeacherSchedulePage() {
   const [teacher, setTeacher] = useState("");
   const [week, setWeek] = useState(0);
   const [isScrolled, setIsScrolled] = useState(false);
-  const { schedule, isError, isLoading } = useTeachersSchedule(teacher, week);
+  const { data, error, isLoading } = useTeachersSchedule(teacher, week);
 
   useEffect(() => {
     if (!router.isReady) return;
@@ -36,13 +36,13 @@ export default function TeacherSchedulePage() {
     setWeek(week + 1);
   }
 
-  if (isError) return <Error />;
+  if (error) return <Error />;
   if (isLoading) return <Progress />;
 
   return (
     <Schedule
       title={teacher}
-      schedule={schedule}
+      schedule={data}
       previousWeek={previousWeek}
       nextWeek={nextWeek}
       type="teacher"

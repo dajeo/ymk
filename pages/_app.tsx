@@ -26,7 +26,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <div>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>YMK</title>
+        <title>ЯМК - Ямальский многопрофильный колледж</title>
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />
