@@ -5,8 +5,8 @@ import { useRouter } from "next/router";
 
 export default function SchedulePage() {
   const router = useRouter();
-  const [department, setDepartment] = useState(router.query["department"]);
-  const [group, setGroup] = useState(router.query["group"]);
+  const [department, setDepartment] = useState(router.query["department"] ?? "");
+  const [group, setGroup] = useState(router.query["group"] ?? "");
   const [week, setWeek] = useState(0);
   const { schedule, isError, isLoading } = useSchedule(department, group, week);
   const [isInShortcut, setIsInShortcut] = useState(false);
