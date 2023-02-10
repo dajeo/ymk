@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useTeachersSchedule } from "../../utils/api";
 import { Progress, Error, Schedule } from "../../components";
 import { GetServerSideProps } from "next";
+import { useScrollHere } from "../../utils/hooks";
 
 interface Props {
   teacher: string
@@ -9,17 +10,9 @@ interface Props {
 
 export default function TeacherSchedulePage({ teacher }: Props) {
   const [week, setWeek] = useState(0);
-  const [isScrolled, setIsScrolled] = useState(false);
   const { data, error, isLoading } = useTeachersSchedule(teacher, week);
 
-  useEffect(() => {
-    if (isScrolled) return;
-    if (!data) return;
-    const el = document.getElementById("scrollHere");
-    if (!el) return;
-    el.scrollIntoView({ behavior: "smooth", block: "center" });
-    setIsScrolled(true);
-  }, [isScrolled, data]);
+  useScrollHere(data);
 
   function previousWeek() {
     setWeek(week - 1);
