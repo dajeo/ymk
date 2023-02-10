@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import {
   Card,
   CardActionArea,
@@ -7,24 +6,17 @@ import {
   Tooltip,
   Typography
 } from "@mui/material";
-import { useGroups } from "../../utils/api";
+import {useGroups} from "../../utils/api";
 import { Progress, Title, Container, Error } from "../../components";
-import { useRouter } from "next/router";
 import Link from "next/link";
+import { GetServerSideProps } from "next";
 
-export default function GroupsPage() {
-  const router = useRouter();
-  const [department, setDepartment] = useState("otp");
+interface Props {
+  department: string
+}
+
+export default function GroupsPage({ department }: Props) {
   const { data, error, isLoading } = useGroups(department);
-
-  useEffect(() => {
-    if (!router.isReady) return;
-
-    const departmentTemp = router.query["department"];
-    if (!departmentTemp) return;
-
-    setDepartment(departmentTemp.toString());
-  }, [router.isReady, router.query]);
 
   if (error) return <Error />;
   if (isLoading) return <Progress />;
@@ -86,3 +78,9 @@ export default function GroupsPage() {
     </Container>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async(context) => {
+  const department = context.params?.department;
+
+  return { props: { department } };
+};

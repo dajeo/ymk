@@ -1,28 +1,18 @@
 import { useEffect, useState } from "react";
 import { useSchedule } from "../../../utils/api";
 import { Progress, Error, Schedule } from "../../../components";
-import { useRouter } from "next/router";
+import { GetServerSideProps } from "next";
 
-export default function SchedulePage() {
-  const router = useRouter();
-  const [department, setDepartment] = useState("");
-  const [group, setGroup] = useState("");
+interface Props {
+  department: string,
+  group: string
+}
+
+export default function SchedulePage({ department, group }: Props) {
   const [week, setWeek] = useState(0);
   const { data, error, isLoading } = useSchedule(department, group, week);
   const [isInShortcut, setIsInShortcut] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-
-  useEffect(() => {
-    if (!router.isReady) return;
-
-    const departmentTemp = router.query["department"];
-    const groupTemp = router.query["group"];
-
-    if (!departmentTemp || !groupTemp) return;
-
-    setDepartment(departmentTemp.toString());
-    setGroup(groupTemp.toString());
-  }, [router.isReady, router.query]);
 
   useEffect(() => {
     const shortcut = window.localStorage.quickShortcut;
@@ -75,3 +65,10 @@ export default function SchedulePage() {
     />
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async(context) => {
+  const department = context.params?.department;
+  const group = context.params?.group;
+
+  return { props: { department, group } };
+};
