@@ -9,7 +9,7 @@ import {
   Typography
 } from "@mui/material";
 import { useGroups } from "../api";
-import { Progress, Title, Container, NetworkError } from "../components";
+import { Progress, Title, Container, NetworkError, RenderingError } from "../components";
 
 export function Groups() {
   const { department } = useParams();
@@ -18,9 +18,7 @@ export function Groups() {
   if (error) return <NetworkError />;
   if (isLoading) return <Progress />;
 
-  if (!data) {
-    return "Error while rendering.";
-  }
+  if (!data) return <RenderingError />;
 
   return (
     <Container>

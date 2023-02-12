@@ -1,9 +1,12 @@
 import React, { Fragment } from "react";
-import PropTypes from "prop-types";
 import { IconButton, TableBody, TableCell, TableRow, Tooltip } from "@mui/material";
 import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
 
-export function TeacherBody({ table }) {
+interface Props {
+  table: Element
+}
+
+export function TeacherBody({ table }: Props) {
   return (
     <TableBody>
       {[2, 3, 4, 5, 6].map((tableRow) => (
@@ -53,7 +56,3 @@ export function TeacherBody({ table }) {
     </TableBody>
   );
 }
-
-TeacherBody.propTypes = {
-  table: PropTypes.object
-};

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-function useScrollHere(data) {
+function useScrollHere(data: HTMLDivElement | undefined) {
   useEffect(() => {
     if (!data) return;
     const el = document.getElementById("scrollHere");

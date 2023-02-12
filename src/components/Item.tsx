@@ -1,8 +1,11 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { ReactNode } from "react";
 import { Typography } from "@mui/material";
 
-export function Item({ children }) {
+interface Props {
+  children: ReactNode
+}
+
+export function Item({ children }: Props) {
   return (
     <Typography
       variant="body2"
@@ -13,7 +16,3 @@ export function Item({ children }) {
     </Typography>
   );
 }
-
-Item.propTypes = {
-  children: PropTypes.string
-};

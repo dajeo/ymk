@@ -1,13 +1,20 @@
 import React, { useMemo, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
-import * as Pages from "./pages";
+import * as Pages from "./views";
 import { Navigation, NotFoundError } from "./components";
 
 function App() {
   const colorScheme = window.matchMedia("(prefers-color-scheme: dark)");
-  const [mode, setMode] = useState(colorScheme.matches ? "dark" : "light");
-  const theme = useMemo(() => createTheme({ palette: { mode } }), [mode]);
+  const [mode, setMode] = useState<"light" | "dark">(colorScheme.matches ? "dark" : "light");
+  const theme = useMemo(() => createTheme({
+    palette: {
+      mode,
+      primary: {
+        main: "#1f5290"
+      }
+    }
+  }), [mode]);
 
   colorScheme.addEventListener("change", event => setMode(event.matches ? "dark" : "light"));
 

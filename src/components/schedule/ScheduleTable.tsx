@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import {
   Paper,
   Table,
@@ -13,7 +12,13 @@ import {
 import { GroupBody } from "./GroupBody";
 import { TeacherBody } from "./TeacherBody";
 
-export function ScheduleTable({ table, date, type }) {
+interface Props {
+  table: Element
+  date: string
+  type: "group" | "teacher"
+}
+
+export function ScheduleTable({ table, date, type }: Props) {
   const isToday = table.getElementsByTagName("table")[0].style.color;
 
   return (
@@ -48,9 +53,3 @@ export function ScheduleTable({ table, date, type }) {
     </Paper>
   );
 }
-
-ScheduleTable.propTypes = {
-  table: PropTypes.object,
-  date: PropTypes.string,
-  type: PropTypes.oneOf(["group", "teacher"])
-};

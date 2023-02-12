@@ -1,8 +1,12 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { Card, CardContent, Typography } from "@mui/material";
-import PropTypes from "prop-types";
 
-export function Changelog({ v, children }) {
+interface Props {
+  v: string
+  children: ReactNode
+}
+
+export function Changelog({ v, children }: Props) {
   return (
     <Card variant="outlined" sx={{ maxWidth: 600, mb: "4px" }}>
       <CardContent sx={{ p: "10px", "&:last-child": { pb: "10px" } }}>
@@ -16,8 +20,3 @@ export function Changelog({ v, children }) {
     </Card>
   );
 }
-
-Changelog.propTypes = {
-  v: PropTypes.string,
-  children: PropTypes.oneOfType([PropTypes.array, PropTypes.object])
-};

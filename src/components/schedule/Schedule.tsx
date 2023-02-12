@@ -1,14 +1,47 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Grid, IconButton, Button } from "@mui/material";
-import { Title } from "./Title";
+import { Title } from "../Title";
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import { ScheduleTable } from "./ScheduleTable";
-import { Container } from "./Container";
-import PropTypes from "prop-types";
-import { EmptyError } from "./";
+import { Container } from "../Container";
+import { EmptyError } from "../index";
+import { useLocation } from "react-router-dom";
 
-export function Schedule({ title, addGroup, isInShortcut, schedule, previousWeek, nextWeek, type }) {
+interface Props {
+    title: string | undefined,
+    schedule: HTMLDivElement | undefined
+    previousWeek: () => void,
+    nextWeek: () => void,
+    type: "group" | "teacher"
+}
+
+export function Schedule({ title, schedule, previousWeek, nextWeek, type }: Props) {
+  const location = useLocation();
+  const [isInShortcut, setIsInShortcut] = useState(false);
+
+  useEffect(() => {
+    const shortcut = window.localStorage.quickShortcut;
+    if (shortcut) {
+      const json = JSON.parse(shortcut);
+      if (json.url === location.pathname) setIsInShortcut(true);
+    }
+  });
+
   if (!schedule) return <EmptyError />;
+
+  function addToShortcut() {
+    if (isInShortcut) {
+      window.localStorage.removeItem("quickShortcut");
+    } else {
+      window.localStorage.quickShortcut = JSON.stringify({
+        name: title,
+        url: location.pathname
+      });
+    }
+
+    window.dispatchEvent(new Event("storage"));
+    setIsInShortcut(!isInShortcut);
+  }
 
   return (
     <Container>
@@ -17,11 +50,9 @@ export function Schedule({ title, addGroup, isInShortcut, schedule, previousWeek
         justifyContent="space-between"
       >
         <Title title={title} />
-        {type === "group"
-          ? <IconButton onClick={addGroup}>
-            <FavoriteRoundedIcon sx={isInShortcut ? { color: "red" } : {}} />
-          </IconButton>
-          : null}
+        <IconButton onClick={addToShortcut}>
+          <FavoriteRoundedIcon sx={isInShortcut ? { color: "red" } : {}} />
+        </IconButton>
       </Box>
       {schedule.getElementsByClassName(type === "group" ? "uchen" : "container_table")[0]
         ? null
@@ -30,7 +61,7 @@ export function Schedule({ title, addGroup, isInShortcut, schedule, previousWeek
       <Grid container columnSpacing="4px" columns={{ xs: 4, md: 10 }} sx={{ mb: "106px" }}>
         <Grid item xs={4} md={5}>
           {[...schedule.getElementsByClassName(type === "group" ? "uchen" : "container_table")].map((table, tableIndex) => {
-            const date = table.getElementsByClassName("back_date")[0].innerText;
+            const date = (table.getElementsByClassName("back_date")[0] as HTMLElement).innerText;
 
             if (!date.startsWith("Понедельник") && !date.startsWith("Вторник") && !date.startsWith("Среда")) {
               return null;
@@ -41,7 +72,7 @@ export function Schedule({ title, addGroup, isInShortcut, schedule, previousWeek
         </Grid>
         <Grid item xs={4} md={5}>
           {[...schedule.getElementsByClassName(type === "group" ? "uchen" : "container_table")].map((table, tableIndex) => {
-            const date = table.getElementsByClassName("back_date")[0].innerText;
+            const date = (table.getElementsByClassName("back_date")[0] as HTMLElement).innerText;
 
             if (!date.startsWith("Четверг") && !date.startsWith("Пятница") && !date.startsWith("Суббота")) {
               return null;
@@ -58,7 +89,6 @@ export function Schedule({ title, addGroup, isInShortcut, schedule, previousWeek
               variant="contained"
               fullWidth
               onClick={previousWeek}
-              sx={{ bgcolor: "#1f5290", color: "white" }}
             >Предыдущая</Button>
             : null}
         </Grid>
@@ -68,7 +98,6 @@ export function Schedule({ title, addGroup, isInShortcut, schedule, previousWeek
               variant="contained"
               fullWidth
               onClick={nextWeek}
-              sx={{ bgcolor: "#1f5290", color: "white" }}
             >Следующая</Button>
             : null}
         </Grid>
@@ -76,13 +105,3 @@ export function Schedule({ title, addGroup, isInShortcut, schedule, previousWeek
     </Container>
   );
 }
-
-Schedule.propTypes = {
-  title: PropTypes.string.isRequired,
-  addGroup: PropTypes.func,
-  isInShortcut: PropTypes.bool,
-  schedule: PropTypes.object.isRequired,
-  previousWeek: PropTypes.func.isRequired,
-  nextWeek: PropTypes.func.isRequired,
-  type: PropTypes.oneOf(["group", "teacher"]).isRequired
-};

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, MouseEvent } from "react";
 import {
   BottomNavigation,
   BottomNavigationAction,
@@ -9,12 +9,17 @@ import {
 import { Link } from "react-router-dom";
 import { CalendarMonthRounded, DashboardRounded, HomeRounded } from "@mui/icons-material";
 
-export function Navigation() {
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
-  const [shortcut, setShortcut] = useState(null);
+interface Shortcut {
+  name: string,
+  url: string
+}
 
-  function handleClick(e) {
+export function Navigation() {
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+  const open = Boolean(anchorEl);
+  const [shortcut, setShortcut] = useState<Shortcut | null>(null);
+
+  function handleClick(e: MouseEvent<HTMLButtonElement>) {
     setAnchorEl(e.currentTarget);
   }
   function handleClose() {
@@ -62,10 +67,10 @@ export function Navigation() {
         {!shortcut
           ? null
           : <BottomNavigationAction
-            label={shortcut.group}
+            label={shortcut.name}
             icon={<DashboardRounded />}
             component={Link}
-            to={`/students/${shortcut.department}/${shortcut.group}`}
+            to={shortcut.url}
           />
         }
       </BottomNavigation>
