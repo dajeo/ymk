@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import { CalendarMonthRounded, DashboardRounded, HomeRounded } from "@mui/icons-material";
 
 export function Navigation() {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const [shortcut, setShortcut] = useState(null);
 

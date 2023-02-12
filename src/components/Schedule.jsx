@@ -5,17 +5,10 @@ import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import { ScheduleTable } from "./ScheduleTable";
 import { Container } from "./Container";
 import PropTypes from "prop-types";
+import { EmptyError } from "./";
 
 export function Schedule({ title, addGroup, isInShortcut, schedule, previousWeek, nextWeek, type }) {
-  function Empty() {
-    return (
-      <Box display="flex" justifyContent="center" alignItems="center" height="calc(100vh - 138px)">
-        <h3>Хм, здесь почему-то пусто 🤔</h3>
-      </Box>
-    );
-  }
-
-  if (!schedule) return <Empty />;
+  if (!schedule) return <EmptyError />;
 
   return (
     <Container>
@@ -32,7 +25,7 @@ export function Schedule({ title, addGroup, isInShortcut, schedule, previousWeek
       </Box>
       {schedule.getElementsByClassName(type === "group" ? "uchen" : "container_table")[0]
         ? null
-        : <Empty />
+        : <EmptyError />
       }
       <Grid container columnSpacing="4px" columns={{ xs: 4, md: 10 }} sx={{ mb: "106px" }}>
         <Grid item xs={4} md={5}>

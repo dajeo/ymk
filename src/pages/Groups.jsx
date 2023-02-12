@@ -9,13 +9,13 @@ import {
   Typography
 } from "@mui/material";
 import { useGroups } from "../api";
-import { Progress, Title, Container, Error } from "../components";
+import { Progress, Title, Container, NetworkError } from "../components";
 
 export function Groups() {
   const { department } = useParams();
   const { data, error, isLoading } = useGroups(department);
 
-  if (error) return <Error />;
+  if (error) return <NetworkError />;
   if (isLoading) return <Progress />;
 
   if (!data) {

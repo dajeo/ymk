@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
+import PropTypes from "prop-types";
 import { IconButton, TableBody, TableCell, TableRow, Tooltip } from "@mui/material";
 import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
-import PropTypes from "prop-types";
 
 export function TeacherBody({ table }) {
   return (

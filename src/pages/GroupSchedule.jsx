@@ -1,7 +1,7 @@
 ﻿import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSchedule } from "../api";
-import { Progress, Error, Schedule } from "../components";
+import { Progress, NetworkError, Schedule } from "../components";
 import { useScrollHere } from "../hooks";
 
 export function GroupSchedule() {
@@ -39,7 +39,7 @@ export function GroupSchedule() {
     setIsInShortcut(!isInShortcut);
   }
 
-  if (error) return <Error />;
+  if (error) return <NetworkError />;
   if (isLoading) return <Progress />;
 
   return (

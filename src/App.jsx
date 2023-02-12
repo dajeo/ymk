@@ -2,7 +2,7 @@ import React, { useMemo, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import * as Pages from "./pages";
-import { Navigation } from "./components";
+import { Navigation, NotFoundError } from "./components";
 
 function App() {
   const colorScheme = window.matchMedia("(prefers-color-scheme: dark)");
@@ -21,14 +21,7 @@ function App() {
           <Route path={"/teachers/:teacher"} element={<Pages.TeacherSchedule />} />
           <Route path={"/students/:department"} element={<Pages.Groups />} />
           <Route path={"/students/:department/:group"} element={<Pages.GroupSchedule />} />
-          <Route path={"*"} element={
-            <h1 style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              height: "calc(100vh - 78px)"
-            }}>Page not found</h1>
-          } />
+          <Route path={"*"} element={<NotFoundError />} />
         </Routes>
 
         <Navigation />

@@ -7,7 +7,7 @@ export function Container({ children }) {
     <Box>
       <MuiContainer
         disableGutters
-        maxWidth={"xl"}
+        maxWidth="xl"
         sx={{ pl: "4px", pr: "4px", mb: "56px" }}
       >
         {children}

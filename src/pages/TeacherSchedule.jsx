@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useTeachersSchedule } from "../api";
-import { Progress, Error, Schedule } from "../components";
+import { Progress, NetworkError, Schedule } from "../components";
 import { useScrollHere } from "../hooks";
 
 export function TeacherSchedule() {
@@ -19,7 +19,7 @@ export function TeacherSchedule() {
     setWeek(week + 1);
   }
 
-  if (error) return <Error />;
+  if (error) return <NetworkError />;
   if (isLoading) return <Progress />;
 
   return (

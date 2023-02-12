@@ -8,12 +8,12 @@ import {
 } from "@mui/material";
 import { useTeachers } from "../api";
 import { Link } from "react-router-dom";
-import { Progress, Title, Container, Error } from "../components";
+import { Progress, Title, Container, NetworkError } from "../components";
 
 export function Teachers() {
   const { data, error, isLoading } = useTeachers();
 
-  if (error) return <Error />;
+  if (error) return <NetworkError />;
   if (isLoading) return <Progress />;
 
   if (!data) {
