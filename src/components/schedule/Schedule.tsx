@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { Box, Grid, IconButton, Button } from "@mui/material";
+import React from "react";
+import { Box, Grid, Button } from "@mui/material";
 import { Title } from "../Title";
-import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import { ScheduleTable } from "./ScheduleTable";
 import { Container } from "../Container";
-import { EmptyError } from "../index";
-import { useLocation } from "react-router-dom";
+import { EmptyError, Shortcut } from "../index";
 
 interface Props {
     title: string | undefined,
@@ -16,32 +14,7 @@ interface Props {
 }
 
 export function Schedule({ title, schedule, previousWeek, nextWeek, type }: Props) {
-  const location = useLocation();
-  const [isInShortcut, setIsInShortcut] = useState(false);
-
-  useEffect(() => {
-    const shortcut = window.localStorage.quickShortcut;
-    if (shortcut) {
-      const json = JSON.parse(shortcut);
-      if (json.url === location.pathname) setIsInShortcut(true);
-    }
-  });
-
   if (!schedule) return <EmptyError />;
-
-  function addToShortcut() {
-    if (isInShortcut) {
-      window.localStorage.removeItem("quickShortcut");
-    } else {
-      window.localStorage.quickShortcut = JSON.stringify({
-        name: title,
-        url: location.pathname
-      });
-    }
-
-    window.dispatchEvent(new Event("storage"));
-    setIsInShortcut(!isInShortcut);
-  }
 
   return (
     <Container>
@@ -50,9 +23,7 @@ export function Schedule({ title, schedule, previousWeek, nextWeek, type }: Prop
         justifyContent="space-between"
       >
         <Title title={title} />
-        <IconButton onClick={addToShortcut}>
-          <FavoriteRoundedIcon sx={isInShortcut ? { color: "red" } : {}} />
-        </IconButton>
+        <Shortcut title={title} />
       </Box>
       {schedule.getElementsByClassName(type === "group" ? "uchen" : "container_table")[0]
         ? null

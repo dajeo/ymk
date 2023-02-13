@@ -2,6 +2,7 @@ export * from "./errors/NetworkError";
 export * from "./errors/NotFoundError";
 export * from "./errors/EmptyError";
 export * from "./errors/RenderingError";
+export * from "./Shortcut";
 export * from "./schedule/Schedule";
 export * from "./schedule/ScheduleTable";
 export * from "./schedule/GroupBody";
