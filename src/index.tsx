@@ -7,4 +7,4 @@ import "@fontsource/roboto/700.css";
 import "./index.css";
 import App from "./App";
 
-ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(app);
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(<App />);
