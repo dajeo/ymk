@@ -1,6 +1,6 @@
 import useSWR from "swr";
 
-const API_URL = "https://ymk-api.vercel.app";
+const API_URL = "https://ymka.vercel.app/";
 
 function createEl(html: string) {
   const buffer = document.createElement("div");
@@ -24,19 +24,19 @@ function useFetch(url: string) {
 }
 
 function useGroups(department: string | undefined) {
-  return useFetch(`students/${department}`);
+  return useFetch(`s/${department}`);
 }
 
 function useSchedule(department: string | undefined, group: string | undefined, week: number) {
-  return useFetch(`students/${department}/${group}/${week}`);
+  return useFetch(`s/${department}/${group}/${week}`);
 }
 
 function useTeachers() {
-  return useFetch("teachers");
+  return useFetch("t");
 }
 
 function useTeachersSchedule(teacher: string | undefined, week: number) {
-  return useFetch(`teachers/${teacher}/${week}`);
+  return useFetch(`t/${teacher}/${week}`);
 }
 
 export { useGroups, useSchedule, useTeachers, useTeachersSchedule };
