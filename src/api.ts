@@ -1,6 +1,6 @@
 import useSWR from "swr";
 
-const API_URL = "https://ymka.vercel.app/";
+const API_URL = "https://ymka.vercel.app";
 
 function createEl(html: string) {
   const buffer = document.createElement("div");
