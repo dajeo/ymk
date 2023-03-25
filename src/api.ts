@@ -24,19 +24,19 @@ function useFetch(url: string) {
 }
 
 function useGroups(department: string | undefined) {
-  return useFetch(`s/${department}`);
+  return useFetch(`students/${department}`);
 }
 
 function useSchedule(department: string | undefined, group: string | undefined, week: number) {
-  return useFetch(`s/${department}/${group}/${week}`);
+  return useFetch(`students/${department}/${group}/${week}`);
 }
 
 function useTeachers() {
-  return useFetch("t");
+  return useFetch("teachers");
 }
 
 function useTeachersSchedule(teacher: string | undefined, week: number) {
-  return useFetch(`t/${teacher}/${week}`);
+  return useFetch(`teachers/${teacher}/${week}`);
 }
 
 export { useGroups, useSchedule, useTeachers, useTeachersSchedule };
