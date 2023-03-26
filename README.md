@@ -1,1 +1,1 @@
-# Frontend for YMK
+# YMK Schedule
