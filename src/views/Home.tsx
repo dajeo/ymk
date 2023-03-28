@@ -18,7 +18,7 @@ export function Home() {
         ЯМК
       </Typography>
       <Typography variant="body2" sx={{ mt: "-20px", mb: "6px" }}>
-        Developed by <a style={{ color: "inherit" }} href="https://headcrab.vercel.app/">me</a>
+        Developed by <a style={{ color: "inherit" }} href="https://dajeo.vercel.app/">me</a>
       </Typography>
     </Box>
   );
